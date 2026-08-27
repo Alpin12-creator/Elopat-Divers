@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* BANNER STATUS ADMIN */
         .admin-status-bar {
             display: none;
             background: #ef4444;
@@ -38,7 +37,6 @@
             padding: 0 20px;
         }
 
-        /* HEADER & NAVBAR */
         header {
             background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
             color: #fff;
@@ -150,7 +148,6 @@
         .section-header { text-align: center; margin-bottom: 25px; }
         .section-header h2 { font-size: 30px; font-weight: 800; color: #0369a1; }
 
-        /* GRID CARDS & ANIMASI */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -184,13 +181,6 @@
 
         .news-card:hover .news-card-img { transform: scale(1.08); }
 
-        .news-card.zoom-transition {
-            transform: scale(1.4) !important;
-            opacity: 0;
-            transition: transform 0.4s ease-in, opacity 0.4s ease-in !important;
-            z-index: 99;
-        }
-
         .news-card-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.95) 100%);
@@ -222,7 +212,6 @@
 
         .news-card-date { font-size: 12px; color: #cbd5e1; }
 
-        /* DETAIL ALBUM STYLES */
         .detail-banner {
             position: relative;
             height: 250px;
@@ -245,7 +234,6 @@
         .sub-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
         .sub-gallery-item:hover img { transform: scale(1.05); }
 
-        /* ANGGOTA STYLES */
         .gender-toggle-container { display: flex; justify-content: center; margin-bottom: 40px; }
         .gender-toggle { background: #e0f2fe; padding: 4px; border-radius: 30px; display: inline-flex; width: 280px; }
         .gender-btn {
@@ -274,7 +262,6 @@
         .member-sub-icon { width: 8px; height: 8px; background: #38bdf8; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .member-number { position: absolute; bottom: 5px; right: 12px; font-size: 52px; font-weight: 900; color: rgba(255, 255, 255, 0.3); font-style: italic; pointer-events: none; }
 
-        /* ADMIN FORM STYLES */
         .admin-form-box {
             background: #ffffff; border: 2px dashed #38bdf8; border-radius: 12px;
             padding: 20px; max-width: 650px; margin: 0 auto 30px auto; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -288,7 +275,6 @@
 
         .empty-msg { grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #0284c7; background: #ffffff; border-radius: 12px; border: 2px dashed #bae6fd; }
 
-        /* MODAL LOGIN */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; justify-content: center; align-items: center; }
         .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 350px; text-align: center; border: 2px solid #38bdf8; }
         .modal-content input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #bae6fd; border-radius: 6px; }
@@ -307,7 +293,7 @@
             <div class="header-top">
                 <div class="brand-info">
                     <h2>Elopat Divers</h2>
-                    <p>Kota Jakarta Selatan</p>
+                    <p>Kota Jakarta Pusat</p>
                 </div>
                 <div class="header-logo-icon">ED</div>
             </div>
@@ -332,7 +318,7 @@
         <div class="hero">
             <div class="container hero-content">
                 <h1>Selamat Datang di Elopat Divers</h1>
-                <p>Jelajahi Kenangan bersama Elopat Divers.</p>
+                <p>Website Resmi Pengolahan Data Anggota, Berita, dan Dokumentasi Olahraga Air.</p>
             </div>
         </div>
 
@@ -441,17 +427,17 @@
     <section id="page-detail" class="page-section" style="padding-top:0;">
         <div class="detail-banner" id="detailBanner">
             <div class="container" style="width:100%;">
-                <h1 class="detail-banner-title" id="detailTitle">Teaching Class</h1>
+                <h1 class="detail-banner-title" id="detailTitle">Album</h1>
                 <div class="breadcrumb">
                     <a href="#" onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color:#93c5fd; text-decoration:none;">Galeri</a>
-                    ➔ <span id="detailBreadcrumb">Teaching Class</span>
+                    ➔ <span id="detailBreadcrumb">Album</span>
                 </div>
             </div>
         </div>
 
         <div class="container">
             <div class="admin-form-box" id="addPhotosToAlbumBox">
-                <h3 style="color: #0369a1; text-align: center;">➕ Tambah Foto Lainnya Ke Album Ini (Admin)</h3>
+                <h3 style="color: #0369a1; text-align: center;">➕ Tambah Foto Lainnya Ke Album Ini</h3>
                 <div class="form-inputs">
                     <label>Pilih Satu atau Beberapa Foto Sekaligus:</label>
                     <input type="file" id="additionalPhotosInput" accept="image/*" multiple>
@@ -486,53 +472,169 @@
         </div>
     </footer>
 
+    <!-- FIREBASE MODULE INTEGRATION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // ⚠️ GANTI DENGAN CONFIG FIREBASE GRATIS MILIK ANDA ⚠️
+        const firebaseConfig = {
+            apiKey: "AIzaSyYOUR_API_KEY",
+            authDomain: "elopat-divers.firebaseapp.com",
+            databaseURL: "https://elopat-divers-default-rtdb.firebaseio.com",
+            projectId: "elopat-divers",
+            storageBucket: "elopat-divers.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abc123def456"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // State Global
+        window.isAdminLoggedIn = false;
+        window.activeGender = 'putra';
+        window.currentOpenAlbumId = null;
+        window.membersData = [];
+        window.newsData = [];
+        window.galleryData = [];
+
+        // SYNC REALTIME FIREBASE KE SEMUA PERANGKAT
+        onValue(ref(db, 'members'), (snapshot) => {
+            const data = snapshot.val();
+            window.membersData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+            renderHome();
+            renderMembers();
+        });
+
+        onValue(ref(db, 'news'), (snapshot) => {
+            const data = snapshot.val();
+            window.newsData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+            renderHome();
+            renderNews();
+        });
+
+        onValue(ref(db, 'gallery'), (snapshot) => {
+            const data = snapshot.val();
+            window.galleryData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+            renderHome();
+            renderGallery();
+            if(window.currentOpenAlbumId) renderSubGallery();
+        });
+
+        // UPLOAD DATA KE DATABASE
+        document.getElementById('saveNewsBtn').addEventListener('click', () => {
+            const title = document.getElementById('newsTitle').value.trim();
+            const date = document.getElementById('newsDate').value || new Date().toISOString().split('T')[0];
+            const input = document.getElementById('newsImageInput');
+
+            if (!title || !input.files[0]) return alert("Lengkapi data berita & gambar!");
+
+            const r = new FileReader();
+            r.onload = e => {
+                const newRef = push(ref(db, 'news'));
+                set(newRef, {
+                    title,
+                    date,
+                    category: 'BERITA',
+                    image: e.target.result
+                });
+                document.getElementById('newsTitle').value = '';
+                document.getElementById('newsDate').value = '';
+                input.value = '';
+            };
+            r.readAsDataURL(input.files[0]);
+        });
+
+        document.getElementById('saveMemberBtn').addEventListener('click', () => {
+            const name = document.getElementById('memberName').value.trim();
+            const school = document.getElementById('memberSchool').value.trim() || 'Universitas Indonesia';
+            const gender = document.getElementById('memberGender').value;
+            const number = document.getElementById('memberNumber').value;
+            const photoInput = document.getElementById('memberPhotoInput');
+
+            if (!name) return alert("Masukkan nama anggota!");
+
+            const saveToDB = (photoUrl) => {
+                const newRef = push(ref(db, 'members'));
+                set(newRef, { name, school, gender, number, photo: photoUrl });
+                document.getElementById('memberName').value = '';
+                document.getElementById('memberSchool').value = '';
+                document.getElementById('memberNumber').value = '';
+                photoInput.value = '';
+            };
+
+            if (photoInput.files[0]) {
+                const r = new FileReader();
+                r.onload = e => saveToDB(e.target.result);
+                r.readAsDataURL(photoInput.files[0]);
+            } else { saveToDB(''); }
+        });
+
+        document.getElementById('saveGalleryBtn').addEventListener('click', () => {
+            const title = document.getElementById('galleryTitle').value.trim() || 'Teaching Class';
+            const date = document.getElementById('galleryDate').value || new Date().toISOString().split('T')[0];
+            const input = document.getElementById('galleryPhotoInput');
+
+            if (!input.files[0]) return alert("Pilih foto sampul album!");
+
+            const r = new FileReader();
+            r.onload = e => {
+                const newRef = push(ref(db, 'gallery'));
+                set(newRef, {
+                    title,
+                    date,
+                    category: 'GALERI',
+                    image: e.target.result,
+                    photos: [e.target.result]
+                });
+                document.getElementById('galleryTitle').value = '';
+                document.getElementById('galleryDate').value = '';
+                input.value = '';
+            };
+            r.readAsDataURL(input.files[0]);
+        });
+
+        document.getElementById('saveAdditionalPhotosBtn').addEventListener('click', () => {
+            const input = document.getElementById('additionalPhotosInput');
+            const files = input.files;
+            if (files.length === 0) return alert("Pilih minimal 1 foto!");
+
+            const album = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
+            if (!album) return;
+            let currentPhotos = album.photos || [album.image];
+
+            let loadedCount = 0;
+            for (let i = 0; i < files.length; i++) {
+                const r = new FileReader();
+                r.onload = e => {
+                    currentPhotos.push(e.target.result);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        set(ref(db, `gallery/${album.id}/photos`), currentPhotos);
+                        input.value = '';
+                    }
+                };
+                r.readAsDataURL(files[i]);
+            }
+        });
+
+        // HAPUS DATA REALTIME
+        window.deleteNews = (id) => remove(ref(db, `news/${id}`));
+        window.deleteMember = (id) => remove(ref(db, `members/${id}`));
+        window.deleteGallery = (id) => remove(ref(db, `gallery/${id}`));
+        window.deleteSubPhoto = (photoIndex) => {
+            const album = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
+            if (album && album.photos) {
+                album.photos.splice(photoIndex, 1);
+                set(ref(db, `gallery/${album.id}/photos`), album.photos);
+            }
+        };
+    </script>
+
+    <!-- UI UI HELPERS -->
     <script>
         const ADMIN_PIN = "1234";
-        let isAdminLoggedIn = false;
-        let activeGender = 'putra';
-        let currentOpenAlbumId = null;
-
-        // --- SISTEM LOCAL STORAGE (PENYIMPAN PERMANEN) ---
-        const defaultMembers = [
-            { id: 1, name: 'Budi Santoso', school: 'Universitas Indonesia', gender: 'putra', number: 10, photo: '' },
-            { id: 2, name: 'Siti Aminah', school: 'SMA 1 Jakarta', gender: 'putri', number: 7, photo: '' }
-        ];
-
-        const defaultNews = [
-            {
-                id: 201,
-                title: 'Latihan Rutin Selam Danau Kenanga',
-                date: '2026-08-20',
-                category: 'BERITA',
-                image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80'
-            }
-        ];
-
-        const defaultGallery = [
-            {
-                id: 101,
-                title: 'Teaching Class',
-                date: '2026-11-29',
-                category: 'GALERI',
-                image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
-                photos: [
-                    'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
-                    'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80',
-                    'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80'
-                ]
-            }
-        ];
-
-        // Ambil dari storage atau gunakan default
-        let membersData = JSON.parse(localStorage.getItem('elopat_members')) || defaultMembers;
-        let newsData = JSON.parse(localStorage.getItem('elopat_news')) || defaultNews;
-        let galleryData = JSON.parse(localStorage.getItem('elopat_gallery')) || defaultGallery;
-
-        function saveAllDataToStorage() {
-            localStorage.setItem('elopat_members', JSON.stringify(membersData));
-            localStorage.setItem('elopat_news', JSON.stringify(newsData));
-            localStorage.setItem('elopat_gallery', JSON.stringify(galleryData));
-        }
 
         function formatDateIndo(dateString) {
             if(!dateString) return '2026';
@@ -550,18 +652,14 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function openAlbumWithZoom(cardElement, albumId) {
-            cardElement.classList.add('zoom-transition');
-            setTimeout(() => {
-                currentOpenAlbumId = albumId;
-                renderSubGallery();
-                cardElement.classList.remove('zoom-transition');
-                switchPage('detail', null);
-            }, 350);
+        function openAlbum(albumId) {
+            window.currentOpenAlbumId = albumId;
+            renderSubGallery();
+            switchPage('detail', null);
         }
 
         function renderSubGallery() {
-            const item = galleryData.find(g => g.id === currentOpenAlbumId);
+            const item = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
             if (!item) return;
 
             document.getElementById('detailTitle').innerText = item.title;
@@ -576,21 +674,12 @@
             photosToDisplay.forEach((imgUrl, index) => {
                 const photoDiv = document.createElement('div');
                 photoDiv.className = 'sub-gallery-item';
-                const delBtn = isAdminLoggedIn ? 
-                    `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:10; padding:2px 6px; font-size:10px;" onclick="deleteSubPhoto(${index})">❌</button>` : '';
+                const delBtn = window.isAdminLoggedIn ? 
+                    `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:10; padding:2px 6px; font-size:10px;" onclick="window.deleteSubPhoto(${index})">❌</button>` : '';
 
                 photoDiv.innerHTML = `${delBtn}<img src="${imgUrl}">`;
                 subGrid.appendChild(photoDiv);
             });
-        }
-
-        function deleteSubPhoto(photoIndex) {
-            const album = galleryData.find(g => g.id === currentOpenAlbumId);
-            if (album && album.photos) {
-                album.photos.splice(photoIndex, 1);
-                saveAllDataToStorage();
-                renderSubGallery();
-            }
         }
 
         function createVisualCard(item, type) {
@@ -599,15 +688,15 @@
             
             card.onclick = (e) => {
                 if(e.target.tagName !== 'BUTTON') {
-                    openAlbumWithZoom(card, item.id);
+                    openAlbum(item.id);
                 }
             };
 
             const badgeText = item.category || (type === 'news' ? 'BERITA' : 'GALERI');
             const imageSrc = item.image || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80';
-            const deleteAction = type === 'news' ? `deleteNews(${item.id})` : `deleteGallery(${item.id})`;
+            const deleteAction = type === 'news' ? `window.deleteNews('${item.id}')` : `window.deleteGallery('${item.id}')`;
 
-            const delBtn = (isAdminLoggedIn && type !== 'home') ? 
+            const delBtn = (window.isAdminLoggedIn && type !== 'home') ? 
                 `<button class="btn btn-danger" style="position:absolute; top:15px; right:15px; z-index:10; padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); ${deleteAction}">❌ Hapus</button>` : '';
 
             card.innerHTML = `
@@ -626,16 +715,16 @@
         function renderHome() {
             const homeMembers = document.getElementById('homeMembersGrid');
             homeMembers.innerHTML = '';
-            const sliceMembers = membersData.slice(0, 4);
+            const sliceMembers = (window.membersData || []).slice(0, 4);
             if(sliceMembers.length === 0) {
-                homeMembers.innerHTML = `<div class="empty-msg">Belum ada anggota.</div>`;
+                homeMembers.innerHTML = `<div class="empty-msg">Belum ada data anggota.</div>`;
             } else {
                 sliceMembers.forEach(m => homeMembers.appendChild(createMemberCard(m, false)));
             }
 
             const homeNews = document.getElementById('homeNewsGrid');
             homeNews.innerHTML = '';
-            const sliceNews = newsData.slice(0, 3);
+            const sliceNews = (window.newsData || []).slice(0, 3);
             if(sliceNews.length === 0) {
                 homeNews.innerHTML = `<div class="empty-msg">Belum ada berita.</div>`;
             } else {
@@ -644,7 +733,7 @@
 
             const homeGallery = document.getElementById('homeGalleryGrid');
             homeGallery.innerHTML = '';
-            const sliceGallery = galleryData.slice(0, 3);
+            const sliceGallery = (window.galleryData || []).slice(0, 3);
             if(sliceGallery.length === 0) {
                 homeGallery.innerHTML = `<div class="empty-msg">Belum ada galeri.</div>`;
             } else {
@@ -656,7 +745,7 @@
             const card = document.createElement('div');
             card.className = 'member-card';
             const avatar = m.photo ? `<img src="${m.photo}">` : `<div class="member-avatar-placeholder"></div>`;
-            const delBtn = (isAdminLoggedIn && allowDelete) ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:2px 6px; font-size:10px;" onclick="deleteMember(${m.id})">❌</button>` : '';
+            const delBtn = (window.isAdminLoggedIn && allowDelete) ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:2px 6px; font-size:10px;" onclick="window.deleteMember('${m.id}')">❌</button>` : '';
             const schoolText = m.school ? m.school : 'Universitas Indonesia';
 
             card.innerHTML = `
@@ -676,181 +765,40 @@
         function renderNews() {
             const grid = document.getElementById('newsGrid');
             grid.innerHTML = '';
-            if (newsData.length === 0) {
+            if (!window.newsData || window.newsData.length === 0) {
                 grid.innerHTML = `<div class="empty-msg">Belum ada berita terbaru.</div>`;
                 return;
             }
-            newsData.forEach(item => grid.appendChild(createVisualCard(item, 'news')));
+            window.newsData.forEach(item => grid.appendChild(createVisualCard(item, 'news')));
         }
 
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
-            if (galleryData.length === 0) {
+            if (!window.galleryData || window.galleryData.length === 0) {
                 grid.innerHTML = `<div class="empty-msg">Belum ada foto galeri.</div>`;
                 return;
             }
-            galleryData.forEach(item => grid.appendChild(createVisualCard(item, 'gallery')));
+            window.galleryData.forEach(item => grid.appendChild(createVisualCard(item, 'gallery')));
         }
 
         function renderMembers() {
             const grid = document.getElementById('membersGrid');
             grid.innerHTML = '';
-            const filtered = membersData.filter(m => m.gender === activeGender);
+            const filtered = (window.membersData || []).filter(m => m.gender === window.activeGender);
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada data anggota (${activeGender.toUpperCase()}).</div>`;
+                grid.innerHTML = `<div class="empty-msg">Belum ada data anggota (${window.activeGender.toUpperCase()}).</div>`;
                 return;
             }
             filtered.forEach(m => grid.appendChild(createMemberCard(m, true)));
         }
 
         function filterGender(gender) {
-            activeGender = gender;
+            window.activeGender = gender;
             document.getElementById('btnPutra').classList.toggle('active', gender === 'putra');
             document.getElementById('btnPutri').classList.toggle('active', gender === 'putri');
             renderMembers();
         }
-
-        // SIMPAN BERITA (DENGAN LOCALSTORAGE)
-        document.getElementById('saveNewsBtn').addEventListener('click', () => {
-            const title = document.getElementById('newsTitle').value.trim();
-            const date = document.getElementById('newsDate').value || new Date().toISOString().split('T')[0];
-            const input = document.getElementById('newsImageInput');
-
-            if (!title) return alert("Masukkan judul berita!");
-            if (!input.files[0]) return alert("Pilih gambar berita!");
-
-            const r = new FileReader();
-            r.onload = e => {
-                newsData.push({
-                    id: Date.now(),
-                    title,
-                    date,
-                    category: 'BERITA',
-                    image: e.target.result
-                });
-                saveAllDataToStorage();
-                renderNews();
-                renderHome();
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsDate').value = '';
-                input.value = '';
-            };
-            r.readAsDataURL(input.files[0]);
-        });
-
-        function deleteNews(id) { 
-            newsData = newsData.filter(n => n.id !== id); 
-            saveAllDataToStorage();
-            renderNews(); 
-            renderHome(); 
-        }
-
-        // SIMPAN ANGGOTA (DENGAN LOCALSTORAGE)
-        document.getElementById('saveMemberBtn').addEventListener('click', () => {
-            const name = document.getElementById('memberName').value.trim();
-            const school = document.getElementById('memberSchool').value.trim() || 'Universitas Indonesia';
-            const gender = document.getElementById('memberGender').value;
-            const number = document.getElementById('memberNumber').value;
-            const photoInput = document.getElementById('memberPhotoInput');
-
-            if (!name) return alert("Masukkan nama anggota!");
-
-            const saveProcess = (photoUrl) => {
-                membersData.push({
-                    id: Date.now(),
-                    name,
-                    school,
-                    gender,
-                    number,
-                    photo: photoUrl
-                });
-                saveAllDataToStorage();
-                renderMembers();
-                renderHome();
-                document.getElementById('memberName').value = '';
-                document.getElementById('memberSchool').value = '';
-                document.getElementById('memberNumber').value = '';
-                photoInput.value = '';
-                alert("Data anggota berhasil ditambahkan!");
-            };
-
-            if (photoInput.files[0]) {
-                const r = new FileReader();
-                r.onload = e => saveProcess(e.target.result);
-                r.readAsDataURL(photoInput.files[0]);
-            } else {
-                saveProcess('');
-            }
-        });
-
-        function deleteMember(id) {
-            membersData = membersData.filter(m => m.id !== id);
-            saveAllDataToStorage();
-            renderMembers();
-            renderHome();
-        }
-
-        // SIMPAN ALBUM GALERI (DENGAN LOCALSTORAGE)
-        document.getElementById('saveGalleryBtn').addEventListener('click', () => {
-            const title = document.getElementById('galleryTitle').value.trim() || 'Teaching Class';
-            const date = document.getElementById('galleryDate').value || new Date().toISOString().split('T')[0];
-            const input = document.getElementById('galleryPhotoInput');
-            if (!input.files[0]) return alert("Pilih foto sampul album!");
-
-            const r = new FileReader();
-            r.onload = e => {
-                galleryData.push({
-                    id: Date.now(),
-                    title,
-                    date,
-                    category: 'GALERI',
-                    image: e.target.result,
-                    photos: [e.target.result]
-                });
-                saveAllDataToStorage();
-                renderGallery();
-                renderHome();
-                document.getElementById('galleryTitle').value = '';
-                document.getElementById('galleryDate').value = '';
-                input.value = '';
-            };
-            r.readAsDataURL(input.files[0]);
-        });
-
-        function deleteGallery(id) { 
-            galleryData = galleryData.filter(g => g.id !== id); 
-            saveAllDataToStorage();
-            renderGallery(); 
-            renderHome(); 
-        }
-
-        // UNGGAH FOTO TAMBAHAN ALBUM (DENGAN LOCALSTORAGE)
-        document.getElementById('saveAdditionalPhotosBtn').addEventListener('click', () => {
-            const input = document.getElementById('additionalPhotosInput');
-            const files = input.files;
-            if (files.length === 0) return alert("Pilih minimal 1 foto!");
-
-            const album = galleryData.find(g => g.id === currentOpenAlbumId);
-            if (!album) return;
-            if (!album.photos) album.photos = [];
-
-            let loadedCount = 0;
-            for (let i = 0; i < files.length; i++) {
-                const r = new FileReader();
-                r.onload = e => {
-                    album.photos.push(e.target.result);
-                    loadedCount++;
-                    if (loadedCount === files.length) {
-                        saveAllDataToStorage();
-                        renderSubGallery();
-                        input.value = '';
-                        alert(`${files.length} Foto Berhasil Ditambahkan ke Album!`);
-                    }
-                };
-                r.readAsDataURL(files[i]);
-            }
-        });
 
         // AUTH ADMIN
         const adminLoginBtn = document.getElementById('adminLoginBtn');
@@ -862,7 +810,7 @@
 
         document.getElementById('submitPinBtn').addEventListener('click', () => {
             if (document.getElementById('adminPin').value === ADMIN_PIN) {
-                isAdminLoggedIn = true;
+                window.isAdminLoggedIn = true;
                 loginModal.style.display = 'none';
                 document.getElementById('adminPin').value = '';
                 updateAdminUI();
@@ -870,32 +818,26 @@
         });
 
         adminLogoutBtn.addEventListener('click', () => {
-            isAdminLoggedIn = false;
+            window.isAdminLoggedIn = false;
             updateAdminUI();
         });
 
         function updateAdminUI() {
-            document.getElementById('adminStatusBar').classList.toggle('active', isAdminLoggedIn);
-            document.getElementById('addNewsBox').classList.toggle('active', isAdminLoggedIn);
-            document.getElementById('addMemberBox').classList.toggle('active', isAdminLoggedIn);
-            document.getElementById('addGalleryBox').classList.toggle('active', isAdminLoggedIn);
-            document.getElementById('addPhotosToAlbumBox').classList.toggle('active', isAdminLoggedIn);
+            document.getElementById('adminStatusBar').classList.toggle('active', window.isAdminLoggedIn);
+            document.getElementById('addNewsBox').classList.toggle('active', window.isAdminLoggedIn);
+            document.getElementById('addMemberBox').classList.toggle('active', window.isAdminLoggedIn);
+            document.getElementById('addGalleryBox').classList.toggle('active', window.isAdminLoggedIn);
+            document.getElementById('addPhotosToAlbumBox').classList.toggle('active', window.isAdminLoggedIn);
 
-            adminLoginBtn.style.display = isAdminLoggedIn ? 'none' : 'inline-flex';
-            adminLogoutBtn.style.display = isAdminLoggedIn ? 'inline-flex' : 'none';
+            adminLoginBtn.style.display = window.isAdminLoggedIn ? 'none' : 'inline-flex';
+            adminLogoutBtn.style.display = window.isAdminLoggedIn ? 'inline-flex' : 'none';
 
             renderHome();
             renderNews();
             renderMembers();
             renderGallery();
-            if(currentOpenAlbumId) renderSubGallery();
+            if(window.currentOpenAlbumId) renderSubGallery();
         }
-
-        // Initial Load
-        renderHome();
-        renderNews();
-        renderMembers();
-        renderGallery();
     </script>
 </body>
 </html>
