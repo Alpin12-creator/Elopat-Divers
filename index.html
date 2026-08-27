@@ -32,20 +32,12 @@
             background-color: var(--body-bg); 
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
-            /* ANIMASI SAAT MEMBUKA WEB */
             animation: pageFadeIn 0.8s ease-out forwards;
         }
 
-        /* KEYFRAMES ANIMASI PEMUATAN HALAMAN */
         @keyframes pageFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -63,7 +55,7 @@
         .admin-status-bar.active { display: block; }
         .admin-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        /* HEADER CLEAN MODERN DENGAN BACKGROUND BIRU MUDA */
+        /* HEADER CLEAN MODERN */
         header { 
             background: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
@@ -93,7 +85,6 @@
             flex-shrink: 0;
         }
 
-        /* TEKS MEMANJANG KE SAMPING (HORIZONTAL) */
         .brand-logo-text {
             font-size: 24px;
             font-weight: 800;
@@ -128,13 +119,12 @@
             content: '';
             position: absolute;
             bottom: -1px;
-            left: 0;
-            right: 0;
+            left: 0; right: 0;
             height: 2px;
             background: var(--navy-accent);
         }
 
-        /* TOMBOL FLOATING ADMIN LINGKARAN POJOK KANAN ATAS */
+        /* TOMBOL FLOATING ADMIN */
         .admin-circle-btn {
             position: fixed;
             top: 20px;
@@ -153,15 +143,8 @@
             z-index: 999;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
-        .admin-circle-btn:hover {
-            transform: scale(1.05);
-            background: var(--navy-dark);
-        }
-        .admin-circle-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+        .admin-circle-btn:hover { transform: scale(1.05); background: var(--navy-dark); }
+        .admin-circle-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
         /* BUTTON SYSTEM REGULER */
         .btn-minimal { 
@@ -192,7 +175,7 @@
         }
         .btn-danger-minimal:hover { background: #b91c1c; }
 
-        /* SECTIONS & PAGES MEKANISME ANIMASI TRANSISI HASIL PILIHAN */
+        /* SECTIONS & PAGES */
         .page-section { display: none; padding: 48px 0 96px 0; }
         .page-section.active { 
             display: block; 
@@ -200,17 +183,10 @@
         }
 
         @keyframes sectionSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* KHUSUS BERANDA: BACKGROUND BIRU MUDA HARMONIS */
         #page-beranda {
             background-color: var(--homepage-bg);
             border-bottom: 1px solid var(--border-color);
@@ -220,11 +196,7 @@
         .section-title { font-size: 32px; font-weight: 800; color: var(--text-dark); }
 
         /* TAB KELOMPOK PUTRA / PUTRI */
-        .pill-filter-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
+        .pill-filter-container { display: flex; justify-content: center; margin-bottom: 40px; }
         .pill-filter {
             background: #ffffff;
             padding: 4px;
@@ -247,11 +219,7 @@
             border-radius: 6px;
             transition: all 0.2s ease;
         }
-        .pill-btn.active {
-            background: var(--navy-accent);
-            color: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+        .pill-btn.active { background: var(--navy-accent); color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
         /* KARTU ANGGOTA */
         .members-grid { 
@@ -268,6 +236,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         .member-card-box:hover {
             transform: translateY(-6px);
@@ -307,18 +276,8 @@
             color: #ffffff;
         }
         
-        .member-info-name {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.25;
-            margin-bottom: 2px;
-        }
-
-        .member-info-school {
-            font-size: 11px;
-            color: #94a3b8;
-            font-weight: 500;
-        }
+        .member-info-name { font-size: 15px; font-weight: 700; line-height: 1.25; margin-bottom: 2px; }
+        .member-info-school { font-size: 11px; color: #94a3b8; font-weight: 500; }
 
         .member-bg-number {
             position: absolute;
@@ -334,12 +293,61 @@
             user-select: none;
         }
 
-        /* NEWS DISPLAY */
-        .news-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 24px; 
+        /* HALAMAN DETAIL ANGGOTA */
+        .member-detail-container {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+            max-width: 900px;
+            margin: 0 auto;
         }
+        .member-detail-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 420px;
+        }
+        .member-detail-photo-box {
+            position: relative;
+            background: var(--navy-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .member-detail-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .member-detail-info {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .member-detail-name { font-size: 28px; font-weight: 800; color: var(--navy-accent); margin-bottom: 4px; }
+        .member-detail-sub { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 24px; }
+        
+        .dream-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .dream-card {
+            background: var(--body-bg);
+            border-left: 4px solid var(--navy-accent);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+        }
+        .dream-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy-accent); margin-bottom: 6px; }
+        .dream-text { font-size: 15px; font-weight: 600; color: var(--text-dark); line-height: 1.5; }
+
+        /* NEWS DISPLAY */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
         .news-article {
             position: relative;
             background: var(--navy-accent);
@@ -348,47 +356,18 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .news-article:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
-        }
-        .news-cover { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            opacity: 0.85;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
-        .news-article:hover .news-cover { 
-            transform: scale(1.05); 
-            opacity: 0.7; 
-        }
+        .news-article:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15); }
+        .news-cover { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.4s ease, opacity 0.4s ease; }
+        .news-article:hover .news-cover { transform: scale(1.05); opacity: 0.7; }
         .news-body { 
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(15,23,42,0.9));
-            color: #fff;
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
+            background: linear-gradient(transparent, rgba(15,23,42,0.9)); color: #fff;
         }
-        .news-title { 
-            font-size: 17px; 
-            font-weight: 700; 
-            color: #ffffff; 
-            line-height: 1.35; 
-        }
-        .news-meta { 
-            font-size: 11px; 
-            color: #94a3b8; 
-            margin-top: 4px; 
-            font-weight: 500;
-        }
+        .news-title { font-size: 17px; font-weight: 700; color: #ffffff; line-height: 1.35; }
+        .news-meta { font-size: 11px; color: #94a3b8; margin-top: 4px; font-weight: 500; }
 
         /* GALLERY DISPLAY */
-        .gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 24px; 
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
         .album-card {
             position: relative;
             background: var(--navy-accent);
@@ -398,29 +377,17 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .album-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
-        }
-        .album-cover-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.85;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-        }
+        .album-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15); }
+        .album-cover-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.4s ease, opacity 0.4s ease; }
         .album-card:hover .album-cover-img { transform: scale(1.05); opacity: 0.7; }
-        .album-info {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(15,23,42,0.9));
-            color: #fff;
+        .album-info { 
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
+            background: linear-gradient(transparent, rgba(15,23,42,0.9)); color: #fff;
         }
         .album-title { font-size: 17px; font-weight: 700; }
         .album-date { font-size: 11px; color: #94a3b8; margin-top: 4px; }
 
-        /* ALBUM DETAIL PAGE WITH COVER BANNER */
+        /* ALBUM DETAIL PAGE */
         .album-header-banner {
             position: relative;
             min-height: 240px;
@@ -429,8 +396,8 @@
             margin-bottom: 32px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 24px 32px;
+            justify-content: space-between;
+            padding: 0;
             background-size: cover;
             background-position: center;
             background-color: var(--navy-accent);
@@ -440,7 +407,7 @@
         .album-header-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.88) 100%);
             z-index: 1;
         }
 
@@ -448,48 +415,144 @@
             position: relative;
             z-index: 2;
             color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0 24px 24px 24px;
+        }
+
+        /* UBAH JUDUL BANNER GALERI MENJADI WARNA PUTIH */
+        #albumDetailTitle {
+            color: #ffffff !important;
+        }
+        
+        #albumDetailSub {
+            color: #f1f5f9 !important;
         }
 
         .album-back-link {
+            position: relative;
+            z-index: 2;
             display: inline-flex;
             align-items: center;
+            gap: 4px;
             color: #ffffff;
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 600;
+            font-size: 11px;
             cursor: pointer;
             text-decoration: none;
-            margin-bottom: 16px;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(4px);
-            padding: 6px 14px;
-            border-radius: 20px;
-            width: fit-content;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: background 0.2s ease;
-        }
-        .album-back-link:hover {
+            margin: 0 auto 0 0;
             background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 6px 12px;
+            border-bottom-right-radius: 12px;
+            border-top-left-radius: 0;
+            width: fit-content;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
         }
-
-        .album-header-content .section-title {
-            color: #ffffff;
-            text-align: left;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .album-header-content p {
-            color: #cbd5e1;
-            font-size: 13px;
-        }
+        .album-back-link:hover { background: rgba(15, 23, 42, 0.95); }
 
         .photos-masonry {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
-        .photo-item { position: relative; height: 200px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .photo-item { 
+            position: relative; 
+            height: 260px; 
+            background: #ffffff; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .photo-item:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1); }
+        .photo-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
+
+        /* MODAL ZOOM FOTO */
+        .photo-zoom-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            animation: zoomFadeIn 0.3s ease-out;
+        }
+
+        @keyframes zoomFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .zoom-img-container {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-img-container img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .zoom-download-btn {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            color: var(--navy-accent);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .zoom-download-btn:hover { background: var(--header-bg); transform: translateY(-2px); }
+
+        .zoom-close-btn {
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            color: var(--navy-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: none;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .zoom-close-btn:hover { transform: scale(1.1); background: #f1f5f9; }
 
         /* FORMS & PANELS FOR ADMIN */
         .panel-box {
@@ -548,43 +611,32 @@
             background: #ffffff;
         }
 
-        /* RESPONSIVE MOBILE HANDPHONE */
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .photos-masonry { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+            .photo-item { height: 220px; }
+        }
+
+        @media (max-width: 768px) {
+            .member-detail-layout { grid-template-columns: 1fr; }
+            .member-detail-photo-box { height: 300px; }
+            .member-detail-info { padding: 24px; }
+        }
+
         @media (max-width: 640px) {
             .container { padding: 0 16px; }
             .admin-circle-btn { top: 14px; right: 14px; width: 40px; height: 40px; }
-            .admin-circle-btn svg { width: 16px; height: 16px; }
-
             .brand-logo-svg { width: 44px; height: 44px; }
             .brand-logo-text { font-size: 18px; }
 
             .nav-container { margin-top: 12px; padding-top: 8px; }
             .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
-            .nav-links::-webkit-scrollbar { display: none; }
             .nav-links a { font-size: 12px; }
 
             .page-section { padding: 24px 0 48px 0; }
 
-            #page-beranda .section-header {
-                text-align: center !important;
-                margin-bottom: 24px !important;
-                padding: 0 8px;
-            }
-
-            #page-beranda .section-header h1 { 
-                font-size: 22px !important; 
-                text-align: center !important;
-                line-height: 1.3 !important;
-                margin-bottom: 8px !important;
-            }
-
-            #page-beranda .section-header p {
-                font-size: 13px !important;
-                text-align: center !important;
-                line-height: 1.4 !important;
-            }
-
-            .album-header-banner { padding: 16px; min-height: 180px; }
-            .album-header-content .section-title { font-size: 22px; }
+            .photos-masonry { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .photo-item { height: 160px; padding: 4px; border-radius: 8px; }
 
             .members-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .member-card-box { height: 230px; }
@@ -595,12 +647,12 @@
             .news-grid { grid-template-columns: 1fr; gap: 16px; }
             .gallery-grid { grid-template-columns: 1fr; gap: 16px; }
             .form-grid { grid-template-columns: 1fr; }
+            .zoom-close-btn { top: -12px; right: -12px; width: 30px; height: 30px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- STATUS ADMIN BAR -->
     <div id="adminStatusBar" class="admin-status-bar">
         <div class="container admin-flex">
             <span>Sesi Otentikasi Aktif: <strong id="activeAdminName">Admin</strong></span>
@@ -608,67 +660,52 @@
         </div>
     </div>
 
-    <!-- TOMBOL LINGKARAN PORTAL ADMIN POJOK KANAN ATAS -->
     <button id="adminLoginBtn" class="admin-circle-btn" title="Portal Admin">
         <svg viewBox="0 0 24 24">
             <path d="M12 2C9.24 2 7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v3H9V7c0-1.66 1.34-3 3-3zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
         </svg>
     </button>
     
-    <!-- TOMBOL KELUAR ADMIN -->
     <button id="adminLogoutBtn" class="admin-circle-btn" style="display: none; background: #dc2626;" title="Keluar Admin">
         <svg viewBox="0 0 24 24">
             <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
         </svg>
     </button>
 
-    <!-- HEADER BIRU MUDA -->
     <header>
         <div class="container">
             <div class="header-top">
                 <a href="#" class="brand-logo-container" onclick="switchPage('beranda', document.getElementById('nav-beranda'))">
-                    <!-- LOGO VECTOR SVG -->
                     <svg class="brand-logo-svg" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="46" fill="#f8fafc" stroke="#1e293b" stroke-width="4"/>
                         <circle cx="50" cy="50" r="41" fill="none" stroke="#c5a059" stroke-width="2"/>
-                        
-                        <!-- LINGKARAN GANDUM (WREATH) -->
                         <g fill="#c5a059">
                             <path d="M22 48 c-1-4 1-8 4-10 c2 4 1 8-4 10 z" />
                             <path d="M20 40 c-2-4 0-8 3-10 c2 4 2 8-3 10 z" />
                             <path d="M22 32 c-3-4 -1-8 2-10 c3 4 2 8-2 10 z" />
                             <path d="M26 24 c-3-3 -1-7 2-9 c2 4 2 7-2 9 z" />
-                            
                             <path d="M78 48 c1-4 -1-8 -4-10 c-2 4 -1 8 4 10 z" />
                             <path d="M80 40 c2-4 0-8 -3-10 c-2 4 -2 8 3 10 z" />
                             <path d="M78 32 c3-4 1-8 -2-10 c-3 4 -2 8 2 10 z" />
                             <path d="M74 24 c3-3 1-7 -2-9 c-2 4 -2 7 2 9 z" />
                         </g>
-
-                        <!-- KARAKTER SISWA (PUTRA) -->
                         <g>
                             <path d="M 33 40 Q 38 30 43 37 Q 43 45 33 40 Z" fill="#1e293b" />
                             <circle cx="38" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
                             <path d="M 28 68 L 48 68 L 46 53 L 30 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
                             <polygon points="37,53 39,53 40,63 38,65 36,63" fill="#1e293b"/>
                         </g>
-
-                        <!-- KARAKTER SISWI (PUTRI) -->
                         <g>
                             <path d="M 55 36 Q 63 30 70 38 Q 68 47 55 36 Z" fill="#1e293b" />
                             <circle cx="62" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
                             <path d="M 52 68 L 72 68 L 70 53 L 54 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
                             <polygon points="61,53 63,53 64,63 62,65 60,63" fill="#1e293b"/>
                         </g>
-
-                        <!-- BUKU DI BAGIAN BAWAH LOGO -->
                         <g transform="translate(41, 71)">
                             <path d="M 0 6 Q 9 0 18 6 L 18 14 Q 9 8 0 14 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
                             <line x1="9" y1="3" x2="9" y2="11" stroke="#1e293b" stroke-width="1.5"/>
                         </g>
                     </svg>
-
-                    <!-- TEKS BRAND MEMANJANG -->
                     <div class="brand-logo-text">ELOPAT DIVERS</div>
                 </a>
             </div>
@@ -686,24 +723,21 @@
         </div>
     </header>
 
-    <!-- 1. BERANDA -->
     <section id="page-beranda" class="page-section active">
         <div class="container">
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Elopat Divers</h1>
-                <p style="color: var(--text-muted); text-align: center;">Jelajahi kenangan dan momen menyenangkan bersama Elopat.</p>
+                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Resmi Elopat Divers</h1>
+                <p style="color: var(--text-muted); text-align: center;">Dokumentasi anggota, warta kegiatan, dan galeri resmi.</p>
             </div>
 
-            <!-- PREVIEW ANGGOTA -->
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="font-size: 20px; font-weight: 800;">Anggota Elopat</h3>
+                    <h3 style="font-size: 20px; font-weight: 800;">Anggota Terbaru</h3>
                     <a onclick="switchPage('anggota', document.getElementById('nav-anggota'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
             </div>
 
-            <!-- PREVIEW BERITA -->
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 20px; font-weight: 800;">Berita Terbaru</h3>
@@ -712,7 +746,6 @@
                 <div class="news-grid" id="homeNewsGrid"></div>
             </div>
 
-            <!-- PREVIEW GALERI -->
             <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 20px; font-weight: 800;">Dokumentasi Galeri</h3>
@@ -723,11 +756,10 @@
         </div>
     </section>
 
-    <!-- 2. ANGGOTA PAGE -->
     <section id="page-anggota" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Anggota Elopat</h1>
+                <h1 class="section-title">Anggota</h1>
             </div>
 
             <div class="pill-filter-container">
@@ -747,6 +779,10 @@
                         <option value="putri">Putri</option>
                     </select>
                     <input type="number" id="memberNumber" class="custom-input" placeholder="Nomor ID Anggota (Contoh: 7)">
+                    
+                    <input type="text" id="memberUniversityInput" class="custom-input form-full" placeholder="Universitas Impian (Contoh: Universitas Indonesia / ITB)">
+                    <input type="text" id="memberCareerInput" class="custom-input form-full" placeholder="Cita-Cita / Pekerjaan Impian (Contoh: Marine Engineer)">
+                    
                     <input type="file" id="memberPhotoInput" class="custom-input form-full" accept="image/*">
                     <div class="form-full">
                         <button id="saveMemberBtn" class="btn-minimal">Simpan Data Anggota</button>
@@ -758,11 +794,47 @@
         </div>
     </section>
 
-    <!-- 3. BERITA PAGE -->
+    <section id="page-anggota-detail" class="page-section">
+        <div class="container">
+            <a class="album-back-link" style="margin-bottom: 20px; border-radius: 6px;" onclick="switchPage('anggota', document.getElementById('nav-anggota'))">← Kembali ke Daftar Anggota</a>
+            
+            <div class="member-detail-container">
+                <div class="member-detail-layout">
+                    <div class="member-detail-photo-box" id="detailPhotoBox">
+                        </div>
+                    <div class="member-detail-info">
+                        <div>
+                            <h2 class="member-detail-name" id="detailName">Nama Anggota</h2>
+                            <p class="member-detail-sub" id="detailSub">Klub / Sub-Unit • ID: #--</p>
+                            
+                            <div class="dream-container">
+                                <div class="dream-card">
+                                    <div class="dream-title">Universitas Impian</div>
+                                    <div class="dream-text" id="detailUniversity">-</div>
+                                </div>
+                                <div class="dream-card">
+                                    <div class="dream-title">Cita-Cita / Pekerjaan Impian</div>
+                                    <div class="dream-text" id="detailCareer">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="editDreamPanel" style="display: none; margin-top: 24px; border-top: 1px dashed var(--border-color); padding-top: 16px;">
+                            <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--navy-accent); display: block; margin-bottom: 8px;">Edit Informasi Impian (Akses Admin):</label>
+                            <input type="text" id="inputEditUniversity" class="custom-input" style="margin-bottom: 8px;" placeholder="Universitas Impian">
+                            <input type="text" id="inputEditCareer" class="custom-input" style="margin-bottom: 8px;" placeholder="Cita-Cita / Pekerjaan Impian">
+                            <button id="btnSaveDream" class="btn-minimal" style="margin-top: 4px; width: 100%;">Simpan Perubahan Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="page-berita" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Berita Terkini</h1>
+                <h1 class="section-title">Berita</h1>
             </div>
 
             <div class="panel-box" id="addNewsBox">
@@ -781,11 +853,10 @@
         </div>
     </section>
 
-    <!-- 4. GALERI PAGE -->
     <section id="page-galeri" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Galeri Kenangan</h1>
+                <h1 class="section-title">Galeri</h1>
             </div>
 
             <div class="panel-box" id="addGalleryBox">
@@ -804,14 +875,13 @@
         </div>
     </section>
 
-    <!-- 5. GALERI DETAIL WITH COVER BANNER -->
     <section id="page-galeri-detail" class="page-section">
         <div class="container">
-            <!-- HERO BANNER UNTUK HEADER ALBUM DENGAN GAMBAR COVER -->
             <div class="album-header-banner" id="albumHeaderBanner">
                 <div class="album-header-overlay"></div>
+                <a class="album-back-link" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">← Kembali ke Galeri</a>
+
                 <div class="album-header-content">
-                    <a class="album-back-link" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">← Kembali ke Galeri</a>
                     <h1 class="section-title" id="albumDetailTitle">Nama Album</h1>
                     <p id="albumDetailSub">Dipublikasikan: -</p>
                 </div>
@@ -831,7 +901,22 @@
         </div>
     </section>
 
-    <!-- MODAL LOGIN ADMIN -->
+    <div class="photo-zoom-modal" id="photoZoomModal" onclick="closePhotoZoom(event)">
+        <div class="zoom-img-container" onclick="event.stopPropagation()">
+            <button class="zoom-close-btn" onclick="closePhotoZoom(event)">✕</button>
+            <img id="zoomedImageSrc" src="" alt="Zoomed Photo">
+            
+            <a id="downloadPhotoLink" class="zoom-download-btn" href="" download="elopat-divers-photo.jpg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Unduh Foto
+            </a>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="loginModal">
         <div class="modal-card">
             <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--navy-accent);">Portal Akses Admin</h3>
@@ -848,11 +933,10 @@
 
     <footer>
         <div class="container">
-            <p>Elopat Divers. Always Together, Never Apart. 2026&copy; .</p>
+            <p>&copy; 2026 Elopat Divers. Hak Cipta Dilindungi.</p>
         </div>
     </footer>
 
-    <!-- FIREBASE SERVICES -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -869,7 +953,6 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // 2 AKUN ADMIN
         const ADMIN_ACCOUNTS = {
             "admin1": { pass: "admin123", name: "Admin Utama" },
             "admin2": { pass: "divers2026", name: "Admin Pengelola" }
@@ -885,12 +968,20 @@
         let activeGender = 'putra';
         let membersData = {}, newsData = {}, galleryData = {};
         let activeAlbumId = null;
+        let activeMemberId = null;
 
         document.getElementById('galleryDate').value = new Date().toISOString().split('T')[0];
 
         // REALTIME DATA SYNC
-        db.ref('members').on('value', snap => { membersData = snap.val() || {}; renderMembers(); renderHomePreviews(); });
+        db.ref('members').on('value', snap => { 
+            membersData = snap.val() || {}; 
+            renderMembers(); 
+            renderHomePreviews(); 
+            if(activeMemberId) openMemberDetail(activeMemberId);
+        });
+
         db.ref('news').on('value', snap => { newsData = snap.val() || {}; renderNews(); renderHomePreviews(); });
+        
         db.ref('gallery').on('value', snap => { 
             galleryData = snap.val() || {}; 
             renderGallery(); 
@@ -904,11 +995,11 @@
                 : SILHOUETTE_CARD_SVG;
 
             const delBtn = currentAdmin 
-                ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:10;" onclick="db.ref('members/${m.id}').remove()">Hapus</button>` 
+                ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:10;" onclick="event.stopPropagation(); db.ref('members/${m.id}').remove()">Hapus</button>` 
                 : '';
 
             return `
-                <div class="member-card-box">
+                <div class="member-card-box" onclick="openMemberDetail('${m.id}')">
                     ${delBtn}
                     ${photoMedia}
                     <div class="member-gradient-overlay"></div>
@@ -920,6 +1011,47 @@
                 </div>
             `;
         }
+
+        function openMemberDetail(id) {
+            activeMemberId = id;
+            const m = membersData[id];
+            if(!m) return;
+
+            const photoBox = document.getElementById('detailPhotoBox');
+            if(m.photo) {
+                photoBox.innerHTML = `<img src="${m.photo}" class="member-detail-photo">`;
+            } else {
+                photoBox.innerHTML = `
+                    <svg style="width:140px; height:140px; fill:#cbd5e1;" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                `;
+            }
+
+            document.getElementById('detailName').innerText = m.name;
+            document.getElementById('detailSub').innerText = `${m.school || 'Elopat Divers'} • ID Anggota: #${m.number || '-'}`;
+            
+            document.getElementById('detailUniversity').innerText = m.university ? m.university : 'Belum ditambahkan';
+            document.getElementById('detailCareer').innerText = m.career ? m.career : 'Belum ditambahkan';
+
+            document.getElementById('inputEditUniversity').value = m.university || '';
+            document.getElementById('inputEditCareer').value = m.career || '';
+
+            switchPage('anggota-detail', document.getElementById('nav-anggota'));
+        }
+
+        document.getElementById('btnSaveDream').onclick = () => {
+            if(!activeMemberId) return;
+            const newUniversity = document.getElementById('inputEditUniversity').value.trim();
+            const newCareer = document.getElementById('inputEditCareer').value.trim();
+
+            db.ref(`members/${activeMemberId}`).update({
+                university: newUniversity,
+                career: newCareer
+            })
+            .then(() => alert("Data Universitas & Cita-Cita berhasil diperbarui!"))
+            .catch(err => alert("Gagal memperbarui: " + err.message));
+        };
 
         function renderHomePreviews() {
             const homeMembers = document.getElementById('homeMembersGrid');
@@ -1036,13 +1168,8 @@
             const album = galleryData[id];
             if(!album) return;
 
-            // DISPLAY FOTO COVER DI HERO BANNER DENGAN BACKGROUND-IMAGE
             const banner = document.getElementById('albumHeaderBanner');
-            if (album.cover) {
-                banner.style.backgroundImage = `url('${album.cover}')`;
-            } else {
-                banner.style.backgroundImage = 'none';
-            }
+            banner.style.backgroundImage = album.cover ? `url('${album.cover}')` : 'none';
 
             document.getElementById('albumDetailTitle').innerText = album.title;
             document.getElementById('albumDetailSub').innerText = "Dipublikasikan: " + (album.date || '-');
@@ -1051,31 +1178,49 @@
             grid.innerHTML = '';
             const photos = album.photos ? Object.values(album.photos) : [];
 
-            if(!photos.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada foto dalam album ini.</p>';
+            if(!photos.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px; grid-column:1/-1;">Belum ada foto dalam album ini.</p>';
             photos.forEach(p => {
                 const el = document.createElement('div');
                 el.className = 'photo-item';
-                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px;" onclick="db.ref('gallery/${id}/photos/${p.id}').remove()">Hapus</button>` : '';
+                el.onclick = () => openPhotoZoom(p.url);
+                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px; z-index:5;" onclick="event.stopPropagation(); db.ref('gallery/${id}/photos/${p.id}').remove()">Hapus</button>` : '';
                 el.innerHTML = `${del}<img src="${p.url}">`;
                 grid.appendChild(el);
             });
         }
 
-        // AKSI CRUD DATA
+        function openPhotoZoom(src) {
+            document.getElementById('zoomedImageSrc').src = src;
+            const downloadBtn = document.getElementById('downloadPhotoLink');
+            downloadBtn.href = src;
+            downloadBtn.download = "elopat-divers-photo-" + Date.now() + ".jpg";
+            document.getElementById('photoZoomModal').style.display = 'flex';
+        }
+
+        function closePhotoZoom(e) {
+            if(e) e.stopPropagation();
+            document.getElementById('photoZoomModal').style.display = 'none';
+            document.getElementById('zoomedImageSrc').src = '';
+        }
+
         document.getElementById('saveMemberBtn').onclick = () => {
             const name = document.getElementById('memberName').value.trim();
             const school = document.getElementById('memberSchool').value.trim() || 'Elopat Divers';
             const gender = document.getElementById('memberGender').value;
             const number = document.getElementById('memberNumber').value;
+            const university = document.getElementById('memberUniversityInput').value.trim();
+            const career = document.getElementById('memberCareerInput').value.trim();
             const photoInput = document.getElementById('memberPhotoInput');
 
             if(!name) return alert("Masukkan nama anggota.");
 
             const pushData = (url) => {
                 const ref = db.ref('members').push();
-                ref.set({ id: ref.key, name, school, gender, number, photo: url });
+                ref.set({ id: ref.key, name, school, gender, number, university, career, photo: url });
                 document.getElementById('memberName').value = '';
                 document.getElementById('memberNumber').value = '';
+                document.getElementById('memberUniversityInput').value = '';
+                document.getElementById('memberCareerInput').value = '';
                 photoInput.value = '';
             };
 
@@ -1136,7 +1281,6 @@
             document.getElementById('albumPhotoInput').value = '';
         };
 
-        // KONTROL ADMIN & ROUTING
         document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
         document.getElementById('closeLoginModal').onclick = () => document.getElementById('loginModal').style.display = 'none';
 
@@ -1168,6 +1312,7 @@
             document.getElementById('addMemberBox').classList.toggle('active', isLogged);
             document.getElementById('addGalleryBox').classList.toggle('active', isLogged);
             document.getElementById('addPhotoToAlbumBox').classList.toggle('active', isLogged);
+            document.getElementById('editDreamPanel').style.display = isLogged ? 'block' : 'none';
             document.getElementById('adminLoginBtn').style.display = isLogged ? 'none' : 'flex';
             document.getElementById('adminLogoutBtn').style.display = isLogged ? 'flex' : 'none';
             renderMembers(); renderNews(); renderGallery();
