@@ -6,287 +6,79 @@
     <title>Elopat Divers</title>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { color: #334155; line-height: 1.6; background-color: #f0f9ff; }
 
-        body {
-            color: #334155;
-            line-height: 1.6;
-            background-color: #f0f9ff;
-            overflow-x: hidden;
-        }
-
-        .admin-status-bar {
-            display: none;
-            background: #ef4444;
-            color: #fff;
-            text-align: center;
-            padding: 8px 15px;
-            font-size: 13px;
-            font-weight: bold;
-        }
+        .admin-status-bar { display: none; background: #ef4444; color: #fff; text-align: center; padding: 8px 15px; font-size: 13px; font-weight: bold; }
         .admin-status-bar.active { display: block; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        header {
-            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
-            color: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0 5px 0;
-        }
-
+        header { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; padding: 15px 0 5px 0; }
         .brand-info h2 { font-size: 24px; font-weight: 800; }
         .brand-info p { font-size: 13px; color: #e0f2fe; }
+        .header-logo-icon { width: 45px; height: 45px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0284c7; }
 
-        .header-logo-icon {
-            width: 45px;
-            height: 45px;
-            background: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #0284c7;
-        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 10px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #e0f2fe; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; padding-bottom: 5px; }
+        .nav-links a.active, .nav-links a:hover { color: #ffffff; border-bottom: 3px solid #ffffff; }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin-top: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #e0f2fe;
-            font-weight: 700;
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            padding-bottom: 5px;
-        }
-
-        .nav-links a.active, .nav-links a:hover {
-            color: #ffffff;
-            border-bottom: 3px solid #ffffff;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s ease;
-        }
-
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 13px; cursor: pointer; border: none; }
         .btn-primary { background-color: #38bdf8; color: #fff; }
         .btn-primary:hover { background-color: #0284c7; }
         .btn-secondary { background-color: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
-        .btn-secondary:hover { background-color: #ffffff; color: #0284c7; }
         .btn-danger { background-color: #ef4444; color: #fff; }
 
-        .hero {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            padding: 50px 0;
-            text-align: center;
-            border-bottom: 1px solid #7dd3fc;
-        }
+        .hero { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 40px 0; text-align: center; border-bottom: 1px solid #7dd3fc; }
+        .hero h1 { font-size: 30px; color: #0369a1; font-weight: 800; }
+        .hero p { font-size: 14px; color: #0284c7; }
 
-        .hero-content h1 { font-size: 34px; margin-bottom: 10px; color: #0369a1; font-weight: 800; }
-        .hero-content p { font-size: 15px; color: #0284c7; max-width: 600px; margin: 0 auto; }
-
-        .page-section { display: none; padding: 40px 0 80px 0; }
+        .page-section { display: none; padding: 30px 0 60px 0; }
         .page-section.active { display: block; }
 
-        .home-block { margin-bottom: 50px; }
-        .home-block-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #bae6fd;
-            padding-bottom: 10px;
-        }
-        .home-block-header h3 { font-size: 22px; font-weight: 800; color: #0369a1; }
-        .see-all-btn { font-size: 13px; font-weight: 700; color: #0284c7; text-decoration: none; cursor: pointer; }
-        .see-all-btn:hover { text-decoration: underline; }
+        .home-block { margin-bottom: 40px; }
+        .home-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #bae6fd; padding-bottom: 8px; }
+        .home-block-header h3 { font-size: 20px; font-weight: 800; color: #0369a1; }
+        .see-all-btn { font-size: 13px; font-weight: 700; color: #0284c7; cursor: pointer; }
 
-        .section-header { text-align: center; margin-bottom: 25px; }
-        .section-header h2 { font-size: 30px; font-weight: 800; color: #0369a1; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .news-card { position: relative; height: 320px; border-radius: 16px; overflow: hidden; background: #0f172a; display: flex; flex-direction: column; justify-content: flex-end; }
+        .news-card-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .news-card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%); }
+        .news-card-content { position: relative; z-index: 3; padding: 20px; color: #ffffff; }
+        .news-badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 700; background: rgba(56, 189, 248, 0.8); margin-bottom: 8px; }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
+        .gender-toggle-container { display: flex; justify-content: center; margin-bottom: 25px; }
+        .gender-toggle { background: #e0f2fe; padding: 4px; border-radius: 30px; display: inline-flex; width: 240px; }
+        .gender-btn { flex: 1; padding: 8px 0; border: none; border-radius: 25px; background: transparent; font-weight: 800; font-size: 12px; color: #0284c7; cursor: pointer; }
+        .gender-btn.active { background: #38bdf8; color: #ffffff; }
 
-        .news-card {
-            position: relative;
-            height: 380px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            background: #0f172a;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
-        }
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .member-card { position: relative; height: 260px; border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, #bae6fd 0%, #0284c7 100%); padding: 15px; display: flex; flex-direction: column; justify-content: flex-end; }
+        .member-avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin: 0 auto 15px auto; background-color: #e0f2fe; }
+        .member-name { color: #fff; font-size: 16px; font-weight: 800; text-align: center; }
+        .member-school { color: #e0f2fe; font-size: 12px; text-align: center; }
 
-        .news-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 25px rgba(2, 132, 199, 0.3);
-        }
-
-        .news-card-img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 1; transition: transform 0.5s ease;
-        }
-
-        .news-card:hover .news-card-img { transform: scale(1.08); }
-
-        .news-card-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.95) 100%);
-            z-index: 2;
-        }
-
-        .news-card-content {
-            position: relative; z-index: 3; padding: 25px; color: #ffffff;
-        }
-
-        .news-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(4px);
-            margin-bottom: 12px;
-        }
-
-        .news-card-title {
-            font-size: 20px; font-weight: 800; line-height: 1.3; margin-bottom: 10px; color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .news-card-date { font-size: 12px; color: #cbd5e1; }
-
-        .detail-banner {
-            position: relative;
-            height: 250px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') center/cover;
-            display: flex; align-items: flex-end; padding: 30px 0; color: #ffffff; margin-bottom: 40px;
-        }
-
-        .detail-banner-title { font-size: 42px; font-weight: 900; letter-spacing: -1px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .breadcrumb { font-size: 14px; font-weight: 600; color: #93c5fd; display: flex; align-items: center; gap: 8px; margin-top: 5px; }
-
-        .sub-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .sub-gallery-item {
-            position: relative; height: 260px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .sub-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .sub-gallery-item:hover img { transform: scale(1.05); }
-
-        .gender-toggle-container { display: flex; justify-content: center; margin-bottom: 40px; }
-        .gender-toggle { background: #e0f2fe; padding: 4px; border-radius: 30px; display: inline-flex; width: 280px; }
-        .gender-btn {
-            flex: 1; padding: 10px 0; border: none; border-radius: 25px;
-            background: transparent; font-weight: 800; font-size: 13px; color: #0284c7; cursor: pointer; transition: all 0.3s ease;
-        }
-        .gender-btn.active { background: #38bdf8; color: #ffffff; box-shadow: 0 2px 8px rgba(56, 189, 248, 0.4); }
-
-        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; }
-        .member-card {
-            position: relative; height: 290px; border-radius: 16px; overflow: hidden;
-            background: linear-gradient(180deg, #bae6fd 0%, #0284c7 60%, #0369a1 100%);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2); display: flex; flex-direction: column;
-            justify-content: space-between; padding: 15px;
-        }
-        .member-avatar-area { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); width: 120px; height: 120px; display: flex; justify-content: center; align-items: center; }
-        .member-avatar-area img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid #ffffff; }
-        .member-avatar-placeholder { width: 90px; height: 90px; background: #e0f2fe; border-radius: 50%; position: relative; }
-        .member-card-content { position: relative; z-index: 2; margin-top: auto; }
-        .member-name { color: #ffffff; font-size: 16px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; max-width: 75%; }
-        
-        .member-school {
-            color: #e0f2fe; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 5px;
-            margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%;
-        }
-        .member-sub-icon { width: 8px; height: 8px; background: #38bdf8; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-        .member-number { position: absolute; bottom: 5px; right: 12px; font-size: 52px; font-weight: 900; color: rgba(255, 255, 255, 0.3); font-style: italic; pointer-events: none; }
-
-        .admin-form-box {
-            background: #ffffff; border: 2px dashed #38bdf8; border-radius: 12px;
-            padding: 20px; max-width: 650px; margin: 0 auto 30px auto; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+        .admin-form-box { background: #ffffff; border: 2px dashed #38bdf8; border-radius: 12px; padding: 20px; max-width: 600px; margin: 0 auto 25px auto; display: none; }
         .admin-form-box.active { display: block; }
-        .form-inputs { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .form-inputs { display: flex; flex-direction: column; gap: 10px; }
         .form-inputs label { font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: -4px; }
-        .form-inputs input, .form-inputs select {
-            width: 100%; padding: 10px 12px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 13px; outline: none; background: #fff;
-        }
+        .form-inputs input, .form-inputs select { width: 100%; padding: 10px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 13px; }
 
-        .empty-msg { grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #0284c7; background: #ffffff; border-radius: 12px; border: 2px dashed #bae6fd; }
+        .empty-msg { grid-column: 1 / -1; text-align: center; padding: 30px; color: #0284c7; background: #ffffff; border-radius: 12px; border: 2px dashed #bae6fd; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 350px; text-align: center; border: 2px solid #38bdf8; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 320px; text-align: center; }
         .modal-content input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #bae6fd; border-radius: 6px; }
 
-        footer { background-color: #0369a1; color: #e0f2fe; text-align: center; padding: 20px 0; font-size: 13px; }
+        footer { background-color: #0369a1; color: #e0f2fe; text-align: center; padding: 15px 0; font-size: 12px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <div id="adminStatusBar" class="admin-status-bar">
-        ⚡ MODE ADMIN AKTIF — Anda Memiliki Akses Penuh Kelola Website
-    </div>
+    <div id="adminStatusBar" class="admin-status-bar">⚡ MODE ADMIN AKTIF</div>
 
     <header>
         <div class="container">
@@ -316,35 +108,25 @@
     <!-- BERANDA -->
     <section id="page-beranda" class="page-section active">
         <div class="hero">
-            <div class="container hero-content">
+            <div class="container">
                 <h1>Selamat Datang di Elopat Divers</h1>
-                <p>Website Resmi Pengolahan Data Anggota, Berita, dan Dokumentasi Olahraga Air.</p>
+                <p>Website Resmi Pengolahan Data Anggota, Berita, dan Galeri.</p>
             </div>
         </div>
-
-        <div class="container" style="margin-top: 40px;">
+        <div class="container" style="margin-top: 30px;">
             <div class="home-block">
                 <div class="home-block-header">
                     <h3>👥 Anggota Terbaru</h3>
-                    <a class="see-all-btn" onclick="switchPage('anggota', document.getElementById('nav-anggota'))">Lihat Semua Anggota ➔</a>
+                    <span class="see-all-btn" onclick="switchPage('anggota', document.getElementById('nav-anggota'))">Lihat Semua ➔</span>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
             </div>
-
             <div class="home-block">
                 <div class="home-block-header">
-                    <h3>📰 Berita & Artikel Terbaru</h3>
-                    <a class="see-all-btn" onclick="switchPage('berita', document.getElementById('nav-berita'))">Lihat Semua Berita ➔</a>
+                    <h3>📰 Berita Terbaru</h3>
+                    <span class="see-all-btn" onclick="switchPage('berita', document.getElementById('nav-berita'))">Lihat Semua ➔</span>
                 </div>
                 <div class="cards-grid" id="homeNewsGrid"></div>
-            </div>
-
-            <div class="home-block">
-                <div class="home-block-header">
-                    <h3>📸 Galeri Foto</h3>
-                    <a class="see-all-btn" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">Lihat Semua Galeri ➔</a>
-                </div>
-                <div class="cards-grid" id="homeGalleryGrid"></div>
             </div>
         </div>
     </section>
@@ -352,18 +134,14 @@
     <!-- BERITA -->
     <section id="page-berita" class="page-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Berita & Artikel</h2>
-            </div>
             <div class="admin-form-box" id="addNewsBox">
-                <h3 style="color: #0369a1; text-align: center;">➕ Tambah Berita Baru</h3>
+                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Berita Baru</h3>
                 <div class="form-inputs">
                     <input type="text" id="newsTitle" placeholder="Judul Berita">
-                    <label for="newsDate">Pilih Tanggal Publikasi (Kalender):</label>
                     <input type="date" id="newsDate">
-                    <label>Gambar Berita (Wajib):</label>
-                    <input type="file" id="newsImageInput" accept="image/*">
-                    <button id="saveNewsBtn" class="btn btn-primary" style="justify-content: center;">Terbitkan Berita</button>
+                    <label>Pilih Gambar Berita:</label>
+                    <input type="file" id="newsImageFile" accept="image/*">
+                    <button id="saveNewsBtn" class="btn btn-primary">Simpan Berita</button>
                 </div>
             </div>
             <div class="cards-grid" id="newsGrid"></div>
@@ -373,23 +151,18 @@
     <!-- ANGGOTA -->
     <section id="page-anggota" class="page-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Anggota</h2>
-            </div>
             <div class="admin-form-box" id="addMemberBox">
-                <h3 style="color: #0369a1; text-align: center;">➕ Tambah Data Anggota Baru</h3>
+                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Anggota Baru</h3>
                 <div class="form-inputs">
-                    <input type="text" id="memberName" placeholder="Nama Lengkap Anggota">
-                    <label for="memberSchool">Pelajar Di Mana (Sekolah / Kampus):</label>
-                    <input type="text" id="memberSchool" placeholder="Contoh: Universitas Indonesia / SMA 1 Jakarta">
+                    <input type="text" id="memberName" placeholder="Nama Lengkap">
+                    <input type="text" id="memberSchool" placeholder="Sekolah / Kampus">
                     <select id="memberGender">
                         <option value="putra">PUTRA</option>
                         <option value="putri">PUTRI</option>
                     </select>
-                    <input type="number" id="memberNumber" placeholder="Nomor ID / Punggung">
-                    <label>Foto Anggota (Opsional):</label>
-                    <input type="file" id="memberPhotoInput" accept="image/*">
-                    <button id="saveMemberBtn" class="btn btn-primary" style="justify-content: center;">Simpan Anggota</button>
+                    <label>Upload Foto Anggota (Opsional):</label>
+                    <input type="file" id="memberPhotoFile" accept="image/*">
+                    <button id="saveMemberBtn" class="btn btn-primary">Simpan Anggota</button>
                 </div>
             </div>
             <div class="gender-toggle-container">
@@ -405,438 +178,355 @@
     <!-- GALERI -->
     <section id="page-galeri" class="page-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Galeri & Album Foto</h2>
-            </div>
             <div class="admin-form-box" id="addGalleryBox">
-                <h3 style="color: #0369a1; text-align: center;">➕ Unggah Album Foto Baru</h3>
+                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Galeri Baru</h3>
                 <div class="form-inputs">
-                    <input type="text" id="galleryTitle" placeholder="Judul Album (Contoh: Teaching Class)">
-                    <label for="galleryDate">Pilih Tanggal Album (Kalender):</label>
+                    <input type="text" id="galleryTitle" placeholder="Judul Album / Kegiatan">
                     <input type="date" id="galleryDate">
-                    <label>Sampul Foto Album:</label>
-                    <input type="file" id="galleryPhotoInput" accept="image/*">
-                    <button id="saveGalleryBtn" class="btn btn-primary" style="justify-content: center;">Unggah Album</button>
+                    <label>Pilih Foto Galeri:</label>
+                    <input type="file" id="galleryPhotoFile" accept="image/*">
+                    <button id="saveGalleryBtn" class="btn btn-primary">Simpan Galeri</button>
                 </div>
             </div>
             <div class="cards-grid" id="galleryGrid"></div>
         </div>
     </section>
 
-    <!-- DETAIL ALBUM -->
-    <section id="page-detail" class="page-section" style="padding-top:0;">
-        <div class="detail-banner" id="detailBanner">
-            <div class="container" style="width:100%;">
-                <h1 class="detail-banner-title" id="detailTitle">Album</h1>
-                <div class="breadcrumb">
-                    <a href="#" onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color:#93c5fd; text-decoration:none;">Galeri</a>
-                    ➔ <span id="detailBreadcrumb">Album</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="admin-form-box" id="addPhotosToAlbumBox">
-                <h3 style="color: #0369a1; text-align: center;">➕ Tambah Foto Lainnya Ke Album Ini</h3>
-                <div class="form-inputs">
-                    <label>Pilih Satu atau Beberapa Foto Sekaligus:</label>
-                    <input type="file" id="additionalPhotosInput" accept="image/*" multiple>
-                    <button id="saveAdditionalPhotosBtn" class="btn btn-primary" style="justify-content: center;">Unggah Foto ke Album</button>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 25px; display:flex; justify-content:space-between; align-items:center;">
-                <button class="btn btn-primary" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">⬅ Kembali ke Galeri</button>
-                <p style="color:#64748b; font-weight:600;">Dokumentasi Foto Kegiatan</p>
-            </div>
-            <div class="sub-gallery-grid" id="subGalleryGrid"></div>
-        </div>
-    </section>
-
-    <!-- Modal Login Admin -->
+    <!-- MODAL LOGIN -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <h3 style="color: #0369a1;">Login Admin</h3>
-            <p style="font-size: 12px; color: #64748b; margin-top: 5px;">PIN Default: <b>1234</b></p>
-            <input type="password" id="adminPin" placeholder="Masukkan PIN Admin">
+            <p style="font-size: 12px; color: #64748b;">PIN Default: <b>1234</b></p>
+            <input type="password" id="adminPin" placeholder="Masukkan PIN">
             <div style="display: flex; gap: 10px; justify-content: center;">
                 <button id="submitPinBtn" class="btn btn-primary">Masuk</button>
-                <button id="closeLoginModal" class="btn btn-secondary" style="color:#0369a1; border-color:#bae6fd;">Batal</button>
+                <button id="closeLoginModal" class="btn btn-secondary" style="color:#333;">Batal</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Elopat Divers - Universitas Indonesia. Hak Cipta Dilindungi.</p>
-        </div>
+        <p>&copy; 2026 Elopat Divers - Hak Cipta Dilindungi.</p>
     </footer>
 
-    <!-- FIREBASE MODULE INTEGRATION -->
+    <!-- FIREBASE MODULE & LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // ⚠️ GANTI DENGAN CONFIG FIREBASE GRATIS MILIK ANDA ⚠️
+        // ⚠️ MASUKKAN FIREBASE CONFIG ANDA DI SINI ⚠️
         const firebaseConfig = {
-            apiKey: "AIzaSyYOUR_API_KEY",
-            authDomain: "elopat-divers.firebaseapp.com",
-            databaseURL: "https://elopat-divers-default-rtdb.firebaseio.com",
-            projectId: "elopat-divers",
-            storageBucket: "elopat-divers.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abc123def456"
-        };
+            firebaseConfig = {
+  apiKey: "AIzaSyAqXGMv-f3Ku9gmdmUFUo7RUHda6kuakhY",
+  authDomain: "elopat-divers.firebaseapp.com",
+  databaseURL: "https://elopat-divers-default-rtdb.firebaseio.com",
+  projectId: "elopat-divers",
+  storageBucket: "elopat-divers.firebasestorage.app",
+  messagingSenderId: "729967775994",
+  appId: "1:729967775994:web:744234d9650ea597fef943",
+  measurementId: "G-FV78RJ4FGL"
+};
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // State Global
-        window.isAdminLoggedIn = false;
-        window.activeGender = 'putra';
-        window.currentOpenAlbumId = null;
+        // State Global Data
         window.membersData = [];
         window.newsData = [];
         window.galleryData = [];
+        window.isAdminLoggedIn = false;
+        window.activeGender = 'putra';
 
-        // SYNC REALTIME FIREBASE KE SEMUA PERANGKAT
+        // FUNGSI KOMPRESI FILE GAMBAR SUPAYA RINGAN DAN BERHASIL TERSIMPAN
+        function compressAndConvertToBase64(file, maxWidth = 600, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                if (!file) return resolve('');
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        const base64Data = canvas.toDataURL('image/jpeg', quality);
+                        resolve(base64Data);
+                    };
+                    img.onerror = (err) => reject(err);
+                };
+                reader.onerror = (err) => reject(err);
+            });
+        }
+
+        // MENGAMBIL DATA REALTIME DARI FIREBASE
         onValue(ref(db, 'members'), (snapshot) => {
             const data = snapshot.val();
-            window.membersData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-            renderHome();
+            window.membersData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
             renderMembers();
+            renderHome();
         });
 
         onValue(ref(db, 'news'), (snapshot) => {
             const data = snapshot.val();
-            window.newsData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-            renderHome();
+            window.newsData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
             renderNews();
+            renderHome();
         });
 
         onValue(ref(db, 'gallery'), (snapshot) => {
             const data = snapshot.val();
-            window.galleryData = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-            renderHome();
+            window.galleryData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
             renderGallery();
-            if(window.currentOpenAlbumId) renderSubGallery();
         });
 
-        // UPLOAD DATA KE DATABASE
-        document.getElementById('saveNewsBtn').addEventListener('click', () => {
-            const title = document.getElementById('newsTitle').value.trim();
-            const date = document.getElementById('newsDate').value || new Date().toISOString().split('T')[0];
-            const input = document.getElementById('newsImageInput');
-
-            if (!title || !input.files[0]) return alert("Lengkapi data berita & gambar!");
-
-            const r = new FileReader();
-            r.onload = e => {
-                const newRef = push(ref(db, 'news'));
-                set(newRef, {
-                    title,
-                    date,
-                    category: 'BERITA',
-                    image: e.target.result
-                });
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsDate').value = '';
-                input.value = '';
-            };
-            r.readAsDataURL(input.files[0]);
-        });
-
-        document.getElementById('saveMemberBtn').addEventListener('click', () => {
+        // SIMPAN ANGGOTA
+        document.getElementById('saveMemberBtn').addEventListener('click', async () => {
             const name = document.getElementById('memberName').value.trim();
-            const school = document.getElementById('memberSchool').value.trim() || 'Universitas Indonesia';
+            const school = document.getElementById('memberSchool').value.trim();
             const gender = document.getElementById('memberGender').value;
-            const number = document.getElementById('memberNumber').value;
-            const photoInput = document.getElementById('memberPhotoInput');
+            const fileInput = document.getElementById('memberPhotoFile');
 
-            if (!name) return alert("Masukkan nama anggota!");
+            if (!name) return alert("Nama anggota wajib diisi!");
 
-            const saveToDB = (photoUrl) => {
+            try {
+                const photoBase64 = await compressAndConvertToBase64(fileInput.files[0], 400, 0.7);
                 const newRef = push(ref(db, 'members'));
-                set(newRef, { name, school, gender, number, photo: photoUrl });
+                await set(newRef, { name, school, gender, photo: photoBase64 });
+
+                alert("Anggota berhasil ditambahkan!");
                 document.getElementById('memberName').value = '';
                 document.getElementById('memberSchool').value = '';
-                document.getElementById('memberNumber').value = '';
-                photoInput.value = '';
-            };
-
-            if (photoInput.files[0]) {
-                const r = new FileReader();
-                r.onload = e => saveToDB(e.target.result);
-                r.readAsDataURL(photoInput.files[0]);
-            } else { saveToDB(''); }
-        });
-
-        document.getElementById('saveGalleryBtn').addEventListener('click', () => {
-            const title = document.getElementById('galleryTitle').value.trim() || 'Teaching Class';
-            const date = document.getElementById('galleryDate').value || new Date().toISOString().split('T')[0];
-            const input = document.getElementById('galleryPhotoInput');
-
-            if (!input.files[0]) return alert("Pilih foto sampul album!");
-
-            const r = new FileReader();
-            r.onload = e => {
-                const newRef = push(ref(db, 'gallery'));
-                set(newRef, {
-                    title,
-                    date,
-                    category: 'GALERI',
-                    image: e.target.result,
-                    photos: [e.target.result]
-                });
-                document.getElementById('galleryTitle').value = '';
-                document.getElementById('galleryDate').value = '';
-                input.value = '';
-            };
-            r.readAsDataURL(input.files[0]);
-        });
-
-        document.getElementById('saveAdditionalPhotosBtn').addEventListener('click', () => {
-            const input = document.getElementById('additionalPhotosInput');
-            const files = input.files;
-            if (files.length === 0) return alert("Pilih minimal 1 foto!");
-
-            const album = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
-            if (!album) return;
-            let currentPhotos = album.photos || [album.image];
-
-            let loadedCount = 0;
-            for (let i = 0; i < files.length; i++) {
-                const r = new FileReader();
-                r.onload = e => {
-                    currentPhotos.push(e.target.result);
-                    loadedCount++;
-                    if (loadedCount === files.length) {
-                        set(ref(db, `gallery/${album.id}/photos`), currentPhotos);
-                        input.value = '';
-                    }
-                };
-                r.readAsDataURL(files[i]);
+                fileInput.value = '';
+            } catch (err) {
+                alert("Gagal mengunggah foto/menyimpan data: " + err.message);
             }
         });
 
-        // HAPUS DATA REALTIME
-        window.deleteNews = (id) => remove(ref(db, `news/${id}`));
-        window.deleteMember = (id) => remove(ref(db, `members/${id}`));
-        window.deleteGallery = (id) => remove(ref(db, `gallery/${id}`));
-        window.deleteSubPhoto = (photoIndex) => {
-            const album = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
-            if (album && album.photos) {
-                album.photos.splice(photoIndex, 1);
-                set(ref(db, `gallery/${album.id}/photos`), album.photos);
+        // SIMPAN BERITA
+        document.getElementById('saveNewsBtn').addEventListener('click', async () => {
+            const title = document.getElementById('newsTitle').value.trim();
+            const date = document.getElementById('newsDate').value;
+            const fileInput = document.getElementById('newsImageFile');
+
+            if (!title) return alert("Judul Berita wajib diisi!");
+            if (!fileInput.files[0]) return alert("Pilih file gambar berita!");
+
+            try {
+                const imageBase64 = await compressAndConvertToBase64(fileInput.files[0], 800, 0.7);
+                const newRef = push(ref(db, 'news'));
+                await set(newRef, { title, date, image: imageBase64 });
+
+                alert("Berita berhasil diterbitkan!");
+                document.getElementById('newsTitle').value = '';
+                document.getElementById('newsDate').value = '';
+                fileInput.value = '';
+            } catch (err) {
+                alert("Gagal menyimpan berita: " + err.message);
+            }
+        });
+
+        // SIMPAN GALERI
+        document.getElementById('saveGalleryBtn').addEventListener('click', async () => {
+            const title = document.getElementById('galleryTitle').value.trim();
+            const date = document.getElementById('galleryDate').value;
+            const fileInput = document.getElementById('galleryPhotoFile');
+
+            if (!title) return alert("Judul Galeri wajib diisi!");
+            if (!fileInput.files[0]) return alert("Pilih foto galeri!");
+
+            try {
+                const imageBase64 = await compressAndConvertToBase64(fileInput.files[0], 800, 0.7);
+                const newRef = push(ref(db, 'gallery'));
+                await set(newRef, { title, date, image: imageBase64 });
+
+                alert("Galeri berhasil ditambahkan!");
+                document.getElementById('galleryTitle').value = '';
+                document.getElementById('galleryDate').value = '';
+                fileInput.value = '';
+            } catch (err) {
+                alert("Gagal menyimpan galeri: " + err.message);
+            }
+        });
+
+        // HAPUS DATA
+        window.deleteData = (path, id) => {
+            if (confirm("Yakin ingin menghapus data ini?")) {
+                remove(ref(db, `${path}/${id}`));
             }
         };
     </script>
 
-    <!-- UI UI HELPERS -->
     <script>
-        const ADMIN_PIN = "1234";
-
-        function formatDateIndo(dateString) {
-            if(!dateString) return '2026';
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateObj = new Date(dateString);
-            return isNaN(dateObj) ? dateString : dateObj.toLocaleDateString('id-ID', options);
-        }
-
-        function switchPage(pageId, element) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+        // FUNGSI NAVIGASI & DISPLAY UI BROWSER
+        function switchPage(pageId, el) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            
             document.getElementById('page-' + pageId).classList.add('active');
-            if(element) element.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (el) el.classList.add('active');
         }
 
-        function openAlbum(albumId) {
-            window.currentOpenAlbumId = albumId;
-            renderSubGallery();
-            switchPage('detail', null);
-        }
-
-        function renderSubGallery() {
-            const item = window.galleryData.find(g => g.id === window.currentOpenAlbumId);
-            if (!item) return;
-
-            document.getElementById('detailTitle').innerText = item.title;
-            document.getElementById('detailBreadcrumb').innerText = item.title;
-            document.getElementById('detailBanner').style.background = 
-                `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('${item.image}') center/cover`;
-
-            const subGrid = document.getElementById('subGalleryGrid');
-            subGrid.innerHTML = '';
-            
-            const photosToDisplay = item.photos && item.photos.length > 0 ? item.photos : [item.image];
-            photosToDisplay.forEach((imgUrl, index) => {
-                const photoDiv = document.createElement('div');
-                photoDiv.className = 'sub-gallery-item';
-                const delBtn = window.isAdminLoggedIn ? 
-                    `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:10; padding:2px 6px; font-size:10px;" onclick="window.deleteSubPhoto(${index})">❌</button>` : '';
-
-                photoDiv.innerHTML = `${delBtn}<img src="${imgUrl}">`;
-                subGrid.appendChild(photoDiv);
-            });
-        }
-
-        function createVisualCard(item, type) {
-            const card = document.createElement('div');
-            card.className = 'news-card';
-            
-            card.onclick = (e) => {
-                if(e.target.tagName !== 'BUTTON') {
-                    openAlbum(item.id);
-                }
-            };
-
-            const badgeText = item.category || (type === 'news' ? 'BERITA' : 'GALERI');
-            const imageSrc = item.image || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80';
-            const deleteAction = type === 'news' ? `window.deleteNews('${item.id}')` : `window.deleteGallery('${item.id}')`;
-
-            const delBtn = (window.isAdminLoggedIn && type !== 'home') ? 
-                `<button class="btn btn-danger" style="position:absolute; top:15px; right:15px; z-index:10; padding:4px 8px; font-size:11px;" onclick="event.stopPropagation(); ${deleteAction}">❌ Hapus</button>` : '';
-
-            card.innerHTML = `
-                ${delBtn}
-                <img src="${imageSrc}" class="news-card-img" alt="${item.title}">
-                <div class="news-card-overlay"></div>
-                <div class="news-card-content">
-                    <span class="news-badge">${badgeText}</span>
-                    <h3 class="news-card-title">${item.title}</h3>
-                    <div class="news-card-date">${formatDateIndo(item.date)}</div>
-                </div>
-            `;
-            return card;
-        }
-
-        function renderHome() {
-            const homeMembers = document.getElementById('homeMembersGrid');
-            homeMembers.innerHTML = '';
-            const sliceMembers = (window.membersData || []).slice(0, 4);
-            if(sliceMembers.length === 0) {
-                homeMembers.innerHTML = `<div class="empty-msg">Belum ada data anggota.</div>`;
-            } else {
-                sliceMembers.forEach(m => homeMembers.appendChild(createMemberCard(m, false)));
-            }
-
-            const homeNews = document.getElementById('homeNewsGrid');
-            homeNews.innerHTML = '';
-            const sliceNews = (window.newsData || []).slice(0, 3);
-            if(sliceNews.length === 0) {
-                homeNews.innerHTML = `<div class="empty-msg">Belum ada berita.</div>`;
-            } else {
-                sliceNews.forEach(n => homeNews.appendChild(createVisualCard(n, 'news')));
-            }
-
-            const homeGallery = document.getElementById('homeGalleryGrid');
-            homeGallery.innerHTML = '';
-            const sliceGallery = (window.galleryData || []).slice(0, 3);
-            if(sliceGallery.length === 0) {
-                homeGallery.innerHTML = `<div class="empty-msg">Belum ada galeri.</div>`;
-            } else {
-                sliceGallery.forEach(g => homeGallery.appendChild(createVisualCard(g, 'gallery')));
-            }
-        }
-
-        function createMemberCard(m, allowDelete = true) {
-            const card = document.createElement('div');
-            card.className = 'member-card';
-            const avatar = m.photo ? `<img src="${m.photo}">` : `<div class="member-avatar-placeholder"></div>`;
-            const delBtn = (window.isAdminLoggedIn && allowDelete) ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:2px 6px; font-size:10px;" onclick="window.deleteMember('${m.id}')">❌</button>` : '';
-            const schoolText = m.school ? m.school : 'Universitas Indonesia';
-
-            card.innerHTML = `
-                ${delBtn}
-                <div class="member-avatar-area">${avatar}</div>
-                <div class="member-card-content">
-                    <div class="member-name">${m.name}</div>
-                    <div class="member-school" title="${schoolText}">
-                        <span class="member-sub-icon"></span> ${schoolText}
-                    </div>
-                </div>
-                <div class="member-number">${m.number || ''}</div>
-            `;
-            return card;
-        }
-
-        function renderNews() {
-            const grid = document.getElementById('newsGrid');
-            grid.innerHTML = '';
-            if (!window.newsData || window.newsData.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada berita terbaru.</div>`;
-                return;
-            }
-            window.newsData.forEach(item => grid.appendChild(createVisualCard(item, 'news')));
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = '';
-            if (!window.galleryData || window.galleryData.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada foto galeri.</div>`;
-                return;
-            }
-            window.galleryData.forEach(item => grid.appendChild(createVisualCard(item, 'gallery')));
+        function filterGender(g) {
+            window.activeGender = g;
+            document.getElementById('btnPutra').classList.toggle('active', g === 'putra');
+            document.getElementById('btnPutri').classList.toggle('active', g === 'putri');
+            renderMembers();
         }
 
         function renderMembers() {
             const grid = document.getElementById('membersGrid');
             grid.innerHTML = '';
-            const filtered = (window.membersData || []).filter(m => m.gender === window.activeGender);
-            if (filtered.length === 0) {
+            const list = window.membersData.filter(m => m.gender === window.activeGender);
+
+            if (list.length === 0) {
                 grid.innerHTML = `<div class="empty-msg">Belum ada data anggota (${window.activeGender.toUpperCase()}).</div>`;
                 return;
             }
-            filtered.forEach(m => grid.appendChild(createMemberCard(m, true)));
+
+            list.forEach(m => {
+                const img = m.photo || 'https://via.placeholder.com/150?text=No+Photo';
+                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:8px; right:8px; padding:2px 6px; font-size:10px;" onclick="window.deleteData('members', '${m.id}')">❌</button>` : '';
+                
+                grid.innerHTML += `
+                    <div class="member-card">
+                        ${delBtn}
+                        <img src="${img}" class="member-avatar" alt="${m.name}">
+                        <div class="member-name">${m.name}</div>
+                        <div class="member-school">${m.school || '-'}</div>
+                    </div>
+                `;
+            });
         }
 
-        function filterGender(gender) {
-            window.activeGender = gender;
-            document.getElementById('btnPutra').classList.toggle('active', gender === 'putra');
-            document.getElementById('btnPutri').classList.toggle('active', gender === 'putri');
-            renderMembers();
+        function renderNews() {
+            const grid = document.getElementById('newsGrid');
+            grid.innerHTML = '';
+            if (window.newsData.length === 0) {
+                grid.innerHTML = `<div class="empty-msg">Belum ada berita.</div>`;
+                return;
+            }
+
+            window.newsData.forEach(n => {
+                const img = n.image || 'https://via.placeholder.com/300?text=No+Image';
+                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:4px 8px; font-size:11px;" onclick="window.deleteData('news', '${n.id}')">❌ Hapus</button>` : '';
+
+                grid.innerHTML += `
+                    <div class="news-card">
+                        ${delBtn}
+                        <img src="${img}" class="news-card-img">
+                        <div class="news-card-overlay"></div>
+                        <div class="news-card-content">
+                            <span class="news-badge">BERITA</span>
+                            <h3>${n.title}</h3>
+                            <small>${n.date || ''}</small>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        // AUTH ADMIN
-        const adminLoginBtn = document.getElementById('adminLoginBtn');
-        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            if (window.galleryData.length === 0) {
+                grid.innerHTML = `<div class="empty-msg">Belum ada foto galeri.</div>`;
+                return;
+            }
+
+            window.galleryData.forEach(g => {
+                const img = g.image || 'https://via.placeholder.com/300?text=No+Image';
+                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:4px 8px; font-size:11px;" onclick="window.deleteData('gallery', '${g.id}')">❌ Hapus</button>` : '';
+
+                grid.innerHTML += `
+                    <div class="news-card">
+                        ${delBtn}
+                        <img src="${img}" class="news-card-img">
+                        <div class="news-card-overlay"></div>
+                        <div class="news-card-content">
+                            <span class="news-badge">GALERI</span>
+                            <h3>${g.title}</h3>
+                            <small>${g.date || ''}</small>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderHome() {
+            const homeMembers = document.getElementById('homeMembersGrid');
+            homeMembers.innerHTML = '';
+            window.membersData.slice(0, 4).forEach(m => {
+                const img = m.photo || 'https://via.placeholder.com/150?text=No+Photo';
+                homeMembers.innerHTML += `
+                    <div class="member-card">
+                        <img src="${img}" class="member-avatar">
+                        <div class="member-name">${m.name}</div>
+                        <div class="member-school">${m.school || '-'}</div>
+                    </div>
+                `;
+            });
+
+            const homeNews = document.getElementById('homeNewsGrid');
+            homeNews.innerHTML = '';
+            window.newsData.slice(0, 3).forEach(n => {
+                const img = n.image || 'https://via.placeholder.com/300?text=No+Image';
+                homeNews.innerHTML += `
+                    <div class="news-card">
+                        <img src="${img}" class="news-card-img">
+                        <div class="news-card-overlay"></div>
+                        <div class="news-card-content">
+                            <span class="news-badge">BERITA</span>
+                            <h3>${n.title}</h3>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // CONTROL AUTH ADMIN
         const loginModal = document.getElementById('loginModal');
-
-        adminLoginBtn.addEventListener('click', () => loginModal.style.display = 'flex');
+        document.getElementById('adminLoginBtn').addEventListener('click', () => loginModal.style.display = 'flex');
         document.getElementById('closeLoginModal').addEventListener('click', () => loginModal.style.display = 'none');
 
         document.getElementById('submitPinBtn').addEventListener('click', () => {
-            if (document.getElementById('adminPin').value === ADMIN_PIN) {
+            if (document.getElementById('adminPin').value === '1234') {
                 window.isAdminLoggedIn = true;
                 loginModal.style.display = 'none';
                 document.getElementById('adminPin').value = '';
-                updateAdminUI();
-            } else { alert("PIN Salah!"); }
+                toggleAdminUI();
+            } else {
+                alert("PIN Salah!");
+            }
         });
 
-        adminLogoutBtn.addEventListener('click', () => {
+        document.getElementById('adminLogoutBtn').addEventListener('click', () => {
             window.isAdminLoggedIn = false;
-            updateAdminUI();
+            toggleAdminUI();
         });
 
-        function updateAdminUI() {
+        function toggleAdminUI() {
             document.getElementById('adminStatusBar').classList.toggle('active', window.isAdminLoggedIn);
             document.getElementById('addNewsBox').classList.toggle('active', window.isAdminLoggedIn);
             document.getElementById('addMemberBox').classList.toggle('active', window.isAdminLoggedIn);
             document.getElementById('addGalleryBox').classList.toggle('active', window.isAdminLoggedIn);
-            document.getElementById('addPhotosToAlbumBox').classList.toggle('active', window.isAdminLoggedIn);
 
-            adminLoginBtn.style.display = window.isAdminLoggedIn ? 'none' : 'inline-flex';
-            adminLogoutBtn.style.display = window.isAdminLoggedIn ? 'inline-flex' : 'none';
+            document.getElementById('adminLoginBtn').style.display = window.isAdminLoggedIn ? 'none' : 'inline-flex';
+            document.getElementById('adminLogoutBtn').style.display = window.isAdminLoggedIn ? 'inline-flex' : 'none';
 
-            renderHome();
-            renderNews();
             renderMembers();
+            renderNews();
             renderGallery();
-            if(window.currentOpenAlbumId) renderSubGallery();
         }
     </script>
 </body>
