@@ -3,530 +3,1095 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elopat Divers</title>
+    <title>Elopat Divers - Official Portal</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { color: #334155; line-height: 1.6; background-color: #f0f9ff; }
+        :root {
+            /* PALET WARNA REALISTIS & ELEGAN */
+            --navy-dark: #1e293b;
+            --navy-accent: #0f172a;
+            --header-bg: #bae6fd; /* BIRU MUDA SEGAR */
+            --body-bg: #e0f2fe; /* BACKGROUND UTAMA WEB BIRU MUDA */
+            --homepage-bg: #e0f2fe; 
+            --border-color: #93c5fd; /* PENYESUAIAN BORDER BIRU MUDA */
+            --text-dark: #0f172a;
+            --text-muted: #334155;
+            --gold-accent: #c5a059;
+            --bg-card: #ffffff;
+        }
 
-        .admin-status-bar { display: none; background: #ef4444; color: #fff; text-align: center; padding: 8px 15px; font-size: 13px; font-weight: bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            color: var(--text-dark); 
+            line-height: 1.5; 
+            background-color: var(--body-bg); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            /* ANIMASI SAAT MEMBUKA WEB */
+            animation: pageFadeIn 0.8s ease-out forwards;
+        }
+
+        /* KEYFRAMES ANIMASI PEMUATAN HALAMAN */
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ADMIN STATUS BAR */
+        .admin-status-bar { 
+            display: none; 
+            background: var(--navy-accent); 
+            color: #f8fafc; 
+            padding: 8px 0; 
+            font-size: 11px; 
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
         .admin-status-bar.active { display: block; }
+        .admin-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        /* HEADER CLEAN MODERN DENGAN BACKGROUND BIRU MUDA */
+        header { 
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        header { background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%); color: #fff; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; padding: 15px 0 5px 0; }
-        .brand-info h2 { font-size: 24px; font-weight: 800; }
-        .brand-info p { font-size: 13px; color: #e0f2fe; }
-        .header-logo-icon { width: 45px; height: 45px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0284c7; }
+        /* BRANDING LOGO */
+        .brand-logo-container { 
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none; 
+            color: var(--text-dark); 
+        }
 
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 10px; }
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { text-decoration: none; color: #e0f2fe; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; padding-bottom: 5px; }
-        .nav-links a.active, .nav-links a:hover { color: #ffffff; border-bottom: 3px solid #ffffff; }
+        .brand-logo-svg {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+        }
 
-        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 13px; cursor: pointer; border: none; }
-        .btn-primary { background-color: #38bdf8; color: #fff; }
-        .btn-primary:hover { background-color: #0284c7; }
-        .btn-secondary { background-color: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
-        .btn-danger { background-color: #ef4444; color: #fff; }
+        /* TEKS MEMANJANG KE SAMPING (HORIZONTAL) */
+        .brand-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: var(--navy-accent);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
 
-        .hero { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 40px 0; text-align: center; border-bottom: 1px solid #7dd3fc; }
-        .hero h1 { font-size: 30px; color: #0369a1; font-weight: 800; }
-        .hero p { font-size: 14px; color: #0284c7; }
+        /* NAVIGATION BAR */
+        .nav-container {
+            margin-top: 16px;
+            border-top: 1px solid rgba(15, 23, 42, 0.15);
+            padding-top: 12px;
+        }
 
-        .page-section { display: none; padding: 30px 0 60px 0; }
-        .page-section.active { display: block; }
+        .nav-links { display: flex; list-style: none; gap: 32px; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-muted); 
+            font-size: 13px; 
+            font-weight: 700;
+            letter-spacing: 0.05em; 
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-bottom: 6px;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-accent); }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--navy-accent);
+        }
 
-        .home-block { margin-bottom: 40px; }
-        .home-block-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #bae6fd; padding-bottom: 8px; }
-        .home-block-header h3 { font-size: 20px; font-weight: 800; color: #0369a1; }
-        .see-all-btn { font-size: 13px; font-weight: 700; color: #0284c7; cursor: pointer; }
+        /* TOMBOL FLOATING ADMIN LINGKARAN POJOK KANAN ATAS */
+        .admin-circle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--navy-accent);
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .admin-circle-btn:hover {
+            transform: scale(1.05);
+            background: var(--navy-dark);
+        }
+        .admin-circle-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
 
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .news-card { position: relative; height: 320px; border-radius: 16px; overflow: hidden; background: #0f172a; display: flex; flex-direction: column; justify-content: flex-end; }
-        .news-card-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .news-card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%); }
-        .news-card-content { position: relative; z-index: 3; padding: 20px; color: #ffffff; }
-        .news-badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 700; background: rgba(56, 189, 248, 0.8); margin-bottom: 8px; }
+        /* BUTTON SYSTEM REGULER */
+        .btn-minimal { 
+            background: #ffffff;
+            color: var(--navy-accent);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px; 
+            font-size: 12px; 
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            border-radius: 6px;
+        }
+        .btn-minimal:hover { background: var(--navy-accent); color: #ffffff; }
+        
+        .btn-danger-minimal {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-danger-minimal:hover { background: #b91c1c; }
 
-        .gender-toggle-container { display: flex; justify-content: center; margin-bottom: 25px; }
-        .gender-toggle { background: #e0f2fe; padding: 4px; border-radius: 30px; display: inline-flex; width: 240px; }
-        .gender-btn { flex: 1; padding: 8px 0; border: none; border-radius: 25px; background: transparent; font-weight: 800; font-size: 12px; color: #0284c7; cursor: pointer; }
-        .gender-btn.active { background: #38bdf8; color: #ffffff; }
+        /* SECTIONS & PAGES MEKANISME ANIMASI TRANSISI HASIL PILIHAN */
+        .page-section { display: none; padding: 48px 0 96px 0; }
+        .page-section.active { 
+            display: block; 
+            animation: sectionSlide 0.4s ease-out forwards;
+        }
 
-        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .member-card { position: relative; height: 260px; border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, #bae6fd 0%, #0284c7 100%); padding: 15px; display: flex; flex-direction: column; justify-content: flex-end; }
-        .member-avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin: 0 auto 15px auto; background-color: #e0f2fe; }
-        .member-name { color: #fff; font-size: 16px; font-weight: 800; text-align: center; }
-        .member-school { color: #e0f2fe; font-size: 12px; text-align: center; }
+        @keyframes sectionSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .admin-form-box { background: #ffffff; border: 2px dashed #38bdf8; border-radius: 12px; padding: 20px; max-width: 600px; margin: 0 auto 25px auto; display: none; }
-        .admin-form-box.active { display: block; }
-        .form-inputs { display: flex; flex-direction: column; gap: 10px; }
-        .form-inputs label { font-size: 12px; font-weight: 600; color: #0369a1; margin-bottom: -4px; }
-        .form-inputs input, .form-inputs select { width: 100%; padding: 10px; border: 1px solid #bae6fd; border-radius: 8px; font-size: 13px; }
+        /* KHUSUS BERANDA: BACKGROUND BIRU MUDA HARMONIS */
+        #page-beranda {
+            background-color: var(--homepage-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
 
-        .empty-msg { grid-column: 1 / -1; text-align: center; padding: 30px; color: #0284c7; background: #ffffff; border-radius: 12px; border: 2px dashed #bae6fd; }
+        .section-header { text-align: center; margin-bottom: 32px; }
+        .section-title { font-size: 32px; font-weight: 800; color: var(--text-dark); }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 320px; text-align: center; }
-        .modal-content input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #bae6fd; border-radius: 6px; }
+        /* TAB KELOMPOK PUTRA / PUTRI */
+        .pill-filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .pill-filter {
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 8px;
+            display: flex;
+            width: 280px;
+            border: 1px solid var(--border-color);
+        }
+        .pill-btn {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .pill-btn.active {
+            background: var(--navy-accent);
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
 
-        footer { background-color: #0369a1; color: #e0f2fe; text-align: center; padding: 15px 0; font-size: 12px; margin-top: 40px; }
+        /* KARTU ANGGOTA */
+        .members-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+        }
+        
+        .member-card-box {
+            position: relative;
+            height: 290px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .member-card-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .silhouette-svg {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 130px;
+            fill: #cbd5e1;
+        }
+
+        .member-photo-custom {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .member-gradient-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(15, 23, 42, 0.88) 90%);
+            z-index: 2;
+        }
+
+        .member-info-content {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            z-index: 3;
+            color: #ffffff;
+        }
+        
+        .member-info-name {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 2px;
+        }
+
+        .member-info-school {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .member-bg-number {
+            position: absolute;
+            bottom: -5px;
+            right: 8px;
+            font-size: 52px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.15);
+            z-index: 3;
+            line-height: 1;
+            font-style: italic;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* NEWS DISPLAY */
+        .news-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 24px; 
+        }
+        .news-article {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .news-article:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+        }
+        .news-cover { width: 100%; height: 190px; object-fit: cover; }
+        .news-body { padding: 20px; }
+        .news-meta { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+        .news-title { font-size: 17px; font-weight: 700; color: var(--navy-accent); line-height: 1.35; }
+
+        /* GALLERY DISPLAY */
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 24px; 
+        }
+        .album-card {
+            position: relative;
+            background: var(--navy-accent);
+            height: 280px;
+            border-radius: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .album-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
+        }
+        .album-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .album-card:hover .album-cover-img { transform: scale(1.05); opacity: 0.7; }
+        .album-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(15,23,42,0.9));
+            color: #fff;
+        }
+        .album-title { font-size: 17px; font-weight: 700; }
+        .album-date { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+        /* ALBUM DETAIL PAGE */
+        .album-header-banner {
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+        .photos-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .photo-item { position: relative; height: 200px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* FORMS & PANELS FOR ADMIN */
+        .panel-box {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: none;
+        }
+        .panel-box.active { display: block; }
+        .panel-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; color: var(--navy-accent); }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-full { grid-column: 1 / -1; }
+        
+        .custom-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+        .custom-input:focus { border-color: var(--navy-accent); }
+
+        /* MODAL LOGIN */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-card {
+            background: #ffffff;
+            padding: 32px;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            animation: sectionSlide 0.3s ease-out;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: #ffffff;
+        }
+
+        /* RESPONSIVE MOBILE HANDPHONE */
+        @media (max-width: 640px) {
+            .container { padding: 0 16px; }
+            .admin-circle-btn { top: 14px; right: 14px; width: 40px; height: 40px; }
+            .admin-circle-btn svg { width: 16px; height: 16px; }
+
+            .brand-logo-svg { width: 44px; height: 44px; }
+            .brand-logo-text { font-size: 18px; }
+
+            .nav-container { margin-top: 12px; padding-top: 8px; }
+            .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-links a { font-size: 12px; }
+
+            .page-section { padding: 24px 0 48px 0; }
+
+            /* PENYESUAIAN KHUSUS LAYAR HANDPHONE (TETAP KETENGAH) */
+            #page-beranda .section-header {
+                text-align: center !important;
+                margin-bottom: 24px !important;
+                padding: 0 8px;
+            }
+
+            #page-beranda .section-header h1 { 
+                font-size: 22px !important; 
+                text-align: center !important;
+                line-height: 1.3 !important;
+                margin-bottom: 8px !important;
+            }
+
+            #page-beranda .section-header p {
+                font-size: 13px !important;
+                text-align: center !important;
+                line-height: 1.4 !important;
+            }
+
+            .members-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .member-card-box { height: 230px; }
+            .silhouette-svg { width: 90px; height: 90px; top: 15px; }
+            .member-info-name { font-size: 13px; }
+            .member-bg-number { font-size: 36px; }
+
+            .news-grid { grid-template-columns: 1fr; gap: 16px; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 16px; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="adminStatusBar" class="admin-status-bar">⚡ MODE ADMIN AKTIF</div>
+    <!-- STATUS ADMIN BAR -->
+    <div id="adminStatusBar" class="admin-status-bar">
+        <div class="container admin-flex">
+            <span>Sesi Otentikasi Aktif: <strong id="activeAdminName">Admin</strong></span>
+            <span>Hak Akses Pengelolaan</span>
+        </div>
+    </div>
 
+    <!-- TOMBOL LINGKARAN PORTAL ADMIN POJOK KANAN ATAS -->
+    <button id="adminLoginBtn" class="admin-circle-btn" title="Portal Admin">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2C9.24 2 7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v3H9V7c0-1.66 1.34-3 3-3zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
+        </svg>
+    </button>
+    
+    <!-- TOMBOL KELUAR ADMIN -->
+    <button id="adminLogoutBtn" class="admin-circle-btn" style="display: none; background: #dc2626;" title="Keluar Admin">
+        <svg viewBox="0 0 24 24">
+            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+        </svg>
+    </button>
+
+    <!-- HEADER BIRU MUDA -->
     <header>
         <div class="container">
             <div class="header-top">
-                <div class="brand-info">
-                    <h2>Elopat Divers</h2>
-                    <p>Kota Jakarta Pusat</p>
-                </div>
-                <div class="header-logo-icon">ED</div>
+                <a href="#" class="brand-logo-container" onclick="switchPage('beranda', document.getElementById('nav-beranda'))">
+                    <!-- LOGO VECTOR SVG -->
+                    <svg class="brand-logo-svg" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="46" fill="#f8fafc" stroke="#1e293b" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="41" fill="none" stroke="#c5a059" stroke-width="2"/>
+                        
+                        <!-- LINGKARAN GANDUM (WREATH) -->
+                        <g fill="#c5a059">
+                            <path d="M22 48 c-1-4 1-8 4-10 c2 4 1 8-4 10 z" />
+                            <path d="M20 40 c-2-4 0-8 3-10 c2 4 2 8-3 10 z" />
+                            <path d="M22 32 c-3-4 -1-8 2-10 c3 4 2 8-2 10 z" />
+                            <path d="M26 24 c-3-3 -1-7 2-9 c2 4 2 7-2 9 z" />
+                            
+                            <path d="M78 48 c1-4 -1-8 -4-10 c-2 4 -1 8 4 10 z" />
+                            <path d="M80 40 c2-4 0-8 -3-10 c-2 4 -2 8 3 10 z" />
+                            <path d="M78 32 c3-4 1-8 -2-10 c-3 4 -2 8 2 10 z" />
+                            <path d="M74 24 c3-3 1-7 -2-9 c-2 4 -2 7 2 9 z" />
+                        </g>
+
+                        <!-- KARAKTER SISWA (PUTRA) -->
+                        <g>
+                            <path d="M 33 40 Q 38 30 43 37 Q 43 45 33 40 Z" fill="#1e293b" />
+                            <circle cx="38" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+                            <path d="M 28 68 L 48 68 L 46 53 L 30 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                            <polygon points="37,53 39,53 40,63 38,65 36,63" fill="#1e293b"/>
+                        </g>
+
+                        <!-- KARAKTER SISWI (PUTRI) -->
+                        <g>
+                            <path d="M 55 36 Q 63 30 70 38 Q 68 47 55 36 Z" fill="#1e293b" />
+                            <circle cx="62" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+                            <path d="M 52 68 L 72 68 L 70 53 L 54 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                            <polygon points="61,53 63,53 64,63 62,65 60,63" fill="#1e293b"/>
+                        </g>
+
+                        <!-- BUKU DI BAGIAN BAWAH LOGO -->
+                        <g transform="translate(41, 71)">
+                            <path d="M 0 6 Q 9 0 18 6 L 18 14 Q 9 8 0 14 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                            <line x1="9" y1="3" x2="9" y2="11" stroke="#1e293b" stroke-width="1.5"/>
+                        </g>
+                    </svg>
+
+                    <!-- TEKS BRAND MEMANJANG -->
+                    <div class="brand-logo-text">ELOPAT DIVERS</div>
+                </a>
             </div>
             
-            <div class="navbar">
-                <ul class="nav-links">
-                    <li><a href="#" id="nav-beranda" class="active" onclick="switchPage('beranda', this)">BERANDA</a></li>
-                    <li><a href="#" id="nav-berita" onclick="switchPage('berita', this)">BERITA</a></li>
-                    <li><a href="#" id="nav-anggota" onclick="switchPage('anggota', this)">ANGGOTA</a></li>
-                    <li><a href="#" id="nav-galeri" onclick="switchPage('galeri', this)">GALERI</a></li>
-                </ul>
-                <div>
-                    <button id="adminLoginBtn" class="btn btn-secondary">Login Admin</button>
-                    <button id="adminLogoutBtn" class="btn btn-danger" style="display: none;">Keluar Admin</button>
-                </div>
+            <div class="nav-container">
+                <nav>
+                    <ul class="nav-links">
+                        <li><a id="nav-beranda" class="active" onclick="switchPage('beranda', this)">BERANDA</a></li>
+                        <li><a id="nav-berita" onclick="switchPage('berita', this)">BERITA</a></li>
+                        <li><a id="nav-anggota" onclick="switchPage('anggota', this)">ANGGOTA</a></li>
+                        <li><a id="nav-galeri" onclick="switchPage('galeri', this)">GALERI</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
 
-    <!-- BERANDA -->
+    <!-- 1. BERANDA -->
     <section id="page-beranda" class="page-section active">
-        <div class="hero">
-            <div class="container">
-                <h1>Selamat Datang di Elopat Divers</h1>
-                <p>Website Resmi Pengolahan Data Anggota, Berita, dan Galeri.</p>
+        <div class="container">
+            <!-- POSISI TEKS DIBUAT KETENGAH (CENTER) DESKTOP & MOBILE -->
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Resmi Elopat Divers</h1>
+                <p style="color: var(--text-muted); text-align: center;">Dokumentasi anggota, warta kegiatan, dan galeri resmi.</p>
             </div>
-        </div>
-        <div class="container" style="margin-top: 30px;">
-            <div class="home-block">
-                <div class="home-block-header">
-                    <h3>👥 Anggota Terbaru</h3>
-                    <span class="see-all-btn" onclick="switchPage('anggota', document.getElementById('nav-anggota'))">Lihat Semua ➔</span>
+
+            <!-- PREVIEW ANGGOTA -->
+            <div style="margin-bottom: 56px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 800;">Anggota Terbaru</h3>
+                    <a onclick="switchPage('anggota', document.getElementById('nav-anggota'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
             </div>
-            <div class="home-block">
-                <div class="home-block-header">
-                    <h3>📰 Berita Terbaru</h3>
-                    <span class="see-all-btn" onclick="switchPage('berita', document.getElementById('nav-berita'))">Lihat Semua ➔</span>
+
+            <!-- PREVIEW BERITA -->
+            <div style="margin-bottom: 56px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 800;">Berita Terbaru</h3>
+                    <a onclick="switchPage('berita', document.getElementById('nav-berita'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
-                <div class="cards-grid" id="homeNewsGrid"></div>
+                <div class="news-grid" id="homeNewsGrid"></div>
+            </div>
+
+            <!-- PREVIEW GALERI -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 20px; font-weight: 800;">Dokumentasi Galeri</h3>
+                    <a onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
+                </div>
+                <div class="gallery-grid" id="homeGalleryGrid"></div>
             </div>
         </div>
     </section>
 
-    <!-- BERITA -->
-    <section id="page-berita" class="page-section">
-        <div class="container">
-            <div class="admin-form-box" id="addNewsBox">
-                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Berita Baru</h3>
-                <div class="form-inputs">
-                    <input type="text" id="newsTitle" placeholder="Judul Berita">
-                    <input type="date" id="newsDate">
-                    <label>Pilih Gambar Berita:</label>
-                    <input type="file" id="newsImageFile" accept="image/*">
-                    <button id="saveNewsBtn" class="btn btn-primary">Simpan Berita</button>
-                </div>
-            </div>
-            <div class="cards-grid" id="newsGrid"></div>
-        </div>
-    </section>
-
-    <!-- ANGGOTA -->
+    <!-- 2. ANGGOTA PAGE -->
     <section id="page-anggota" class="page-section">
         <div class="container">
-            <div class="admin-form-box" id="addMemberBox">
-                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Anggota Baru</h3>
-                <div class="form-inputs">
-                    <input type="text" id="memberName" placeholder="Nama Lengkap">
-                    <input type="text" id="memberSchool" placeholder="Sekolah / Kampus">
-                    <select id="memberGender">
-                        <option value="putra">PUTRA</option>
-                        <option value="putri">PUTRI</option>
+            <div class="section-header">
+                <h1 class="section-title">Anggota</h1>
+            </div>
+
+            <div class="pill-filter-container">
+                <div class="pill-filter">
+                    <button class="pill-btn active" id="btnPutra" onclick="filterGender('putra')">PUTRA</button>
+                    <button class="pill-btn" id="btnPutri" onclick="filterGender('putri')">PUTRI</button>
+                </div>
+            </div>
+
+            <div class="panel-box" id="addMemberBox">
+                <div class="panel-title">Entri Data Anggota Baru</div>
+                <div class="form-grid">
+                    <input type="text" id="memberName" class="custom-input" placeholder="Nama Lengkap">
+                    <input type="text" id="memberSchool" class="custom-input" placeholder="Klub / Sub-Unit" value="Elopat Divers">
+                    <select id="memberGender" class="custom-input">
+                        <option value="putra">Putra</option>
+                        <option value="putri">Putri</option>
                     </select>
-                    <label>Upload Foto Anggota (Opsional):</label>
-                    <input type="file" id="memberPhotoFile" accept="image/*">
-                    <button id="saveMemberBtn" class="btn btn-primary">Simpan Anggota</button>
+                    <input type="number" id="memberNumber" class="custom-input" placeholder="Nomor ID Anggota (Contoh: 7)">
+                    <input type="file" id="memberPhotoInput" class="custom-input form-full" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveMemberBtn" class="btn-minimal">Simpan Data Anggota</button>
+                    </div>
                 </div>
             </div>
-            <div class="gender-toggle-container">
-                <div class="gender-toggle">
-                    <button class="gender-btn active" id="btnPutra" onclick="filterGender('putra')">PUTRA</button>
-                    <button class="gender-btn" id="btnPutri" onclick="filterGender('putri')">PUTRI</button>
-                </div>
-            </div>
+
             <div class="members-grid" id="membersGrid"></div>
         </div>
     </section>
 
-    <!-- GALERI -->
-    <section id="page-galeri" class="page-section">
+    <!-- 3. BERITA PAGE -->
+    <section id="page-berita" class="page-section">
         <div class="container">
-            <div class="admin-form-box" id="addGalleryBox">
-                <h3 style="color: #0369a1; margin-bottom: 10px;">➕ Tambah Galeri Baru</h3>
-                <div class="form-inputs">
-                    <input type="text" id="galleryTitle" placeholder="Judul Album / Kegiatan">
-                    <input type="date" id="galleryDate">
-                    <label>Pilih Foto Galeri:</label>
-                    <input type="file" id="galleryPhotoFile" accept="image/*">
-                    <button id="saveGalleryBtn" class="btn btn-primary">Simpan Galeri</button>
+            <div class="section-header">
+                <h1 class="section-title">Berita</h1>
+            </div>
+
+            <div class="panel-box" id="addNewsBox">
+                <div class="panel-title">Publikasi Artikel Berita</div>
+                <div class="form-grid">
+                    <input type="text" id="newsTitle" class="custom-input form-full" placeholder="Judul Artikel">
+                    <input type="date" id="newsDate" class="custom-input">
+                    <input type="file" id="newsImageInput" class="custom-input" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveNewsBtn" class="btn-minimal">Terbitkan Artikel</button>
+                    </div>
                 </div>
             </div>
-            <div class="cards-grid" id="galleryGrid"></div>
+
+            <div class="news-grid" id="newsGrid"></div>
         </div>
     </section>
 
-    <!-- MODAL LOGIN -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <h3 style="color: #0369a1;">Login Admin</h3>
-            <p style="font-size: 12px; color: #64748b;">PIN Default: <b>1234</b></p>
-            <input type="password" id="adminPin" placeholder="Masukkan PIN">
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button id="submitPinBtn" class="btn btn-primary">Masuk</button>
-                <button id="closeLoginModal" class="btn btn-secondary" style="color:#333;">Batal</button>
+    <!-- 4. GALERI PAGE -->
+    <section id="page-galeri" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Galeri</h1>
+            </div>
+
+            <div class="panel-box" id="addGalleryBox">
+                <div class="panel-title">Buat Album Arsip Baru</div>
+                <div class="form-grid">
+                    <input type="text" id="galleryTitle" class="custom-input form-full" placeholder="Nama Kegiatan / Album">
+                    <input type="date" id="galleryDate" class="custom-input">
+                    <input type="file" id="galleryCoverInput" class="custom-input" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveGalleryBtn" class="btn-minimal">Inisialisasi Album</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </section>
+
+    <!-- 5. GALERI DETAIL -->
+    <section id="page-galeri-detail" class="page-section">
+        <div class="container">
+            <div class="album-header-banner">
+                <a onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; display: inline-block; margin-bottom: 12px;">← Kembali ke Galeri</a>
+                <h1 class="section-title" id="albumDetailTitle" style="text-align: left;">Nama Album</h1>
+                <p style="color: var(--text-muted); font-size: 13px;" id="albumDetailSub">Dokumentasi Foto</p>
+            </div>
+
+            <div class="panel-box" id="addPhotoToAlbumBox">
+                <div class="panel-title">Tambah File Foto ke Album Ini</div>
+                <div class="form-grid">
+                    <input type="file" id="albumPhotoInput" class="custom-input form-full" accept="image/*" multiple>
+                    <div class="form-full">
+                        <button id="savePhotoToAlbumBtn" class="btn-minimal">Unggah Berkas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photos-masonry" id="albumPhotosGrid"></div>
+        </div>
+    </section>
+
+    <!-- MODAL LOGIN ADMIN -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-card">
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--navy-accent);">Portal Akses Admin</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Silakan otentikasi identitas pengelola Anda.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="text" id="adminUsername" class="custom-input" placeholder="ID Admin (admin1 / admin2)">
+                <input type="password" id="adminPassword" class="custom-input" placeholder="Kata Sandi">
+                <button id="submitLoginBtn" class="btn-minimal" style="margin-top: 8px; background: var(--navy-accent); color: #fff; border: none; width: 100%;">Masuk Sistem</button>
+                <button id="closeLoginModal" class="btn-minimal" style="background: transparent; border: none; color: var(--text-muted); width: 100%;">Batal</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Elopat Divers - Hak Cipta Dilindungi.</p>
+        <div class="container">
+            <p>&copy; 2026 Elopat Divers. Hak Cipta Dilindungi.</p>
+        </div>
     </footer>
 
-    <!-- FIREBASE MODULE & LOGIC -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        // ⚠️ MASUKKAN FIREBASE CONFIG ANDA DI SINI ⚠️
-        const firebaseConfig = {
-            firebaseConfig = {
-  apiKey: "AIzaSyAqXGMv-f3Ku9gmdmUFUo7RUHda6kuakhY",
-  authDomain: "elopat-divers.firebaseapp.com",
-  databaseURL: "https://elopat-divers-default-rtdb.firebaseio.com",
-  projectId: "elopat-divers",
-  storageBucket: "elopat-divers.firebasestorage.app",
-  messagingSenderId: "729967775994",
-  appId: "1:729967775994:web:744234d9650ea597fef943",
-  measurementId: "G-FV78RJ4FGL"
-};
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // State Global Data
-        window.membersData = [];
-        window.newsData = [];
-        window.galleryData = [];
-        window.isAdminLoggedIn = false;
-        window.activeGender = 'putra';
-
-        // FUNGSI KOMPRESI FILE GAMBAR SUPAYA RINGAN DAN BERHASIL TERSIMPAN
-        function compressAndConvertToBase64(file, maxWidth = 600, quality = 0.7) {
-            return new Promise((resolve, reject) => {
-                if (!file) return resolve('');
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-
-                        if (width > maxWidth) {
-                            height = Math.round((height * maxWidth) / width);
-                            width = maxWidth;
-                        }
-
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        const base64Data = canvas.toDataURL('image/jpeg', quality);
-                        resolve(base64Data);
-                    };
-                    img.onerror = (err) => reject(err);
-                };
-                reader.onerror = (err) => reject(err);
-            });
-        }
-
-        // MENGAMBIL DATA REALTIME DARI FIREBASE
-        onValue(ref(db, 'members'), (snapshot) => {
-            const data = snapshot.val();
-            window.membersData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-            renderMembers();
-            renderHome();
-        });
-
-        onValue(ref(db, 'news'), (snapshot) => {
-            const data = snapshot.val();
-            window.newsData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-            renderNews();
-            renderHome();
-        });
-
-        onValue(ref(db, 'gallery'), (snapshot) => {
-            const data = snapshot.val();
-            window.galleryData = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-            renderGallery();
-        });
-
-        // SIMPAN ANGGOTA
-        document.getElementById('saveMemberBtn').addEventListener('click', async () => {
-            const name = document.getElementById('memberName').value.trim();
-            const school = document.getElementById('memberSchool').value.trim();
-            const gender = document.getElementById('memberGender').value;
-            const fileInput = document.getElementById('memberPhotoFile');
-
-            if (!name) return alert("Nama anggota wajib diisi!");
-
-            try {
-                const photoBase64 = await compressAndConvertToBase64(fileInput.files[0], 400, 0.7);
-                const newRef = push(ref(db, 'members'));
-                await set(newRef, { name, school, gender, photo: photoBase64 });
-
-                alert("Anggota berhasil ditambahkan!");
-                document.getElementById('memberName').value = '';
-                document.getElementById('memberSchool').value = '';
-                fileInput.value = '';
-            } catch (err) {
-                alert("Gagal mengunggah foto/menyimpan data: " + err.message);
-            }
-        });
-
-        // SIMPAN BERITA
-        document.getElementById('saveNewsBtn').addEventListener('click', async () => {
-            const title = document.getElementById('newsTitle').value.trim();
-            const date = document.getElementById('newsDate').value;
-            const fileInput = document.getElementById('newsImageFile');
-
-            if (!title) return alert("Judul Berita wajib diisi!");
-            if (!fileInput.files[0]) return alert("Pilih file gambar berita!");
-
-            try {
-                const imageBase64 = await compressAndConvertToBase64(fileInput.files[0], 800, 0.7);
-                const newRef = push(ref(db, 'news'));
-                await set(newRef, { title, date, image: imageBase64 });
-
-                alert("Berita berhasil diterbitkan!");
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsDate').value = '';
-                fileInput.value = '';
-            } catch (err) {
-                alert("Gagal menyimpan berita: " + err.message);
-            }
-        });
-
-        // SIMPAN GALERI
-        document.getElementById('saveGalleryBtn').addEventListener('click', async () => {
-            const title = document.getElementById('galleryTitle').value.trim();
-            const date = document.getElementById('galleryDate').value;
-            const fileInput = document.getElementById('galleryPhotoFile');
-
-            if (!title) return alert("Judul Galeri wajib diisi!");
-            if (!fileInput.files[0]) return alert("Pilih foto galeri!");
-
-            try {
-                const imageBase64 = await compressAndConvertToBase64(fileInput.files[0], 800, 0.7);
-                const newRef = push(ref(db, 'gallery'));
-                await set(newRef, { title, date, image: imageBase64 });
-
-                alert("Galeri berhasil ditambahkan!");
-                document.getElementById('galleryTitle').value = '';
-                document.getElementById('galleryDate').value = '';
-                fileInput.value = '';
-            } catch (err) {
-                alert("Gagal menyimpan galeri: " + err.message);
-            }
-        });
-
-        // HAPUS DATA
-        window.deleteData = (path, id) => {
-            if (confirm("Yakin ingin menghapus data ini?")) {
-                remove(ref(db, `${path}/${id}`));
-            }
-        };
-    </script>
+    <!-- FIREBASE SERVICES -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
     <script>
-        // FUNGSI NAVIGASI & DISPLAY UI BROWSER
-        function switchPage(pageId, el) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
-            if (el) el.classList.add('active');
+        const firebaseConfig = {
+            apiKey: "AIzaSyAehUWpzVRRTL_0Q-PqytlyH92ziVrASmY",
+            authDomain: "elopat-divers-26231.firebaseapp.com",
+            databaseURL: "https://elopat-divers-26231-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "elopat-divers-26231",
+            storageBucket: "elopat-divers-26231.firebasestorage.app",
+            messagingSenderId: "189459216556",
+            appId: "1:189459216556:web:972f44662aa6aa14738709"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 2 AKUN ADMIN
+        const ADMIN_ACCOUNTS = {
+            "admin1": { pass: "admin123", name: "Admin Utama" },
+            "admin2": { pass: "divers2026", name: "Admin Pengelola" }
+        };
+
+        const SILHOUETTE_CARD_SVG = `
+            <svg class="silhouette-svg" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        `;
+
+        let currentAdmin = null;
+        let activeGender = 'putra';
+        let membersData = {}, newsData = {}, galleryData = {};
+        let activeAlbumId = null;
+
+        document.getElementById('galleryDate').value = new Date().toISOString().split('T')[0];
+
+        // REALTIME DATA SYNC
+        db.ref('members').on('value', snap => { membersData = snap.val() || {}; renderMembers(); renderHomePreviews(); });
+        db.ref('news').on('value', snap => { newsData = snap.val() || {}; renderNews(); renderHomePreviews(); });
+        db.ref('gallery').on('value', snap => { 
+            galleryData = snap.val() || {}; 
+            renderGallery(); 
+            renderHomePreviews(); 
+            if(activeAlbumId) renderAlbumDetail(activeAlbumId);
+        });
+
+        function createMemberCardHTML(m) {
+            const photoMedia = m.photo 
+                ? `<img src="${m.photo}" class="member-photo-custom">` 
+                : SILHOUETTE_CARD_SVG;
+
+            const delBtn = currentAdmin 
+                ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:10;" onclick="db.ref('members/${m.id}').remove()">Hapus</button>` 
+                : '';
+
+            return `
+                <div class="member-card-box">
+                    ${delBtn}
+                    ${photoMedia}
+                    <div class="member-gradient-overlay"></div>
+                    <div class="member-info-content">
+                        <div class="member-info-name">${m.name}</div>
+                        <div class="member-info-school">${m.school || 'Elopat Divers'}</div>
+                    </div>
+                    <div class="member-bg-number">${m.number || ''}</div>
+                </div>
+            `;
         }
 
-        function filterGender(g) {
-            window.activeGender = g;
-            document.getElementById('btnPutra').classList.toggle('active', g === 'putra');
-            document.getElementById('btnPutri').classList.toggle('active', g === 'putri');
-            renderMembers();
+        function renderHomePreviews() {
+            const homeMembers = document.getElementById('homeMembersGrid');
+            homeMembers.innerHTML = '';
+            const mList = Object.values(membersData).slice(-4);
+            if(!mList.length) homeMembers.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada entri data anggota.</p>';
+            mList.forEach(m => {
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = createMemberCardHTML(m);
+                homeMembers.appendChild(wrapper.firstElementChild);
+            });
+
+            const homeNews = document.getElementById('homeNewsGrid');
+            homeNews.innerHTML = '';
+            const nList = Object.values(newsData).slice(-3).reverse();
+            if(!nList.length) homeNews.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada artikel berita.</p>';
+            nList.forEach(n => {
+                const el = document.createElement('div');
+                el.className = 'news-article';
+                el.innerHTML = `
+                    <img src="${n.image}" class="news-cover">
+                    <div class="news-body">
+                        <div class="news-meta">${n.date}</div>
+                        <h4 class="news-title">${n.title}</h4>
+                    </div>
+                `;
+                homeNews.appendChild(el);
+            });
+
+            const homeGallery = document.getElementById('homeGalleryGrid');
+            homeGallery.innerHTML = '';
+            const gList = Object.values(galleryData).slice(-3).reverse();
+            if(!gList.length) homeGallery.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada album galeri.</p>';
+            gList.forEach(g => {
+                const el = document.createElement('div');
+                el.className = 'album-card';
+                el.onclick = () => openAlbumPage(g.id);
+                el.innerHTML = `
+                    <img src="${g.cover}" class="album-cover-img">
+                    <div class="album-info">
+                        <div class="album-title">${g.title}</div>
+                        <div class="album-date">${g.date}</div>
+                    </div>
+                `;
+                homeGallery.appendChild(el);
+            });
         }
 
         function renderMembers() {
             const grid = document.getElementById('membersGrid');
             grid.innerHTML = '';
-            const list = window.membersData.filter(m => m.gender === window.activeGender);
-
-            if (list.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada data anggota (${window.activeGender.toUpperCase()}).</div>`;
-                return;
-            }
+            const list = Object.values(membersData).filter(m => m.gender === activeGender);
+            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px; text-align:center; grid-column: 1/-1;">Belum ada anggota terdaftar pada kategori ini.</p>';
 
             list.forEach(m => {
-                const img = m.photo || 'https://via.placeholder.com/150?text=No+Photo';
-                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:8px; right:8px; padding:2px 6px; font-size:10px;" onclick="window.deleteData('members', '${m.id}')">❌</button>` : '';
-                
-                grid.innerHTML += `
-                    <div class="member-card">
-                        ${delBtn}
-                        <img src="${img}" class="member-avatar" alt="${m.name}">
-                        <div class="member-name">${m.name}</div>
-                        <div class="member-school">${m.school || '-'}</div>
-                    </div>
-                `;
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = createMemberCardHTML(m);
+                grid.appendChild(wrapper.firstElementChild);
             });
         }
 
         function renderNews() {
             const grid = document.getElementById('newsGrid');
             grid.innerHTML = '';
-            if (window.newsData.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada berita.</div>`;
-                return;
-            }
+            const list = Object.values(newsData).reverse();
+            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada publikasi berita.</p>';
 
-            window.newsData.forEach(n => {
-                const img = n.image || 'https://via.placeholder.com/300?text=No+Image';
-                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:4px 8px; font-size:11px;" onclick="window.deleteData('news', '${n.id}')">❌ Hapus</button>` : '';
-
-                grid.innerHTML += `
-                    <div class="news-card">
-                        ${delBtn}
-                        <img src="${img}" class="news-card-img">
-                        <div class="news-card-overlay"></div>
-                        <div class="news-card-content">
-                            <span class="news-badge">BERITA</span>
-                            <h3>${n.title}</h3>
-                            <small>${n.date || ''}</small>
-                        </div>
+            list.forEach(n => {
+                const el = document.createElement('div');
+                el.className = 'news-article';
+                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:2;" onclick="db.ref('news/${n.id}').remove()">Hapus</button>` : '';
+                el.innerHTML = `
+                    ${del}
+                    <img src="${n.image}" class="news-cover">
+                    <div class="news-body">
+                        <div class="news-meta">${n.date}</div>
+                        <h3 class="news-title">${n.title}</h3>
                     </div>
                 `;
+                grid.appendChild(el);
             });
         }
 
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
-            if (window.galleryData.length === 0) {
-                grid.innerHTML = `<div class="empty-msg">Belum ada foto galeri.</div>`;
-                return;
-            }
+            const list = Object.values(galleryData).reverse();
+            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada album foto.</p>';
 
-            window.galleryData.forEach(g => {
-                const img = g.image || 'https://via.placeholder.com/300?text=No+Image';
-                const delBtn = window.isAdminLoggedIn ? `<button class="btn btn-danger" style="position:absolute; top:10px; right:10px; z-index:5; padding:4px 8px; font-size:11px;" onclick="window.deleteData('gallery', '${g.id}')">❌ Hapus</button>` : '';
-
-                grid.innerHTML += `
-                    <div class="news-card">
-                        ${delBtn}
-                        <img src="${img}" class="news-card-img">
-                        <div class="news-card-overlay"></div>
-                        <div class="news-card-content">
-                            <span class="news-badge">GALERI</span>
-                            <h3>${g.title}</h3>
-                            <small>${g.date || ''}</small>
-                        </div>
+            list.forEach(g => {
+                const el = document.createElement('div');
+                el.className = 'album-card';
+                el.onclick = () => openAlbumPage(g.id);
+                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:2;" onclick="event.stopPropagation(); db.ref('gallery/${g.id}').remove()">Hapus Album</button>` : '';
+                el.innerHTML = `
+                    ${del}
+                    <img src="${g.cover}" class="album-cover-img">
+                    <div class="album-info">
+                        <div class="album-title">${g.title}</div>
+                        <div class="album-date">${g.date}</div>
                     </div>
                 `;
+                grid.appendChild(el);
             });
         }
 
-        function renderHome() {
-            const homeMembers = document.getElementById('homeMembersGrid');
-            homeMembers.innerHTML = '';
-            window.membersData.slice(0, 4).forEach(m => {
-                const img = m.photo || 'https://via.placeholder.com/150?text=No+Photo';
-                homeMembers.innerHTML += `
-                    <div class="member-card">
-                        <img src="${img}" class="member-avatar">
-                        <div class="member-name">${m.name}</div>
-                        <div class="member-school">${m.school || '-'}</div>
-                    </div>
-                `;
-            });
+        function openAlbumPage(id) {
+            activeAlbumId = id;
+            renderAlbumDetail(id);
+            switchPage('galeri-detail', document.getElementById('nav-galeri'));
+        }
 
-            const homeNews = document.getElementById('homeNewsGrid');
-            homeNews.innerHTML = '';
-            window.newsData.slice(0, 3).forEach(n => {
-                const img = n.image || 'https://via.placeholder.com/300?text=No+Image';
-                homeNews.innerHTML += `
-                    <div class="news-card">
-                        <img src="${img}" class="news-card-img">
-                        <div class="news-card-overlay"></div>
-                        <div class="news-card-content">
-                            <span class="news-badge">BERITA</span>
-                            <h3>${n.title}</h3>
-                        </div>
-                    </div>
-                `;
+        function renderAlbumDetail(id) {
+            const album = galleryData[id];
+            if(!album) return;
+            document.getElementById('albumDetailTitle').innerText = album.title;
+            document.getElementById('albumDetailSub').innerText = "Dipublikasikan: " + album.date;
+
+            const grid = document.getElementById('albumPhotosGrid');
+            grid.innerHTML = '';
+            const photos = album.photos ? Object.values(album.photos) : [];
+
+            if(!photos.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada foto dalam album ini.</p>';
+            photos.forEach(p => {
+                const el = document.createElement('div');
+                el.className = 'photo-item';
+                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px;" onclick="db.ref('gallery/${id}/photos/${p.id}').remove()">Hapus</button>` : '';
+                el.innerHTML = `${del}<img src="${p.url}">`;
+                grid.appendChild(el);
             });
         }
 
-        // CONTROL AUTH ADMIN
-        const loginModal = document.getElementById('loginModal');
-        document.getElementById('adminLoginBtn').addEventListener('click', () => loginModal.style.display = 'flex');
-        document.getElementById('closeLoginModal').addEventListener('click', () => loginModal.style.display = 'none');
+        // AKSI CRUD DATA
+        document.getElementById('saveMemberBtn').onclick = () => {
+            const name = document.getElementById('memberName').value.trim();
+            const school = document.getElementById('memberSchool').value.trim() || 'Elopat Divers';
+            const gender = document.getElementById('memberGender').value;
+            const number = document.getElementById('memberNumber').value;
+            const photoInput = document.getElementById('memberPhotoInput');
 
-        document.getElementById('submitPinBtn').addEventListener('click', () => {
-            if (document.getElementById('adminPin').value === '1234') {
-                window.isAdminLoggedIn = true;
-                loginModal.style.display = 'none';
-                document.getElementById('adminPin').value = '';
-                toggleAdminUI();
+            if(!name) return alert("Masukkan nama anggota.");
+
+            const pushData = (url) => {
+                const ref = db.ref('members').push();
+                ref.set({ id: ref.key, name, school, gender, number, photo: url });
+                document.getElementById('memberName').value = '';
+                document.getElementById('memberNumber').value = '';
+                photoInput.value = '';
+            };
+
+            if(photoInput.files[0]) {
+                const r = new FileReader();
+                r.onload = e => pushData(e.target.result);
+                r.readAsDataURL(photoInput.files[0]);
+            } else { pushData(''); }
+        };
+
+        document.getElementById('saveNewsBtn').onclick = () => {
+            const title = document.getElementById('newsTitle').value.trim();
+            const date = document.getElementById('newsDate').value;
+            const input = document.getElementById('newsImageInput');
+
+            if(!title || !input.files[0]) return alert("Lengkapi judul dan gambar artikel.");
+
+            const r = new FileReader();
+            r.onload = e => {
+                const ref = db.ref('news').push();
+                ref.set({ id: ref.key, title, date, image: e.target.result });
+                document.getElementById('newsTitle').value = '';
+                input.value = '';
+            };
+            r.readAsDataURL(input.files[0]);
+        };
+
+        document.getElementById('saveGalleryBtn').onclick = () => {
+            const title = document.getElementById('galleryTitle').value.trim();
+            const date = document.getElementById('galleryDate').value;
+            const input = document.getElementById('galleryCoverInput');
+
+            if(!title || !input.files[0]) return alert("Lengkapi nama album dan cover.");
+
+            const r = new FileReader();
+            r.onload = e => {
+                const ref = db.ref('gallery').push();
+                ref.set({ id: ref.key, title, date, cover: e.target.result, photos: {} });
+                document.getElementById('galleryTitle').value = '';
+                input.value = '';
+            };
+            r.readAsDataURL(input.files[0]);
+        };
+
+        document.getElementById('savePhotoToAlbumBtn').onclick = () => {
+            if(!activeAlbumId) return;
+            const files = document.getElementById('albumPhotoInput').files;
+            if(!files.length) return alert("Pilih foto terlebih dahulu.");
+
+            Array.from(files).forEach(file => {
+                const r = new FileReader();
+                r.onload = e => {
+                    const ref = db.ref(`gallery/${activeAlbumId}/photos`).push();
+                    ref.set({ id: ref.key, url: e.target.result });
+                };
+                r.readAsDataURL(file);
+            });
+            document.getElementById('albumPhotoInput').value = '';
+        };
+
+        // KONTROL ADMIN & ROUTING
+        document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
+        document.getElementById('closeLoginModal').onclick = () => document.getElementById('loginModal').style.display = 'none';
+
+        document.getElementById('submitLoginBtn').onclick = () => {
+            const user = document.getElementById('adminUsername').value.trim();
+            const pass = document.getElementById('adminPassword').value.trim();
+
+            if(ADMIN_ACCOUNTS[user] && ADMIN_ACCOUNTS[user].pass === pass) {
+                currentAdmin = ADMIN_ACCOUNTS[user].name;
+                document.getElementById('activeAdminName').innerText = currentAdmin;
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('adminUsername').value = '';
+                document.getElementById('adminPassword').value = '';
+                updateAdminUI();
             } else {
-                alert("PIN Salah!");
+                alert("Identifikasi gagal: Username atau Password tidak valid.");
             }
-        });
+        };
 
-        document.getElementById('adminLogoutBtn').addEventListener('click', () => {
-            window.isAdminLoggedIn = false;
-            toggleAdminUI();
-        });
+        document.getElementById('adminLogoutBtn').onclick = () => {
+            currentAdmin = null;
+            updateAdminUI();
+        };
 
-        function toggleAdminUI() {
-            document.getElementById('adminStatusBar').classList.toggle('active', window.isAdminLoggedIn);
-            document.getElementById('addNewsBox').classList.toggle('active', window.isAdminLoggedIn);
-            document.getElementById('addMemberBox').classList.toggle('active', window.isAdminLoggedIn);
-            document.getElementById('addGalleryBox').classList.toggle('active', window.isAdminLoggedIn);
+        function updateAdminUI() {
+            const isLogged = !!currentAdmin;
+            document.getElementById('adminStatusBar').classList.toggle('active', isLogged);
+            document.getElementById('addNewsBox').classList.toggle('active', isLogged);
+            document.getElementById('addMemberBox').classList.toggle('active', isLogged);
+            document.getElementById('addGalleryBox').classList.toggle('active', isLogged);
+            document.getElementById('addPhotoToAlbumBox').classList.toggle('active', isLogged);
+            document.getElementById('adminLoginBtn').style.display = isLogged ? 'none' : 'flex';
+            document.getElementById('adminLogoutBtn').style.display = isLogged ? 'flex' : 'none';
+            renderMembers(); renderNews(); renderGallery();
+            if(activeAlbumId) renderAlbumDetail(activeAlbumId);
+        }
 
-            document.getElementById('adminLoginBtn').style.display = window.isAdminLoggedIn ? 'none' : 'inline-flex';
-            document.getElementById('adminLogoutBtn').style.display = window.isAdminLoggedIn ? 'inline-flex' : 'none';
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            const target = document.getElementById('page-' + pageId);
+            if(target) target.classList.add('active');
+            if(element) element.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
+        function filterGender(g) {
+            activeGender = g;
+            document.getElementById('btnPutra').classList.toggle('active', g === 'putra');
+            document.getElementById('btnPutri').classList.toggle('active', g === 'putri');
             renderMembers();
-            renderNews();
-            renderGallery();
         }
     </script>
 </body>
