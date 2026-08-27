@@ -334,28 +334,54 @@
             user-select: none;
         }
 
-        /* NEWS DISPLAY */
+        /* NEWS DISPLAY - DISESUAIKAN MENJADI TRANSPARAN SAMA DENGAN DOKUMENTASI GALERI */
         .news-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 24px; 
         }
         .news-article {
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
             position: relative;
+            background: var(--navy-accent);
+            height: 280px;
+            border-radius: 8px;
+            overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .news-article:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
         }
-        .news-cover { width: 100%; height: 190px; object-fit: cover; }
-        .news-body { padding: 20px; }
-        .news-meta { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-        .news-title { font-size: 17px; font-weight: 700; color: var(--navy-accent); line-height: 1.35; }
+        .news-cover { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0.85;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .news-article:hover .news-cover { 
+            transform: scale(1.05); 
+            opacity: 0.7; 
+        }
+        .news-body { 
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(15,23,42,0.9));
+            color: #fff;
+        }
+        .news-title { 
+            font-size: 17px; 
+            font-weight: 700; 
+            color: #ffffff; 
+            line-height: 1.35; 
+        }
+        .news-meta { 
+            font-size: 11px; 
+            color: #94a3b8; 
+            margin-top: 4px; 
+            font-weight: 500;
+        }
 
         /* GALLERY DISPLAY */
         .gallery-grid { 
@@ -606,14 +632,14 @@
         <div class="container">
             <!-- POSISI TEKS DIBUAT KETENGAH (CENTER) DESKTOP & MOBILE -->
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Resmi Elopat Divers</h1>
-                <p style="color: var(--text-muted); text-align: center;">Dokumentasi anggota, warta kegiatan, dan galeri resmi.</p>
+                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">PORTAL ELOPAT DIVERS</h1>
+                <p style="color: var(--text-muted); text-align: center;">Jelajahi kenangan dan momen menyenangkan bersama Elopat.</p>
             </div>
 
             <!-- PREVIEW ANGGOTA -->
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="font-size: 20px; font-weight: 800;">Anggota Terbaru</h3>
+                    <h3 style="font-size: 20px; font-weight: 800;">Anggota</h3>
                     <a onclick="switchPage('anggota', document.getElementById('nav-anggota'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
@@ -760,7 +786,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Elopat Divers. Hak Cipta Dilindungi.</p>
+            <p>Elopat Divers. Always Together, Never Apart. 2026&copy;  .</p>
         </div>
     </footer>
 
@@ -783,8 +809,8 @@
 
         // 2 AKUN ADMIN
         const ADMIN_ACCOUNTS = {
-            "admin1": { pass: "admin123", name: "Admin Utama" },
-            "admin2": { pass: "divers2026", name: "Admin Pengelola" }
+            "admin1": { pass: "ElopatXIID", name: "Admin Utama" },
+            "admin2": { pass: "Alwaysdivers", name: "Admin Pengelola" }
         };
 
         const SILHOUETTE_CARD_SVG = `
@@ -854,8 +880,8 @@
                 el.innerHTML = `
                     <img src="${n.image}" class="news-cover">
                     <div class="news-body">
+                        <div class="news-title">${n.title}</div>
                         <div class="news-meta">${n.date}</div>
-                        <h4 class="news-title">${n.title}</h4>
                     </div>
                 `;
                 homeNews.appendChild(el);
@@ -907,8 +933,8 @@
                     ${del}
                     <img src="${n.image}" class="news-cover">
                     <div class="news-body">
+                        <div class="news-title">${n.title}</div>
                         <div class="news-meta">${n.date}</div>
-                        <h3 class="news-title">${n.title}</h3>
                     </div>
                 `;
                 grid.appendChild(el);
