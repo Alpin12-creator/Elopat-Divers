@@ -334,7 +334,7 @@
             user-select: none;
         }
 
-        /* NEWS DISPLAY - DISESUAIKAN MENJADI TRANSPARAN SAMA DENGAN DOKUMENTASI GALERI */
+        /* NEWS DISPLAY */
         .news-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
@@ -420,12 +420,69 @@
         .album-title { font-size: 17px; font-weight: 700; }
         .album-date { font-size: 11px; color: #94a3b8; margin-top: 4px; }
 
-        /* ALBUM DETAIL PAGE */
+        /* ALBUM DETAIL PAGE WITH COVER BANNER */
         .album-header-banner {
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            min-height: 240px;
+            border-radius: 12px;
+            overflow: hidden;
             margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px 32px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--navy-accent);
+            border: 1px solid var(--border-color);
         }
+
+        .album-header-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .album-header-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+        }
+
+        .album-back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 16px;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            width: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.2s ease;
+        }
+        .album-back-link:hover {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .album-header-content .section-title {
+            color: #ffffff;
+            text-align: left;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .album-header-content p {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
         .photos-masonry {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -507,7 +564,6 @@
 
             .page-section { padding: 24px 0 48px 0; }
 
-            /* PENYESUAIAN KHUSUS LAYAR HANDPHONE (TETAP KETENGAH) */
             #page-beranda .section-header {
                 text-align: center !important;
                 margin-bottom: 24px !important;
@@ -526,6 +582,9 @@
                 text-align: center !important;
                 line-height: 1.4 !important;
             }
+
+            .album-header-banner { padding: 16px; min-height: 180px; }
+            .album-header-content .section-title { font-size: 22px; }
 
             .members-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .member-card-box { height: 230px; }
@@ -630,16 +689,15 @@
     <!-- 1. BERANDA -->
     <section id="page-beranda" class="page-section active">
         <div class="container">
-            <!-- POSISI TEKS DIBUAT KETENGAH (CENTER) DESKTOP & MOBILE -->
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">PORTAL ELOPAT DIVERS</h1>
+                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Elopat Divers</h1>
                 <p style="color: var(--text-muted); text-align: center;">Jelajahi kenangan dan momen menyenangkan bersama Elopat.</p>
             </div>
 
             <!-- PREVIEW ANGGOTA -->
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="font-size: 20px; font-weight: 800;">Anggota</h3>
+                    <h3 style="font-size: 20px; font-weight: 800;">Anggota Elopat</h3>
                     <a onclick="switchPage('anggota', document.getElementById('nav-anggota'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
@@ -669,7 +727,7 @@
     <section id="page-anggota" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Anggota</h1>
+                <h1 class="section-title">Anggota Elopat</h1>
             </div>
 
             <div class="pill-filter-container">
@@ -704,7 +762,7 @@
     <section id="page-berita" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Berita</h1>
+                <h1 class="section-title">Berita Terkini</h1>
             </div>
 
             <div class="panel-box" id="addNewsBox">
@@ -727,7 +785,7 @@
     <section id="page-galeri" class="page-section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title">Galeri</h1>
+                <h1 class="section-title">Galeri Kenangan</h1>
             </div>
 
             <div class="panel-box" id="addGalleryBox">
@@ -746,13 +804,17 @@
         </div>
     </section>
 
-    <!-- 5. GALERI DETAIL -->
+    <!-- 5. GALERI DETAIL WITH COVER BANNER -->
     <section id="page-galeri-detail" class="page-section">
         <div class="container">
-            <div class="album-header-banner">
-                <a onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; display: inline-block; margin-bottom: 12px;">← Kembali ke Galeri</a>
-                <h1 class="section-title" id="albumDetailTitle" style="text-align: left;">Nama Album</h1>
-                <p style="color: var(--text-muted); font-size: 13px;" id="albumDetailSub">Dokumentasi Foto</p>
+            <!-- HERO BANNER UNTUK HEADER ALBUM DENGAN GAMBAR COVER -->
+            <div class="album-header-banner" id="albumHeaderBanner">
+                <div class="album-header-overlay"></div>
+                <div class="album-header-content">
+                    <a class="album-back-link" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">← Kembali ke Galeri</a>
+                    <h1 class="section-title" id="albumDetailTitle">Nama Album</h1>
+                    <p id="albumDetailSub">Dipublikasikan: -</p>
+                </div>
             </div>
 
             <div class="panel-box" id="addPhotoToAlbumBox">
@@ -786,7 +848,7 @@
 
     <footer>
         <div class="container">
-            <p>Elopat Divers. Always Together, Never Apart. 2026&copy;  .</p>
+            <p>Elopat Divers. Always Together, Never Apart. 2026&copy; .</p>
         </div>
     </footer>
 
@@ -809,8 +871,8 @@
 
         // 2 AKUN ADMIN
         const ADMIN_ACCOUNTS = {
-            "admin1": { pass: "ElopatXIID", name: "Admin Utama" },
-            "admin2": { pass: "Alwaysdivers", name: "Admin Pengelola" }
+            "admin1": { pass: "admin123", name: "Admin Utama" },
+            "admin2": { pass: "divers2026", name: "Admin Pengelola" }
         };
 
         const SILHOUETTE_CARD_SVG = `
@@ -973,8 +1035,17 @@
         function renderAlbumDetail(id) {
             const album = galleryData[id];
             if(!album) return;
+
+            // DISPLAY FOTO COVER DI HERO BANNER DENGAN BACKGROUND-IMAGE
+            const banner = document.getElementById('albumHeaderBanner');
+            if (album.cover) {
+                banner.style.backgroundImage = `url('${album.cover}')`;
+            } else {
+                banner.style.backgroundImage = 'none';
+            }
+
             document.getElementById('albumDetailTitle').innerText = album.title;
-            document.getElementById('albumDetailSub').innerText = "Dipublikasikan: " + album.date;
+            document.getElementById('albumDetailSub').innerText = "Dipublikasikan: " + (album.date || '-');
 
             const grid = document.getElementById('albumPhotosGrid');
             grid.innerHTML = '';
