@@ -11,13 +11,12 @@
     
     <style>
         :root {
-            /* PALET WARNA REALISTIS & ELEGAN */
             --navy-dark: #1e293b;
             --navy-accent: #0f172a;
-            --header-bg: #bae6fd; /* BIRU MUDA SEGAR */
-            --body-bg: #e0f2fe; /* BACKGROUND UTAMA WEB BIRU MUDA */
+            --header-bg: #bae6fd;
+            --body-bg: #e0f2fe;
             --homepage-bg: #e0f2fe; 
-            --border-color: #93c5fd; /* PENYESUAIAN BORDER BIRU MUDA */
+            --border-color: #93c5fd;
             --text-dark: #0f172a;
             --text-muted: #334155;
             --gold-accent: #c5a059;
@@ -32,17 +31,33 @@
             background-color: var(--body-bg); 
             font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
-            animation: pageFadeIn 0.8s ease-out forwards;
+            animation: initialPageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes pageFadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes initialPageFadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(16px);
+                filter: blur(4px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .page-fade-out {
+            animation: pageFadeOut 0.25s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+        }
+
+        @keyframes pageFadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.98); }
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* ADMIN STATUS BAR */
         .admin-status-bar { 
             display: none; 
             background: var(--navy-accent); 
@@ -51,60 +66,78 @@
             font-size: 11px; 
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            position: relative;
+            z-index: 1000;
         }
         .admin-status-bar.active { display: block; }
         .admin-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        /* HEADER CLEAN MODERN */
-        header { 
-            background: var(--header-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
+        .hero-banner-wrapper {
             position: relative;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        }
-        
-        .header-top {
+            width: 100%;
+            min-height: 440px;
+            overflow: hidden;
+            background-color: var(--navy-accent);
+            color: #ffffff;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
         }
 
-        /* BRANDING LOGO */
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .main-header {
+            position: relative;
+            z-index: 10;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding-right: 60px;
+        }
+
         .brand-logo-container { 
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             text-decoration: none; 
-            color: var(--text-dark); 
+            color: #ffffff; 
         }
 
-        .brand-logo-svg {
-            width: 58px;
-            height: 58px;
-            flex-shrink: 0;
-        }
+        .brand-logo-svg { width: 44px; height: 44px; flex-shrink: 0; }
 
         .brand-logo-text {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
-            letter-spacing: 0.02em;
-            color: var(--navy-accent);
+            letter-spacing: 0.03em;
+            color: #ffffff;
             text-transform: uppercase;
-            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
-        /* NAVIGATION BAR */
-        .nav-container {
-            margin-top: 16px;
-            border-top: 1px solid rgba(15, 23, 42, 0.15);
-            padding-top: 12px;
-        }
-
-        .nav-links { display: flex; list-style: none; gap: 32px; }
+        .nav-links { display: flex; list-style: none; gap: 28px; }
         .nav-links a { 
             text-decoration: none; 
-            color: var(--text-muted); 
+            color: rgba(255, 255, 255, 0.85); 
             font-size: 13px; 
             font-weight: 700;
             letter-spacing: 0.05em; 
@@ -112,41 +145,96 @@
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
-            padding-bottom: 6px;
+            padding-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--navy-accent); }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; }
         .nav-links a.active::after {
             content: '';
             position: absolute;
-            bottom: -1px;
+            bottom: -2px;
             left: 0; right: 0;
             height: 2px;
-            background: var(--navy-accent);
+            background: #ffffff;
         }
 
-        /* TOMBOL FLOATING ADMIN */
+        .hero-content-area {
+            position: relative;
+            z-index: 10;
+            padding: 40px 0 60px 0;
+            max-width: 680px;
+            margin-left: 0;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: #ffffff;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+            font-weight: 500;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            line-height: 1.6;
+        }
+
+        .hero-controls {
+            position: absolute;
+            right: 32px;
+            bottom: 40px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-nav-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--navy-accent);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .hero-nav-btn:hover { transform: scale(1.1); background: #ffffff; }
+
         .admin-circle-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 46px;
-            height: 46px;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--navy-accent);
             color: #ffffff;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 999;
+            z-index: 1001;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
-        .admin-circle-btn:hover { transform: scale(1.05); background: var(--navy-dark); }
-        .admin-circle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .admin-circle-btn:hover { transform: scale(1.08); background: var(--navy-dark); }
+        .admin-circle-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* BUTTON SYSTEM REGULER */
         .btn-minimal { 
             background: #ffffff;
             color: var(--navy-accent);
@@ -175,27 +263,20 @@
         }
         .btn-danger-minimal:hover { background: #b91c1c; }
 
-        /* SECTIONS & PAGES */
-        .page-section { display: none; padding: 48px 0 96px 0; }
+        .page-section { display: none; padding-bottom: 96px; }
         .page-section.active { 
             display: block; 
-            animation: sectionSlide 0.4s ease-out forwards;
+            animation: sectionFadeIn 0.4s ease-out forwards;
         }
 
-        @keyframes sectionSlide {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes sectionFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        #page-beranda {
-            background-color: var(--homepage-bg);
-            border-bottom: 1px solid var(--border-color);
         }
 
         .section-header { text-align: center; margin-bottom: 32px; }
         .section-title { font-size: 32px; font-weight: 800; color: var(--text-dark); }
 
-        /* TAB KELOMPOK PUTRA / PUTRI */
         .pill-filter-container { display: flex; justify-content: center; margin-bottom: 40px; }
         .pill-filter {
             background: #ffffff;
@@ -221,7 +302,6 @@
         }
         .pill-btn.active { background: var(--navy-accent); color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-        /* KARTU ANGGOTA */
         .members-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
@@ -293,7 +373,6 @@
             user-select: none;
         }
 
-        /* HALAMAN DETAIL ANGGOTA */
         .member-detail-container {
             background: #ffffff;
             border: 1px solid var(--border-color);
@@ -346,7 +425,6 @@
         .dream-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy-accent); margin-bottom: 6px; }
         .dream-text { font-size: 15px; font-weight: 600; color: var(--text-dark); line-height: 1.5; }
 
-        /* NEWS DISPLAY */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
         .news-article {
             position: relative;
@@ -366,7 +444,6 @@
         .news-title { font-size: 17px; font-weight: 700; color: #ffffff; line-height: 1.35; }
         .news-meta { font-size: 11px; color: #94a3b8; margin-top: 4px; font-weight: 500; }
 
-        /* GALLERY DISPLAY */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
         .album-card {
             position: relative;
@@ -387,7 +464,6 @@
         .album-title { font-size: 17px; font-weight: 700; }
         .album-date { font-size: 11px; color: #94a3b8; margin-top: 4px; }
 
-        /* ALBUM DETAIL PAGE */
         .album-header-banner {
             position: relative;
             min-height: 240px;
@@ -421,14 +497,8 @@
             padding: 0 24px 24px 24px;
         }
 
-        /* UBAH JUDUL BANNER GALERI MENJADI WARNA PUTIH */
-        #albumDetailTitle {
-            color: #ffffff !important;
-        }
-        
-        #albumDetailSub {
-            color: #f1f5f9 !important;
-        }
+        #albumDetailTitle { color: #ffffff !important; }
+        #albumDetailSub { color: #f1f5f9 !important; }
 
         .album-back-link {
             position: relative;
@@ -478,7 +548,6 @@
         .photo-item:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1); }
         .photo-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
 
-        /* MODAL ZOOM FOTO */
         .photo-zoom-modal {
             display: none;
             position: fixed;
@@ -554,7 +623,6 @@
         }
         .zoom-close-btn:hover { transform: scale(1.1); background: #f1f5f9; }
 
-        /* FORMS & PANELS FOR ADMIN */
         .panel-box {
             background: #ffffff;
             border: 1px solid var(--border-color);
@@ -581,14 +649,13 @@
         }
         .custom-input:focus { border-color: var(--navy-accent); }
 
-        /* MODAL LOGIN */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(4px);
-            z-index: 1000;
+            z-index: 2000;
             justify-content: center;
             align-items: center;
         }
@@ -599,7 +666,12 @@
             max-width: 380px;
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            animation: sectionSlide 0.3s ease-out;
+            animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         footer {
@@ -611,13 +683,17 @@
             background: #ffffff;
         }
 
-        /* RESPONSIVE DESIGN */
         @media (max-width: 1024px) {
             .photos-masonry { grid-template-columns: repeat(3, 1fr); gap: 16px; }
             .photo-item { height: 220px; }
         }
 
         @media (max-width: 768px) {
+            .header-flex { flex-direction: column; align-items: flex-start; gap: 12px; padding-right: 50px; }
+            .nav-links { width: 100%; overflow-x: auto; padding-bottom: 4px; gap: 20px; }
+            .hero-banner-wrapper { min-height: 380px; }
+            .hero-title { font-size: 28px; }
+            .brand-logo-text { font-size: 18px; }
             .member-detail-layout { grid-template-columns: 1fr; }
             .member-detail-photo-box { height: 300px; }
             .member-detail-info { padding: 24px; }
@@ -625,15 +701,15 @@
 
         @media (max-width: 640px) {
             .container { padding: 0 16px; }
-            .admin-circle-btn { top: 14px; right: 14px; width: 40px; height: 40px; }
-            .brand-logo-svg { width: 44px; height: 44px; }
-            .brand-logo-text { font-size: 18px; }
+            .admin-circle-btn { top: 16px; right: 16px; width: 40px; height: 40px; }
+            .brand-logo-svg { width: 36px; height: 36px; }
+            .brand-logo-text { font-size: 15px; }
 
-            .nav-container { margin-top: 12px; padding-top: 8px; }
-            .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
-            .nav-links a { font-size: 12px; }
-
-            .page-section { padding: 24px 0 48px 0; }
+            .hero-banner-wrapper { min-height: 340px; }
+            .hero-title { font-size: 22px; margin-bottom: 8px; }
+            .hero-subtitle { font-size: 13px; margin-bottom: 0; }
+            .hero-controls { right: 12px; bottom: 20px; gap: 8px; }
+            .hero-nav-btn { width: 32px; height: 32px; font-size: 12px; }
 
             .photos-masonry { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .photo-item { height: 160px; padding: 4px; border-radius: 8px; }
@@ -660,6 +736,57 @@
         </div>
     </div>
 
+    <template id="header-template">
+        <header class="main-header">
+            <div class="container">
+                <div class="header-flex">
+                    <a href="#" class="brand-logo-container" onclick="switchPage('beranda')">
+                        <svg class="brand-logo-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="46" fill="#f8fafc" stroke="#1e293b" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="41" fill="none" stroke="#c5a059" stroke-width="2"/>
+                            <g fill="#c5a059">
+                                <path d="M22 48 c-1-4 1-8 4-10 c2 4 1 8-4 10 z" />
+                                <path d="M20 40 c-2-4 0-8 3-10 c2 4 2 8-3 10 z" />
+                                <path d="M22 32 c-3-4 -1-8 2-10 c3 4 2 8-2 10 z" />
+                                <path d="M26 24 c-3-3 -1-7 2-9 c2 4 2 7-2 9 z" />
+                                <path d="M78 48 c1-4 -1-8 -4-10 c-2 4 -1 8 4 10 z" />
+                                <path d="M80 40 c2-4 0-8 -3-10 c-2 4 -2 8 3 10 z" />
+                                <path d="M78 32 c3-4 1-8 -2-10 c-3 4 -2 8 2 10 z" />
+                                <path d="M74 24 c3-3 1-7 -2-9 c-2 4 -2 7 2 9 z" />
+                            </g>
+                            <g>
+                                <path d="M 33 40 Q 38 30 43 37 Q 43 45 33 40 Z" fill="#1e293b" />
+                                <circle cx="38" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+                                <path d="M 28 68 L 48 68 L 46 53 L 30 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                                <polygon points="37,53 39,53 40,63 38,65 36,63" fill="#1e293b"/>
+                            </g>
+                            <g>
+                                <path d="M 55 36 Q 63 30 70 38 Q 68 47 55 36 Z" fill="#1e293b" />
+                                <circle cx="62" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+                                <path d="M 52 68 L 72 68 L 70 53 L 54 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                                <polygon points="61,53 63,53 64,63 62,65 60,63" fill="#1e293b"/>
+                            </g>
+                            <g transform="translate(41, 71)">
+                                <path d="M 0 6 Q 9 0 18 6 L 18 14 Q 9 8 0 14 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+                                <line x1="9" y1="3" x2="9" y2="11" stroke="#1e293b" stroke-width="1.5"/>
+                            </g>
+                        </svg>
+                        <div class="brand-logo-text">Elopat Divers - Official Portal</div>
+                    </a>
+
+                    <nav>
+                        <ul class="nav-links">
+                            <li><a data-page="beranda" onclick="switchPage('beranda')">BERANDA</a></li>
+                            <li><a data-page="berita" onclick="switchPage('berita')">BERITA</a></li>
+                            <li><a data-page="anggota" onclick="switchPage('anggota')">ANGGOTA</a></li>
+                            <li><a data-page="galeri" onclick="switchPage('galeri')">GALERI</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </template>
+
     <button id="adminLoginBtn" class="admin-circle-btn" title="Portal Admin">
         <svg viewBox="0 0 24 24">
             <path d="M12 2C9.24 2 7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v3H9V7c0-1.66 1.34-3 3-3zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
@@ -672,68 +799,43 @@
         </svg>
     </button>
 
-    <header>
-        <div class="container">
-            <div class="header-top">
-                <a href="#" class="brand-logo-container" onclick="switchPage('beranda', document.getElementById('nav-beranda'))">
-                    <svg class="brand-logo-svg" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="46" fill="#f8fafc" stroke="#1e293b" stroke-width="4"/>
-                        <circle cx="50" cy="50" r="41" fill="none" stroke="#c5a059" stroke-width="2"/>
-                        <g fill="#c5a059">
-                            <path d="M22 48 c-1-4 1-8 4-10 c2 4 1 8-4 10 z" />
-                            <path d="M20 40 c-2-4 0-8 3-10 c2 4 2 8-3 10 z" />
-                            <path d="M22 32 c-3-4 -1-8 2-10 c3 4 2 8-2 10 z" />
-                            <path d="M26 24 c-3-3 -1-7 2-9 c2 4 2 7-2 9 z" />
-                            <path d="M78 48 c1-4 -1-8 -4-10 c-2 4 -1 8 4 10 z" />
-                            <path d="M80 40 c2-4 0-8 -3-10 c-2 4 -2 8 3 10 z" />
-                            <path d="M78 32 c3-4 1-8 -2-10 c-3 4 -2 8 2 10 z" />
-                            <path d="M74 24 c3-3 1-7 -2-9 c-2 4 -2 7 2 9 z" />
-                        </g>
-                        <g>
-                            <path d="M 33 40 Q 38 30 43 37 Q 43 45 33 40 Z" fill="#1e293b" />
-                            <circle cx="38" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
-                            <path d="M 28 68 L 48 68 L 46 53 L 30 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
-                            <polygon points="37,53 39,53 40,63 38,65 36,63" fill="#1e293b"/>
-                        </g>
-                        <g>
-                            <path d="M 55 36 Q 63 30 70 38 Q 68 47 55 36 Z" fill="#1e293b" />
-                            <circle cx="62" cy="43" r="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
-                            <path d="M 52 68 L 72 68 L 70 53 L 54 53 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
-                            <polygon points="61,53 63,53 64,63 62,65 60,63" fill="#1e293b"/>
-                        </g>
-                        <g transform="translate(41, 71)">
-                            <path d="M 0 6 Q 9 0 18 6 L 18 14 Q 9 8 0 14 Z" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
-                            <line x1="9" y1="3" x2="9" y2="11" stroke="#1e293b" stroke-width="1.5"/>
-                        </g>
-                    </svg>
-                    <div class="brand-logo-text">ELOPAT DIVERS</div>
-                </a>
-            </div>
+    <section id="page-beranda" class="page-section active">
+        <div class="hero-banner-wrapper">
+            <div class="hero-bg-image" id="heroBgSlider"></div>
+            <div class="hero-overlay"></div>
+            <div class="header-mount" data-active="beranda"></div>
             
-            <div class="nav-container">
-                <nav>
-                    <ul class="nav-links">
-                        <li><a id="nav-beranda" class="active" onclick="switchPage('beranda', this)">BERANDA</a></li>
-                        <li><a id="nav-berita" onclick="switchPage('berita', this)">BERITA</a></li>
-                        <li><a id="nav-anggota" onclick="switchPage('anggota', this)">ANGGOTA</a></li>
-                        <li><a id="nav-galeri" onclick="switchPage('galeri', this)">GALERI</a></li>
-                    </ul>
-                </nav>
+            <div class="container">
+                <div class="hero-content-area">
+                    <h1 class="hero-title" id="heroDisplayTitle">Empowering Your Digital Journey With Innovation</h1>
+                    <p class="hero-subtitle" id="heroDisplaySubtitle">Selamat datang di Portal Resmi Elopat Divers. Pusat informasi, keanggotaan, dan dokumentasi kegiatan.</p>
+                </div>
+            </div>
+
+            <div class="hero-controls">
+                <button class="hero-nav-btn" onclick="prevHeroSlide()">←</button>
+                <button class="hero-nav-btn" onclick="nextHeroSlide()">→</button>
             </div>
         </div>
-    </header>
 
-    <section id="page-beranda" class="page-section active">
-        <div class="container">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; font-weight: 800; color: #000000; text-align: center;">Portal Resmi Elopat Divers</h1>
-                <p style="color: var(--text-muted); text-align: center;">Dokumentasi anggota, warta kegiatan, dan galeri resmi.</p>
+        <div class="container" style="padding-top: 40px;">
+            <div class="panel-box" id="addHeroSlideBox">
+                <div class="panel-title">Kelola Background & Teks Hero Banner Beranda (Akses Admin)</div>
+                <div class="form-grid">
+                    <input type="text" id="heroTitleInput" class="custom-input form-full" placeholder="Judul Teks Banner">
+                    <textarea id="heroSubtitleInput" class="custom-input form-full" rows="3" placeholder="Deskripsi / Subtitle Teks Banner"></textarea>
+                    <input type="file" id="heroImageInput" class="custom-input form-full" accept="image/*">
+                    <div class="form-full" style="display:flex; gap:10px;">
+                        <button id="saveHeroBtn" class="btn-minimal">Tambah Background Slide</button>
+                    </div>
+                </div>
+                <div id="heroSlideList" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;"></div>
             </div>
 
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 20px; font-weight: 800;">Anggota Terbaru</h3>
-                    <a onclick="switchPage('anggota', document.getElementById('nav-anggota'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
+                    <a onclick="switchPage('anggota')" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="members-grid" id="homeMembersGrid"></div>
             </div>
@@ -741,7 +843,7 @@
             <div style="margin-bottom: 56px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 20px; font-weight: 800;">Berita Terbaru</h3>
-                    <a onclick="switchPage('berita', document.getElementById('nav-berita'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
+                    <a onclick="switchPage('berita')" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="news-grid" id="homeNewsGrid"></div>
             </div>
@@ -749,17 +851,81 @@
             <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="font-size: 20px; font-weight: 800;">Dokumentasi Galeri</h3>
-                    <a onclick="switchPage('galeri', document.getElementById('nav-galeri'))" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
+                    <a onclick="switchPage('galeri')" style="color: var(--navy-accent); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 13px;">Lihat Semua →</a>
                 </div>
                 <div class="gallery-grid" id="homeGalleryGrid"></div>
             </div>
         </div>
     </section>
 
+    <section id="page-berita" class="page-section">
+        <div class="hero-banner-wrapper">
+            <div class="hero-bg-image" id="beritaHeroBg"></div>
+            <div class="hero-overlay"></div>
+            <div class="header-mount" data-active="berita"></div>
+            
+            <div class="container">
+                <div class="hero-content-area">
+                    <h1 class="hero-title" id="beritaHeroTitle">Kabar & Berita Terkini</h1>
+                    <p class="hero-subtitle" id="beritaHeroSubtitle">Ikuti perkembangan, pengumuman resmi, dan liputan kegiatan Elopat Divers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="padding-top: 40px;">
+            <div class="panel-box admin-hero-edit-box">
+                <div class="panel-title">Edit Banner Menu BERITA (Akses Admin)</div>
+                <div class="form-grid">
+                    <input type="text" id="beritaHeroTitleInput" class="custom-input form-full" placeholder="Judul Banner Berita">
+                    <textarea id="beritaHeroSubtitleInput" class="custom-input form-full" rows="2" placeholder="Subtitle Banner Berita"></textarea>
+                    <input type="file" id="beritaHeroImgInput" class="custom-input form-full" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveBeritaHeroBtn" class="btn-minimal">Perbarui Banner Berita</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-box" id="addNewsBox">
+                <div class="panel-title">Publikasi Artikel Berita Baru</div>
+                <div class="form-grid">
+                    <input type="text" id="newsTitle" class="custom-input form-full" placeholder="Judul Artikel">
+                    <input type="date" id="newsDate" class="custom-input">
+                    <input type="file" id="newsImageInput" class="custom-input" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveNewsBtn" class="btn-minimal">Terbitkan Artikel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-grid" id="newsGrid"></div>
+        </div>
+    </section>
+
     <section id="page-anggota" class="page-section">
-        <div class="container">
-            <div class="section-header">
-                <h1 class="section-title">Anggota</h1>
+        <div class="hero-banner-wrapper">
+            <div class="hero-bg-image" id="anggotaHeroBg"></div>
+            <div class="hero-overlay"></div>
+            <div class="header-mount" data-active="anggota"></div>
+            
+            <div class="container">
+                <div class="hero-content-area">
+                    <h1 class="hero-title" id="anggotaHeroTitle">Anggota</h1>
+                    <p class="hero-subtitle" id="anggotaHeroSubtitle">Mengenal para anggota Elopat Divers, profil singkat, dan impian mereka.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="padding-top: 40px;">
+            <div class="panel-box admin-hero-edit-box">
+                <div class="panel-title">Edit Banner Menu ANGGOTA (Akses Admin)</div>
+                <div class="form-grid">
+                    <input type="text" id="anggotaHeroTitleInput" class="custom-input form-full" placeholder="Judul Banner Anggota">
+                    <textarea id="anggotaHeroSubtitleInput" class="custom-input form-full" rows="2" placeholder="Subtitle Banner Anggota"></textarea>
+                    <input type="file" id="anggotaHeroImgInput" class="custom-input form-full" accept="image/*">
+                    <div class="form-full">
+                        <button id="saveAnggotaHeroBtn" class="btn-minimal">Perbarui Banner Anggota</button>
+                    </div>
+                </div>
             </div>
 
             <div class="pill-filter-container">
@@ -779,10 +945,8 @@
                         <option value="putri">Putri</option>
                     </select>
                     <input type="number" id="memberNumber" class="custom-input" placeholder="Nomor ID Anggota (Contoh: 7)">
-                    
-                    <input type="text" id="memberUniversityInput" class="custom-input form-full" placeholder="Universitas Impian (Contoh: Universitas Indonesia / ITB)">
-                    <input type="text" id="memberCareerInput" class="custom-input form-full" placeholder="Cita-Cita / Pekerjaan Impian (Contoh: Marine Engineer)">
-                    
+                    <input type="text" id="memberUniversityInput" class="custom-input form-full" placeholder="Universitas Impian">
+                    <input type="text" id="memberCareerInput" class="custom-input form-full" placeholder="Cita-Cita / Pekerjaan Impian">
                     <input type="file" id="memberPhotoInput" class="custom-input form-full" accept="image/*">
                     <div class="form-full">
                         <button id="saveMemberBtn" class="btn-minimal">Simpan Data Anggota</button>
@@ -795,17 +959,20 @@
     </section>
 
     <section id="page-anggota-detail" class="page-section">
-        <div class="container">
-            <a class="album-back-link" style="margin-bottom: 20px; border-radius: 6px;" onclick="switchPage('anggota', document.getElementById('nav-anggota'))">← Kembali ke Daftar Anggota</a>
+        <div class="container" style="padding-top: 40px;">
+            <a class="album-back-link" style="margin-bottom: 20px; border-radius: 6px;" onclick="switchPage('anggota')">← Kembali ke Daftar Anggota</a>
             
             <div class="member-detail-container">
                 <div class="member-detail-layout">
                     <div class="member-detail-photo-box" id="detailPhotoBox">
-                        </div>
+                    </div>
                     <div class="member-detail-info">
                         <div>
-                            <h2 class="member-detail-name" id="detailName">Nama Anggota</h2>
-                            <p class="member-detail-sub" id="detailSub">Klub / Sub-Unit • ID: #--</p>
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                                <h2 class="member-detail-name" id="detailName">-</h2>
+                                <span style="font-size:24px; font-weight:900; color:var(--navy-accent); font-style:italic;" id="detailNumber">#</span>
+                            </div>
+                            <div class="member-detail-sub" id="detailSchool">-</div>
                             
                             <div class="dream-container">
                                 <div class="dream-card">
@@ -819,11 +986,13 @@
                             </div>
                         </div>
 
-                        <div id="editDreamPanel" style="display: none; margin-top: 24px; border-top: 1px dashed var(--border-color); padding-top: 16px;">
-                            <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--navy-accent); display: block; margin-bottom: 8px;">Edit Informasi Impian (Akses Admin):</label>
-                            <input type="text" id="inputEditUniversity" class="custom-input" style="margin-bottom: 8px;" placeholder="Universitas Impian">
-                            <input type="text" id="inputEditCareer" class="custom-input" style="margin-bottom: 8px;" placeholder="Cita-Cita / Pekerjaan Impian">
-                            <button id="btnSaveDream" class="btn-minimal" style="margin-top: 4px; width: 100%;">Simpan Perubahan Data</button>
+                        <div id="editDreamPanel" style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border-color); display: none;">
+                            <div style="font-size: 11px; font-weight:700; text-transform:uppercase; margin-bottom:8px; color:var(--navy-accent);">Edit Impian Anggota (Admin)</div>
+                            <div style="display:flex; flex-direction:column; gap:8px;">
+                                <input type="text" id="editUniInput" class="custom-input" placeholder="Universitas Impian Baru">
+                                <input type="text" id="editCareerInput" class="custom-input" placeholder="Cita-Cita Baru">
+                                <button onclick="saveDreamChanges()" class="btn-minimal" style="align-self: flex-start;">Simpan Perubahan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -831,42 +1000,41 @@
         </div>
     </section>
 
-    <section id="page-berita" class="page-section">
-        <div class="container">
-            <div class="section-header">
-                <h1 class="section-title">Berita</h1>
+    <section id="page-galeri" class="page-section">
+        <div class="hero-banner-wrapper">
+            <div class="hero-bg-image" id="galeriHeroBg"></div>
+            <div class="hero-overlay"></div>
+            <div class="header-mount" data-active="galeri"></div>
+            
+            <div class="container">
+                <div class="hero-content-area">
+                    <h1 class="hero-title" id="galeriHeroTitle">Galeri Dokumentasi</h1>
+                    <p class="hero-subtitle" id="galeriHeroSubtitle">Kumpulan album foto kegiatan, acara resmi, dan kenangan Elopat Divers.</p>
+                </div>
             </div>
+        </div>
 
-            <div class="panel-box" id="addNewsBox">
-                <div class="panel-title">Publikasi Artikel Berita</div>
+        <div class="container" style="padding-top: 40px;">
+            <div class="panel-box admin-hero-edit-box">
+                <div class="panel-title">Edit Banner Menu GALERI (Akses Admin)</div>
                 <div class="form-grid">
-                    <input type="text" id="newsTitle" class="custom-input form-full" placeholder="Judul Artikel">
-                    <input type="date" id="newsDate" class="custom-input">
-                    <input type="file" id="newsImageInput" class="custom-input" accept="image/*">
+                    <input type="text" id="galeriHeroTitleInput" class="custom-input form-full" placeholder="Judul Banner Galeri">
+                    <textarea id="galeriHeroSubtitleInput" class="custom-input form-full" rows="2" placeholder="Subtitle Banner Galeri"></textarea>
+                    <input type="file" id="galeriHeroImgInput" class="custom-input form-full" accept="image/*">
                     <div class="form-full">
-                        <button id="saveNewsBtn" class="btn-minimal">Terbitkan Artikel</button>
+                        <button id="saveGaleriHeroBtn" class="btn-minimal">Perbarui Banner Galeri</button>
                     </div>
                 </div>
             </div>
 
-            <div class="news-grid" id="newsGrid"></div>
-        </div>
-    </section>
-
-    <section id="page-galeri" class="page-section">
-        <div class="container">
-            <div class="section-header">
-                <h1 class="section-title">Galeri</h1>
-            </div>
-
-            <div class="panel-box" id="addGalleryBox">
-                <div class="panel-title">Buat Album Arsip Baru</div>
+            <div class="panel-box" id="addAlbumBox">
+                <div class="panel-title">Buat Album Galeri Baru</div>
                 <div class="form-grid">
-                    <input type="text" id="galleryTitle" class="custom-input form-full" placeholder="Nama Kegiatan / Album">
-                    <input type="date" id="galleryDate" class="custom-input">
-                    <input type="file" id="galleryCoverInput" class="custom-input" accept="image/*">
+                    <input type="text" id="albumTitle" class="custom-input form-full" placeholder="Nama Album Foto">
+                    <input type="date" id="albumDate" class="custom-input form-full">
+                    <input type="file" id="albumCoverInput" class="custom-input form-full" accept="image/*">
                     <div class="form-full">
-                        <button id="saveGalleryBtn" class="btn-minimal">Inisialisasi Album</button>
+                        <button id="saveAlbumBtn" class="btn-minimal">Buat Album</button>
                     </div>
                 </div>
             </div>
@@ -875,43 +1043,37 @@
         </div>
     </section>
 
-    <section id="page-galeri-detail" class="page-section">
-        <div class="container">
+    <section id="page-album-detail" class="page-section">
+        <div class="container" style="padding-top: 40px;">
             <div class="album-header-banner" id="albumHeaderBanner">
                 <div class="album-header-overlay"></div>
-                <a class="album-back-link" onclick="switchPage('galeri', document.getElementById('nav-galeri'))">← Kembali ke Galeri</a>
-
+                <a class="album-back-link" onclick="switchPage('galeri')">← Kembali ke Galeri</a>
                 <div class="album-header-content">
-                    <h1 class="section-title" id="albumDetailTitle">Nama Album</h1>
-                    <p id="albumDetailSub">Dipublikasikan: -</p>
+                    <h2 class="section-title" id="albumDetailTitle" style="margin-bottom: 4px; text-align: left;">-</h2>
+                    <p style="font-size: 13px; font-weight: 500;" id="albumDetailSub">-</p>
                 </div>
             </div>
 
-            <div class="panel-box" id="addPhotoToAlbumBox">
-                <div class="panel-title">Tambah File Foto ke Album Ini</div>
+            <div class="panel-box" id="addPhotosBox">
+                <div class="panel-title">Unggah Foto Ke Album Ini</div>
                 <div class="form-grid">
-                    <input type="file" id="albumPhotoInput" class="custom-input form-full" accept="image/*" multiple>
+                    <input type="file" id="photosInput" class="custom-input form-full" accept="image/*" multiple>
                     <div class="form-full">
-                        <button id="savePhotoToAlbumBtn" class="btn-minimal">Unggah Berkas</button>
+                        <button id="savePhotosBtn" class="btn-minimal">Unggah Foto</button>
                     </div>
                 </div>
             </div>
 
-            <div class="photos-masonry" id="albumPhotosGrid"></div>
+            <div class="photos-masonry" id="photosGrid"></div>
         </div>
     </section>
 
-    <div class="photo-zoom-modal" id="photoZoomModal" onclick="closePhotoZoom(event)">
+    <div id="photoZoomModal" class="photo-zoom-modal" onclick="closePhotoZoomModal()">
         <div class="zoom-img-container" onclick="event.stopPropagation()">
-            <button class="zoom-close-btn" onclick="closePhotoZoom(event)">✕</button>
-            <img id="zoomedImageSrc" src="" alt="Zoomed Photo">
-            
-            <a id="downloadPhotoLink" class="zoom-download-btn" href="" download="elopat-divers-photo.jpg">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
+            <button class="zoom-close-btn" onclick="closePhotoZoomModal()">✕</button>
+            <img id="zoomModalImg" src="" alt="Foto Besar">
+            <a id="zoomModalDownloadBtn" href="#" download="foto-elopat-divers.jpg" class="zoom-download-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 Unduh Foto
             </a>
         </div>
@@ -919,304 +1081,390 @@
 
     <div class="modal-overlay" id="loginModal">
         <div class="modal-card">
-            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--navy-accent);">Portal Akses Admin</h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Silakan otentikasi identitas pengelola Anda.</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <input type="text" id="adminUsername" class="custom-input" placeholder="ID Admin (admin1 / admin2)">
-                <input type="password" id="adminPassword" class="custom-input" placeholder="Kata Sandi">
-                <button id="submitLoginBtn" class="btn-minimal" style="margin-top: 8px; background: var(--navy-accent); color: #fff; border: none; width: 100%;">Masuk Sistem</button>
-                <button id="closeLoginModal" class="btn-minimal" style="background: transparent; border: none; color: var(--text-muted); width: 100%;">Batal</button>
+            <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px; color: var(--navy-accent);">Otentikasi Pengelola</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Masukkan kunci sandi otorisasi untuk mengelola konten portal.</p>
+            <input type="password" id="adminPasswordInput" class="custom-input" placeholder="Kunci Sandi Admin" style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn-minimal" style="border:none;" onclick="closeLoginModal()">Batal</button>
+                <button class="btn-minimal" id="submitLoginBtn">Masuk Sesi</button>
             </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Elopat Divers. Hak Cipta Dilindungi.</p>
+            <p>&copy; 2026 Elopat Divers. Hak Cipta Dilindungi Undang-Undang.</p>
         </div>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAehUWpzVRRTL_0Q-PqytlyH92ziVrASmY",
-            authDomain: "elopat-divers-26231.firebaseapp.com",
-            databaseURL: "https://elopat-divers-26231-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "elopat-divers-26231",
-            storageBucket: "elopat-divers-26231.firebasestorage.app",
-            messagingSenderId: "189459216556",
-            appId: "1:189459216556:web:972f44662aa6aa14738709"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        // ==========================================
+        // INDEXEDDB ENGINE - PENGGANTI LOCALSTORAGE
+        // ==========================================
+        const DB_NAME = 'ElopatDiversDB';
+        const DB_VERSION = 1;
+        let db = null;
 
-        const ADMIN_ACCOUNTS = {
-            "admin1": { pass: "admin123", name: "Admin Utama" },
-            "admin2": { pass: "divers2026", name: "Admin Pengelola" }
-        };
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = (e) => reject('Database Error: ' + e.target.errorCode);
+                request.onsuccess = (e) => {
+                    db = e.target.result;
+                    resolve(db);
+                };
+                request.onupgradeneeded = (e) => {
+                    const dbInstance = e.target.result;
+                    if (!dbInstance.objectStoreNames.contains('dataStore')) {
+                        dbInstance.createObjectStore('dataStore');
+                    }
+                };
+            });
+        }
 
-        const SILHOUETTE_CARD_SVG = `
-            <svg class="silhouette-svg" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-        `;
+        function dbSet(key, val) {
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(['dataStore'], 'readwrite');
+                const store = tx.objectStore('dataStore');
+                const req = store.put(val, key);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => reject('Gagal menyimpan data');
+            });
+        }
 
-        let currentAdmin = null;
+        function dbGet(key) {
+            return new Promise((resolve) => {
+                const tx = db.transaction(['dataStore'], 'readonly');
+                const store = tx.objectStore('dataStore');
+                const req = store.get(key);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        // DEFAULT CONTENT DATA
+        const DEFAULT_HERO_SLIDES = [
+            {
+                title: "Empowering Your Digital Journey With Innovation",
+                subtitle: "Selamat datang di Portal Resmi Elopat Divers. Pusat informasi, keanggotaan, dan dokumentasi kegiatan.",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80"
+            }
+        ];
+
+        const DEFAULT_NEWS = [
+            { id: 1, title: "Latihan Rutin Sesi Pekan Ini Berjalan Sukses", date: "2026-03-25", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" },
+            { id: 2, title: "Penerimaan Anggota Baru Tahun Ajaran 2026 Resmi Dibuka", date: "2026-03-20", image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" }
+        ];
+
+        const DEFAULT_MEMBERS = [
+            { id: 1, name: "Alexander Putra", school: "Elopat Divers", gender: "putra", number: "01", university: "Universitas Indonesia (UI) - Teknik Informatika", career: "Senior Software Engineer / Tech Lead", photo: "" },
+            { id: 2, name: "Siti Rahma", school: "Elopat Divers", gender: "putri", number: "02", university: "Institut Teknologi Bandung (ITB) - Desain Komunikasi Visual", career: "UI/UX Designer & Creative Director", photo: "" }
+        ];
+
+        const DEFAULT_GALLERY = [
+            { id: 1, title: "Dokumentasi Kegiatan Musyawarah 2026", date: "2026-03-15", cover: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80", photos: ["https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"] }
+        ];
+
+        let isLogged = localStorage.getItem('elopat_admin_logged') === 'true';
+        let heroSlides = [];
+        let beritaHero = {};
+        let anggotaHero = {};
+        let galeriHero = {};
+        
+        let newsData = [];
+        let membersData = [];
+        let galleryData = [];
+
+        let currentHeroIndex = 0;
         let activeGender = 'putra';
-        let membersData = {}, newsData = {}, galleryData = {};
         let activeAlbumId = null;
         let activeMemberId = null;
 
-        document.getElementById('galleryDate').value = new Date().toISOString().split('T')[0];
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initDB();
 
-        // REALTIME DATA SYNC
-        db.ref('members').on('value', snap => { 
-            membersData = snap.val() || {}; 
-            renderMembers(); 
-            renderHomePreviews(); 
-            if(activeMemberId) openMemberDetail(activeMemberId);
+            // SINKRONISASI DAN LOAD DATA DARI INDEXEDDB
+            heroSlides = (await dbGet('elopat_hero_slides')) || DEFAULT_HERO_SLIDES;
+            beritaHero = (await dbGet('elopat_berita_hero')) || { title: "Kabar & Berita Terkini", subtitle: "Ikuti perkembangan, pengumuman resmi, dan liputan kegiatan Elopat Divers.", image: "" };
+            anggotaHero = (await dbGet('elopat_anggota_hero')) || { title: "Anggota", subtitle: "Mengenal para anggota Elopat Divers, profil singkat, dan impian mereka.", image: "" };
+            galeriHero = (await dbGet('elopat_galeri_hero')) || { title: "Galeri Dokumentasi", subtitle: "Kumpulan album foto kegiatan, acara resmi, dan kenangan Elopat Divers.", image: "" };
+            
+            newsData = (await dbGet('elopat_news')) || DEFAULT_NEWS;
+            membersData = (await dbGet('elopat_members')) || DEFAULT_MEMBERS;
+            galleryData = (await dbGet('elopat_gallery')) || DEFAULT_GALLERY;
+
+            renderHeaders();
+            updateAdminUI();
+            initHeroBanners();
+            renderMembers();
+            renderNews();
+            renderGallery();
+
+            document.getElementById('adminLoginBtn').addEventListener('click', openLoginModal);
+            document.getElementById('adminLogoutBtn').addEventListener('click', logoutAdmin);
+            document.getElementById('submitLoginBtn').addEventListener('click', processLogin);
+            
+            document.getElementById('saveHeroBtn').addEventListener('click', saveHeroSlide);
+            
+            document.getElementById('saveBeritaHeroBtn').addEventListener('click', () => saveMenuHero('berita'));
+            document.getElementById('saveAnggotaHeroBtn').addEventListener('click', () => saveMenuHero('anggota'));
+            document.getElementById('saveGaleriHeroBtn').addEventListener('click', () => saveMenuHero('galeri'));
+
+            document.getElementById('saveMemberBtn').addEventListener('click', saveMember);
+            document.getElementById('saveNewsBtn').addEventListener('click', saveNews);
+            document.getElementById('saveAlbumBtn').addEventListener('click', saveAlbum);
+            document.getElementById('savePhotosBtn').addEventListener('click', savePhotosToAlbum);
         });
 
-        db.ref('news').on('value', snap => { newsData = snap.val() || {}; renderNews(); renderHomePreviews(); });
-        
-        db.ref('gallery').on('value', snap => { 
-            galleryData = snap.val() || {}; 
-            renderGallery(); 
-            renderHomePreviews(); 
-            if(activeAlbumId) renderAlbumDetail(activeAlbumId);
-        });
-
-        function createMemberCardHTML(m) {
-            const photoMedia = m.photo 
-                ? `<img src="${m.photo}" class="member-photo-custom">` 
-                : SILHOUETTE_CARD_SVG;
-
-            const delBtn = currentAdmin 
-                ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:10;" onclick="event.stopPropagation(); db.ref('members/${m.id}').remove()">Hapus</button>` 
-                : '';
-
-            return `
-                <div class="member-card-box" onclick="openMemberDetail('${m.id}')">
-                    ${delBtn}
-                    ${photoMedia}
-                    <div class="member-gradient-overlay"></div>
-                    <div class="member-info-content">
-                        <div class="member-info-name">${m.name}</div>
-                        <div class="member-info-school">${m.school || 'Elopat Divers'}</div>
-                    </div>
-                    <div class="member-bg-number">${m.number || ''}</div>
-                </div>
-            `;
+        function renderHeaders() {
+            const template = document.getElementById('header-template').content;
+            document.querySelectorAll('.header-mount').forEach(mount => {
+                const activePage = mount.getAttribute('data-active');
+                const clone = document.importNode(template, true);
+                
+                clone.querySelectorAll('.nav-links a').forEach(a => {
+                    if (a.getAttribute('data-page') === activePage) {
+                        a.classList.add('active');
+                    }
+                });
+                
+                mount.appendChild(clone);
+            });
         }
 
-        function openMemberDetail(id) {
-            activeMemberId = id;
-            const m = membersData[id];
-            if(!m) return;
+        function initHeroBanners() {
+            updateHeroDisplay();
+            updateMenuBanners();
+        }
 
-            const photoBox = document.getElementById('detailPhotoBox');
-            if(m.photo) {
-                photoBox.innerHTML = `<img src="${m.photo}" class="member-detail-photo">`;
-            } else {
-                photoBox.innerHTML = `
-                    <svg style="width:140px; height:140px; fill:#cbd5e1;" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                `;
+        function updateHeroDisplay() {
+            if (heroSlides.length === 0) return;
+            const current = heroSlides[currentHeroIndex];
+            const bgEl = document.getElementById('heroBgSlider');
+            const titleEl = document.getElementById('heroDisplayTitle');
+            const subEl = document.getElementById('heroDisplaySubtitle');
+
+            if (bgEl) bgEl.style.backgroundImage = `url('${current.image}')`;
+            if (titleEl) titleEl.textContent = current.title;
+            if (subEl) subEl.textContent = current.subtitle;
+
+            renderHeroSlideList();
+        }
+
+        function nextHeroSlide() {
+            if (heroSlides.length <= 1) return;
+            currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+            updateHeroDisplay();
+        }
+
+        function prevHeroSlide() {
+            if (heroSlides.length <= 1) return;
+            currentHeroIndex = (currentHeroIndex - 1 + heroSlides.length) % heroSlides.length;
+            updateHeroDisplay();
+        }
+
+        async function saveHeroSlide() {
+            const title = document.getElementById('heroTitleInput').value.trim();
+            const subtitle = document.getElementById('heroSubtitleInput').value.trim();
+            const fileInput = document.getElementById('heroImageInput');
+
+            if (!title || !subtitle) {
+                alert('Silakan isi judul dan deskripsi banner.');
+                return;
             }
 
-            document.getElementById('detailName').innerText = m.name;
-            document.getElementById('detailSub').innerText = `${m.school || 'Elopat Divers'} • ID Anggota: #${m.number || '-'}`;
-            
-            document.getElementById('detailUniversity').innerText = m.university ? m.university : 'Belum ditambahkan';
-            document.getElementById('detailCareer').innerText = m.career ? m.career : 'Belum ditambahkan';
+            const handleSave = async (imgUrl) => {
+                heroSlides.push({ title, subtitle, image: imgUrl || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1600&q=80' });
+                await dbSet('elopat_hero_slides', heroSlides);
+                currentHeroIndex = heroSlides.length - 1;
+                updateHeroDisplay();
+                document.getElementById('heroTitleInput').value = '';
+                document.getElementById('heroSubtitleInput').value = '';
+                fileInput.value = '';
+            };
 
-            document.getElementById('inputEditUniversity').value = m.university || '';
-            document.getElementById('inputEditCareer').value = m.career || '';
-
-            switchPage('anggota-detail', document.getElementById('nav-anggota'));
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => handleSave(e.target.result);
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                handleSave('');
+            }
         }
 
-        document.getElementById('btnSaveDream').onclick = () => {
-            if(!activeMemberId) return;
-            const newUniversity = document.getElementById('inputEditUniversity').value.trim();
-            const newCareer = document.getElementById('inputEditCareer').value.trim();
-
-            db.ref(`members/${activeMemberId}`).update({
-                university: newUniversity,
-                career: newCareer
-            })
-            .then(() => alert("Data Universitas & Cita-Cita berhasil diperbarui!"))
-            .catch(err => alert("Gagal memperbarui: " + err.message));
-        };
-
-        function renderHomePreviews() {
-            const homeMembers = document.getElementById('homeMembersGrid');
-            homeMembers.innerHTML = '';
-            const mList = Object.values(membersData).slice(-4);
-            if(!mList.length) homeMembers.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada entri data anggota.</p>';
-            mList.forEach(m => {
-                const wrapper = document.createElement('div');
-                wrapper.innerHTML = createMemberCardHTML(m);
-                homeMembers.appendChild(wrapper.firstElementChild);
-            });
-
-            const homeNews = document.getElementById('homeNewsGrid');
-            homeNews.innerHTML = '';
-            const nList = Object.values(newsData).slice(-3).reverse();
-            if(!nList.length) homeNews.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada artikel berita.</p>';
-            nList.forEach(n => {
-                const el = document.createElement('div');
-                el.className = 'news-article';
-                el.innerHTML = `
-                    <img src="${n.image}" class="news-cover">
-                    <div class="news-body">
-                        <div class="news-title">${n.title}</div>
-                        <div class="news-meta">${n.date}</div>
-                    </div>
+        function renderHeroSlideList() {
+            const listEl = document.getElementById('heroSlideList');
+            if (!listEl) return;
+            listEl.innerHTML = '';
+            heroSlides.forEach((slide, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; padding:8px 12px; border-radius:6px; font-size:12px;';
+                item.innerHTML = `
+                    <span><strong>Slide ${index + 1}:</strong> ${slide.title.substring(0, 40)}...</span>
+                    ${heroSlides.length > 1 ? `<button class="btn-danger-minimal" onclick="deleteHeroSlide(${index})">Hapus</button>` : '<span style="font-size:10px; color:#94a3b8;">Utama</span>'}
                 `;
-                homeNews.appendChild(el);
+                listEl.appendChild(item);
             });
+        }
 
-            const homeGallery = document.getElementById('homeGalleryGrid');
-            homeGallery.innerHTML = '';
-            const gList = Object.values(galleryData).slice(-3).reverse();
-            if(!gList.length) homeGallery.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada album galeri.</p>';
-            gList.forEach(g => {
-                const el = document.createElement('div');
-                el.className = 'album-card';
-                el.onclick = () => openAlbumPage(g.id);
-                el.innerHTML = `
-                    <img src="${g.cover}" class="album-cover-img">
-                    <div class="album-info">
-                        <div class="album-title">${g.title}</div>
-                        <div class="album-date">${g.date}</div>
-                    </div>
-                `;
-                homeGallery.appendChild(el);
-            });
+        async function deleteHeroSlide(index) {
+            heroSlides.splice(index, 1);
+            await dbSet('elopat_hero_slides', heroSlides);
+            currentHeroIndex = 0;
+            updateHeroDisplay();
+        }
+
+        function updateMenuBanners() {
+            const setBanner = (idPrefix, data) => {
+                const bg = document.getElementById(idPrefix + 'Bg');
+                const title = document.getElementById(idPrefix + 'Title');
+                const sub = document.getElementById(idPrefix + 'Subtitle');
+                
+                if (bg && data.image) bg.style.backgroundImage = `url('${data.image}')`;
+                if (title && data.title) title.textContent = data.title;
+                if (sub && data.subtitle) sub.textContent = data.subtitle;
+            };
+
+            setBanner('beritaHero', beritaHero);
+            setBanner('anggotaHero', anggotaHero);
+            setBanner('galeriHero', galeriHero);
+        }
+
+        async function saveMenuHero(menuKey) {
+            const titleInput = document.getElementById(menuKey + 'HeroTitleInput').value.trim();
+            const subInput = document.getElementById(menuKey + 'HeroSubtitleInput').value.trim();
+            const imgInput = document.getElementById(menuKey + 'HeroImgInput');
+
+            let targetData = menuKey === 'berita' ? beritaHero : (menuKey === 'anggota' ? anggotaHero : galeriHero);
+
+            if (titleInput) targetData.title = titleInput;
+            if (subInput) targetData.subtitle = subInput;
+
+            const finalize = async () => {
+                await dbSet('elopat_' + menuKey + '_hero', targetData);
+                updateMenuBanners();
+                alert('Banner menu berhasil diperbarui!');
+            };
+
+            if (imgInput.files && imgInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    targetData.image = e.target.result;
+                    finalize();
+                };
+                reader.readAsDataURL(imgInput.files[0]);
+            } else {
+                finalize();
+            }
         }
 
         function renderMembers() {
             const grid = document.getElementById('membersGrid');
+            const homeGrid = document.getElementById('homeMembersGrid');
+            if(!grid) return;
+            
             grid.innerHTML = '';
-            const list = Object.values(membersData).filter(m => m.gender === activeGender);
-            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px; text-align:center; grid-column: 1/-1;">Belum ada anggota terdaftar pada kategori ini.</p>';
-
-            list.forEach(m => {
-                const wrapper = document.createElement('div');
-                wrapper.innerHTML = createMemberCardHTML(m);
-                grid.appendChild(wrapper.firstElementChild);
+            if(homeGrid) homeGrid.innerHTML = '';
+            
+            const filtered = membersData.filter(m => m.gender === activeGender);
+            
+            filtered.forEach(m => {
+                const card = createMemberCardHTML(m);
+                grid.appendChild(card);
             });
+
+            if(homeGrid) {
+                membersData.slice(0, 4).forEach(m => {
+                    const card = createMemberCardHTML(m);
+                    homeGrid.appendChild(card);
+                });
+            }
         }
 
-        function renderNews() {
-            const grid = document.getElementById('newsGrid');
-            grid.innerHTML = '';
-            const list = Object.values(newsData).reverse();
-            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada publikasi berita.</p>';
+        function createMemberCardHTML(m) {
+            const card = document.createElement('div');
+            card.className = 'member-card-box';
+            card.onclick = () => openMemberDetail(m.id);
 
-            list.forEach(n => {
-                const el = document.createElement('div');
-                el.className = 'news-article';
-                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:2;" onclick="db.ref('news/${n.id}').remove()">Hapus</button>` : '';
-                el.innerHTML = `
-                    ${del}
-                    <img src="${n.image}" class="news-cover">
-                    <div class="news-body">
-                        <div class="news-title">${n.title}</div>
-                        <div class="news-meta">${n.date}</div>
-                    </div>
-                `;
-                grid.appendChild(el);
-            });
+            const photoHTML = m.photo ? 
+                `<img src="${m.photo}" class="member-photo-custom" alt="${m.name}">` : 
+                `<svg class="silhouette-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+
+            card.innerHTML = `
+                ${photoHTML}
+                <div class="member-gradient-overlay"></div>
+                <div class="member-info-content">
+                    <div class="member-info-name">${m.name}</div>
+                    <div class="member-info-school">${m.school}</div>
+                </div>
+                <div class="member-bg-number">${m.number}</div>
+                ${isLogged ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px; z-index:10;" onclick="event.stopPropagation(); deleteMember(${m.id})">Hapus</button>` : ''}
+            `;
+            return card;
         }
 
-        function renderGallery() {
-            const grid = document.getElementById('galleryGrid');
-            grid.innerHTML = '';
-            const list = Object.values(galleryData).reverse();
-            if(!list.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px;">Belum ada album foto.</p>';
+        function openMemberDetail(id) {
+            const member = membersData.find(m => m.id === id);
+            if(!member) return;
+            activeMemberId = id;
 
-            list.forEach(g => {
-                const el = document.createElement('div');
-                el.className = 'album-card';
-                el.onclick = () => openAlbumPage(g.id);
-                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:10px; right:10px; z-index:2;" onclick="event.stopPropagation(); db.ref('gallery/${g.id}').remove()">Hapus Album</button>` : '';
-                el.innerHTML = `
-                    ${del}
-                    <img src="${g.cover}" class="album-cover-img">
-                    <div class="album-info">
-                        <div class="album-title">${g.title}</div>
-                        <div class="album-date">${g.date}</div>
-                    </div>
-                `;
-                grid.appendChild(el);
-            });
+            document.getElementById('detailName').textContent = member.name;
+            document.getElementById('detailSchool').textContent = member.school;
+            document.getElementById('detailNumber').textContent = '#' + member.number;
+            document.getElementById('detailUniversity').textContent = member.university || 'Belum diisi';
+            document.getElementById('detailCareer').textContent = member.career || 'Belum diisi';
+
+            const photoBox = document.getElementById('detailPhotoBox');
+            if(member.photo) {
+                photoBox.innerHTML = `<img src="${member.photo}" class="member-detail-photo" alt="${member.name}">`;
+            } else {
+                photoBox.innerHTML = `<svg class="silhouette-svg" style="width:160px; height:160px;" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+            }
+
+            if(isLogged) {
+                document.getElementById('editUniInput').value = member.university || '';
+                document.getElementById('editCareerInput').value = member.career || '';
+            }
+
+            switchPage('anggota-detail');
         }
 
-        function openAlbumPage(id) {
-            activeAlbumId = id;
-            renderAlbumDetail(id);
-            switchPage('galeri-detail', document.getElementById('nav-galeri'));
+        async function saveDreamChanges() {
+            if(!activeMemberId) return;
+            const uni = document.getElementById('editUniInput').value.trim();
+            const career = document.getElementById('editCareerInput').value.trim();
+
+            const member = membersData.find(m => m.id === activeMemberId);
+            if(member) {
+                member.university = uni;
+                member.career = career;
+                await dbSet('elopat_members', membersData);
+                openMemberDetail(activeMemberId);
+                alert('Impian anggota berhasil diperbarui!');
+            }
         }
 
-        function renderAlbumDetail(id) {
-            const album = galleryData[id];
-            if(!album) return;
-
-            const banner = document.getElementById('albumHeaderBanner');
-            banner.style.backgroundImage = album.cover ? `url('${album.cover}')` : 'none';
-
-            document.getElementById('albumDetailTitle').innerText = album.title;
-            document.getElementById('albumDetailSub').innerText = "Dipublikasikan: " + (album.date || '-');
-
-            const grid = document.getElementById('albumPhotosGrid');
-            grid.innerHTML = '';
-            const photos = album.photos ? Object.values(album.photos) : [];
-
-            if(!photos.length) return grid.innerHTML = '<p style="color:var(--text-muted); font-size:13px; grid-column:1/-1;">Belum ada foto dalam album ini.</p>';
-            photos.forEach(p => {
-                const el = document.createElement('div');
-                el.className = 'photo-item';
-                el.onclick = () => openPhotoZoom(p.url);
-                const del = currentAdmin ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px; z-index:5;" onclick="event.stopPropagation(); db.ref('gallery/${id}/photos/${p.id}').remove()">Hapus</button>` : '';
-                el.innerHTML = `${del}<img src="${p.url}">`;
-                grid.appendChild(el);
-            });
-        }
-
-        function openPhotoZoom(src) {
-            document.getElementById('zoomedImageSrc').src = src;
-            const downloadBtn = document.getElementById('downloadPhotoLink');
-            downloadBtn.href = src;
-            downloadBtn.download = "elopat-divers-photo-" + Date.now() + ".jpg";
-            document.getElementById('photoZoomModal').style.display = 'flex';
-        }
-
-        function closePhotoZoom(e) {
-            if(e) e.stopPropagation();
-            document.getElementById('photoZoomModal').style.display = 'none';
-            document.getElementById('zoomedImageSrc').src = '';
-        }
-
-        document.getElementById('saveMemberBtn').onclick = () => {
+        async function saveMember() {
             const name = document.getElementById('memberName').value.trim();
-            const school = document.getElementById('memberSchool').value.trim() || 'Elopat Divers';
+            const school = document.getElementById('memberSchool').value.trim();
             const gender = document.getElementById('memberGender').value;
-            const number = document.getElementById('memberNumber').value;
+            const number = document.getElementById('memberNumber').value.trim();
             const university = document.getElementById('memberUniversityInput').value.trim();
             const career = document.getElementById('memberCareerInput').value.trim();
             const photoInput = document.getElementById('memberPhotoInput');
 
-            if(!name) return alert("Masukkan nama anggota.");
+            if(!name || !number) { alert('Nama dan Nomor ID Wajib Diisi'); return; }
 
-            const pushData = (url) => {
-                const ref = db.ref('members').push();
-                ref.set({ id: ref.key, name, school, gender, number, university, career, photo: url });
+            const handleMemberSave = async (photoUrl) => {
+                const newMember = {
+                    id: Date.now(),
+                    name, school, gender, number, university, career,
+                    photo: photoUrl
+                };
+                membersData.push(newMember);
+                await dbSet('elopat_members', membersData);
+                renderMembers();
+                
                 document.getElementById('memberName').value = '';
                 document.getElementById('memberNumber').value = '';
                 document.getElementById('memberUniversityInput').value = '';
@@ -1224,94 +1472,271 @@
                 photoInput.value = '';
             };
 
-            if(photoInput.files[0]) {
-                const r = new FileReader();
-                r.onload = e => pushData(e.target.result);
-                r.readAsDataURL(photoInput.files[0]);
-            } else { pushData(''); }
-        };
+            if(photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => handleMemberSave(e.target.result);
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                handleMemberSave('');
+            }
+        }
 
-        document.getElementById('saveNewsBtn').onclick = () => {
+        async function deleteMember(id) {
+            membersData = membersData.filter(m => m.id !== id);
+            await dbSet('elopat_members', membersData);
+            renderMembers();
+        }
+
+        function renderNews() {
+            const grid = document.getElementById('newsGrid');
+            const homeGrid = document.getElementById('homeNewsGrid');
+            if(!grid) return;
+            
+            grid.innerHTML = '';
+            if(homeGrid) homeGrid.innerHTML = '';
+
+            newsData.forEach(n => {
+                const card = document.createElement('div');
+                card.className = 'news-article';
+                card.innerHTML = `
+                    <img src="${n.image}" class="news-cover" alt="News">
+                    <div class="news-body">
+                        <div class="news-title">${n.title}</div>
+                        <div class="news-meta">${n.date}</div>
+                    </div>
+                    ${isLogged ? `<button class="btn-danger-minimal" style="position:absolute; top:12px; right:12px; z-index:10;" onclick="deleteNews(${n.id})">Hapus</button>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+
+            if(homeGrid) {
+                newsData.slice(0, 3).forEach(n => {
+                    const card = document.createElement('div');
+                    card.className = 'news-article';
+                    card.innerHTML = `
+                        <img src="${n.image}" class="news-cover" alt="News">
+                        <div class="news-body">
+                            <div class="news-title">${n.title}</div>
+                            <div class="news-meta">${n.date}</div>
+                        </div>
+                    `;
+                    homeGrid.appendChild(card);
+                });
+            }
+        }
+
+        function saveNews() {
             const title = document.getElementById('newsTitle').value.trim();
             const date = document.getElementById('newsDate').value;
-            const input = document.getElementById('newsImageInput');
+            const fileInput = document.getElementById('newsImageInput');
 
-            if(!title || !input.files[0]) return alert("Lengkapi judul dan gambar artikel.");
+            if(!title || !date || !fileInput.files[0]) { alert('Lengkapi Form Berita!'); return; }
 
-            const r = new FileReader();
-            r.onload = e => {
-                const ref = db.ref('news').push();
-                ref.set({ id: ref.key, title, date, image: e.target.result });
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                newsData.push({ id: Date.now(), title, date, image: e.target.result });
+                await dbSet('elopat_news', newsData);
+                renderNews();
                 document.getElementById('newsTitle').value = '';
-                input.value = '';
+                fileInput.value = '';
             };
-            r.readAsDataURL(input.files[0]);
-        };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
 
-        document.getElementById('saveGalleryBtn').onclick = () => {
-            const title = document.getElementById('galleryTitle').value.trim();
-            const date = document.getElementById('galleryDate').value;
-            const input = document.getElementById('galleryCoverInput');
+        async function deleteNews(id) {
+            newsData = newsData.filter(n => n.id !== id);
+            await dbSet('elopat_news', newsData);
+            renderNews();
+        }
 
-            if(!title || !input.files[0]) return alert("Lengkapi nama album dan cover.");
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            const homeGrid = document.getElementById('homeGalleryGrid');
+            if(!grid) return;
 
-            const r = new FileReader();
-            r.onload = e => {
-                const ref = db.ref('gallery').push();
-                ref.set({ id: ref.key, title, date, cover: e.target.result, photos: {} });
-                document.getElementById('galleryTitle').value = '';
-                input.value = '';
-            };
-            r.readAsDataURL(input.files[0]);
-        };
+            grid.innerHTML = '';
+            if(homeGrid) homeGrid.innerHTML = '';
 
-        document.getElementById('savePhotoToAlbumBtn').onclick = () => {
-            if(!activeAlbumId) return;
-            const files = document.getElementById('albumPhotoInput').files;
-            if(!files.length) return alert("Pilih foto terlebih dahulu.");
-
-            Array.from(files).forEach(file => {
-                const r = new FileReader();
-                r.onload = e => {
-                    const ref = db.ref(`gallery/${activeAlbumId}/photos`).push();
-                    ref.set({ id: ref.key, url: e.target.result });
-                };
-                r.readAsDataURL(file);
+            galleryData.forEach(album => {
+                const card = document.createElement('div');
+                card.className = 'album-card';
+                card.onclick = () => openAlbumDetail(album.id);
+                card.innerHTML = `
+                    <img src="${album.cover}" class="album-cover-img" alt="Cover Album">
+                    <div class="album-info">
+                        <div class="album-title">${album.title}</div>
+                        <div class="album-date">${album.date} • ${album.photos ? album.photos.length : 0} Foto</div>
+                    </div>
+                    ${isLogged ? `<button class="btn-danger-minimal" style="position:absolute; top:12px; right:12px; z-index:10;" onclick="event.stopPropagation(); deleteAlbum(${album.id})">Hapus</button>` : ''}
+                `;
+                grid.appendChild(card);
             });
-            document.getElementById('albumPhotoInput').value = '';
-        };
 
-        document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
-        document.getElementById('closeLoginModal').onclick = () => document.getElementById('loginModal').style.display = 'none';
-
-        document.getElementById('submitLoginBtn').onclick = () => {
-            const user = document.getElementById('adminUsername').value.trim();
-            const pass = document.getElementById('adminPassword').value.trim();
-
-            if(ADMIN_ACCOUNTS[user] && ADMIN_ACCOUNTS[user].pass === pass) {
-                currentAdmin = ADMIN_ACCOUNTS[user].name;
-                document.getElementById('activeAdminName').innerText = currentAdmin;
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('adminUsername').value = '';
-                document.getElementById('adminPassword').value = '';
-                updateAdminUI();
-            } else {
-                alert("Identifikasi gagal: Username atau Password tidak valid.");
+            if(homeGrid) {
+                galleryData.slice(0, 3).forEach(album => {
+                    const card = document.createElement('div');
+                    card.className = 'album-card';
+                    card.onclick = () => openAlbumDetail(album.id);
+                    card.innerHTML = `
+                        <img src="${album.cover}" class="album-cover-img" alt="Cover Album">
+                        <div class="album-info">
+                            <div class="album-title">${album.title}</div>
+                            <div class="album-date">${album.date} • ${album.photos ? album.photos.length : 0} Foto</div>
+                        </div>
+                    `;
+                    homeGrid.appendChild(card);
+                });
             }
-        };
+        }
 
-        document.getElementById('adminLogoutBtn').onclick = () => {
-            currentAdmin = null;
+        function saveAlbum() {
+            const title = document.getElementById('albumTitle').value.trim();
+            const date = document.getElementById('albumDate').value;
+            const fileInput = document.getElementById('albumCoverInput');
+
+            if(!title || !date || !fileInput.files[0]) { alert('Lengkapi Form Album!'); return; }
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                galleryData.push({ id: Date.now(), title, date, cover: e.target.result, photos: [e.target.result] });
+                await dbSet('elopat_gallery', galleryData);
+                renderGallery();
+                document.getElementById('albumTitle').value = '';
+                fileInput.value = '';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        async function deleteAlbum(id) {
+            galleryData = galleryData.filter(a => a.id !== id);
+            await dbSet('elopat_gallery', galleryData);
+            renderGallery();
+        }
+
+        function openAlbumDetail(id) {
+            activeAlbumId = id;
+            renderAlbumDetail(id);
+            switchPage('album-detail');
+        }
+
+        function renderAlbumDetail(id) {
+            const album = galleryData.find(a => a.id === id);
+            if(!album) return;
+
+            document.getElementById('albumDetailTitle').textContent = album.title;
+            document.getElementById('albumDetailSub').textContent = album.date + ' • ' + (album.photos ? album.photos.length : 0) + ' Dokumentasi Foto';
+            
+            const headerBanner = document.getElementById('albumHeaderBanner');
+            if (headerBanner && album.cover) {
+                headerBanner.style.backgroundImage = `url('${album.cover}')`;
+            }
+
+            const photosGrid = document.getElementById('photosGrid');
+            photosGrid.innerHTML = '';
+
+            if(album.photos) {
+                album.photos.forEach((src, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'photo-item';
+                    item.onclick = () => openPhotoZoomModal(src);
+                    item.innerHTML = `
+                        <img src="${src}" alt="Foto Galeri">
+                        ${isLogged ? `<button class="btn-danger-minimal" style="position:absolute; top:8px; right:8px; z-index:10;" onclick="event.stopPropagation(); deletePhotoFromAlbum(${idx})">Hapus</button>` : ''}
+                    `;
+                    photosGrid.appendChild(item);
+                });
+            }
+        }
+
+        function openPhotoZoomModal(src) {
+            const modal = document.getElementById('photoZoomModal');
+            const img = document.getElementById('zoomModalImg');
+            const downloadBtn = document.getElementById('zoomModalDownloadBtn');
+
+            img.src = src;
+            downloadBtn.href = src;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotoZoomModal() {
+            const modal = document.getElementById('photoZoomModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function savePhotosToAlbum() {
+            if(!activeAlbumId) return;
+            const fileInput = document.getElementById('photosInput');
+            if(!fileInput.files.length) return;
+
+            const album = galleryData.find(a => a.id === activeAlbumId);
+            if(!album) return;
+
+            let loaded = 0;
+            const total = fileInput.files.length;
+
+            Array.from(fileInput.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    if(!album.photos) album.photos = [];
+                    album.photos.push(e.target.result);
+                    loaded++;
+                    if(loaded === total) {
+                        await dbSet('elopat_gallery', galleryData);
+                        renderAlbumDetail(activeAlbumId);
+                        renderGallery();
+                        fileInput.value = '';
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function deletePhotoFromAlbum(index) {
+            const album = galleryData.find(a => a.id === activeAlbumId);
+            if(!album || !album.photos) return;
+
+            album.photos.splice(index, 1);
+            await dbSet('elopat_gallery', galleryData);
+            renderAlbumDetail(activeAlbumId);
+            renderGallery();
+        }
+
+        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+        function processLogin() {
+            const pwd = document.getElementById('adminPasswordInput').value;
+            if(pwd === 'admin123' || pwd === 'elopat2026') {
+                isLogged = true;
+                localStorage.setItem('elopat_admin_logged', 'true');
+                updateAdminUI();
+                closeLoginModal();
+                document.getElementById('adminPasswordInput').value = '';
+            } else {
+                alert('Kunci Sandi Admin Salah!');
+            }
+        }
+
+        function logoutAdmin() {
+            isLogged = false;
+            localStorage.setItem('elopat_admin_logged', 'false');
             updateAdminUI();
-        };
+        }
 
         function updateAdminUI() {
-            const isLogged = !!currentAdmin;
             document.getElementById('adminStatusBar').classList.toggle('active', isLogged);
+            document.getElementById('addHeroSlideBox').classList.toggle('active', isLogged);
             document.getElementById('addNewsBox').classList.toggle('active', isLogged);
             document.getElementById('addMemberBox').classList.toggle('active', isLogged);
-            document.getElementById('addGalleryBox').classList.toggle('active', isLogged);
-            document.getElementById('addPhotoToAlbumBox').classList.toggle('active', isLogged);
+            document.getElementById('addAlbumBox').classList.toggle('active', isLogged);
+            document.getElementById('addPhotosBox').classList.toggle('active', isLogged);
+            
+            document.querySelectorAll('.admin-hero-edit-box').forEach(panel => {
+                panel.classList.toggle('active', isLogged);
+            });
+
             document.getElementById('editDreamPanel').style.display = isLogged ? 'block' : 'none';
             document.getElementById('adminLoginBtn').style.display = isLogged ? 'none' : 'flex';
             document.getElementById('adminLogoutBtn').style.display = isLogged ? 'flex' : 'none';
@@ -1319,14 +1744,27 @@
             if(activeAlbumId) renderAlbumDetail(activeAlbumId);
         }
 
-        function switchPage(pageId, element) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            
+        function switchPage(pageId) {
+            const currentActive = document.querySelector('.page-section.active');
             const target = document.getElementById('page-' + pageId);
-            if(target) target.classList.add('active');
-            if(element) element.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (!target || currentActive === target) return;
+
+            if (currentActive) {
+                currentActive.classList.add('page-fade-out');
+                setTimeout(() => {
+                    currentActive.classList.remove('active', 'page-fade-out');
+                    target.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                }, 200);
+            } else {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
+
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.classList.toggle('active', a.getAttribute('data-page') === pageId);
+            });
         }
 
         function filterGender(g) {
